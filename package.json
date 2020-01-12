@@ -1,42 +1,99 @@
 {
-    "name": "youtube-popup",
+    "name": "youtube-player",
     "version": "0.1.0",
+    "description": "An audio player for Youtube videos",
+    "repository": {
+        "type": "git",
+        "url": "git@github.com:nico-martin/yt-audio.git"
+    },
+    "author": "Nico Martin",
+    "license": "GPL-3.0+",
     "scripts": {
-        "start": "babel-node app/index.js",
-        "dev": "nodemon --exec && yarn start"
+        "dev": "yarn serve & yarn build",
+        "prod": "yarn build:prod",
+        "build": "webpack -d --watch",
+        "build:prod": "webpack -p",
+        "serve": "webpack-dev-server --open",
+        "flow": "flow",
+        "eslint": "eslint . --ext js,jsx",
+        "stylelint": "stylelint **/*.scss",
+        "lint": "yarn eslint && yarn stylelint"
     },
     "dependencies": {
-        "dotenv": "^8.2.0",
-        "express": "^4.17.1",
-        "fs": "^0.0.1-security",
-        "path": "^0.12.7",
-        "ytdl-core": "^1.0.6"
+        "classnames": "^2.2.6",
+        "ytdl-core": "^1.0.6",
+        "moment": "^2.24.0",
+        "preact": "^10.0.5",
+        "preact-router": "^3.1.0",
+        "react-hook-form": "^4.3.0",
+        "react-intl": "^3.9.3",
+        "unistore": "^3.5.1"
     },
     "devDependencies": {
-        "@babel/cli": "^7.7.4",
-        "@babel/core": "^7.7.4",
-        "@babel/node": "^7.7.4",
-        "@babel/preset-env": "^7.7.4",
+        "@babel/core": "^7.6.4",
+        "@babel/plugin-proposal-class-properties": "^7.5.5",
+        "@babel/plugin-transform-react-jsx": "^7.7.4",
+        "@babel/plugin-transform-runtime": "^7.6.2",
+        "@babel/preset-env": "^7.6.3",
+        "@babel/preset-flow": "^7.0.0",
+        "@babel/preset-react": "^7.7.4",
+        "@babel/register": "^7.6.2",
+        "@babel/runtime": "^7.7.1",
+        "autoprefixer": "^9.7.1",
         "babel-eslint": "^10.0.3",
-        "eslint": "^6.7.1",
-        "eslint-config-prettier": "^6.7.0",
+        "babel-loader": "^8.0.6",
+        "clean-webpack-plugin": "^3.0.0",
+        "copy-webpack-plugin": "^5.0.4",
+        "css-loader": "^3.2.0",
+        "dotenv": "^8.2.0",
+        "eslint": "^6.6.0",
+        "eslint-config-prettier": "^6.5.0",
+        "eslint-import-resolver-webpack": "^0.11.1",
+        "eslint-plugin-flowtype": "^4.3.0",
         "eslint-plugin-import": "^2.18.2",
         "eslint-plugin-prettier": "^3.1.1",
-        "esm": "^3.2.25",
-        "nodemon": "^2.0.1",
-        "prettier": "^1.19.1"
+        "eslint-plugin-react": "^7.16.0",
+        "prettier": "^1.19.1",
+        "fs": "0.0.1-security",
+        "html-webpack-plugin": "^3.2.0",
+        "mini-css-extract-plugin": "^0.8.0",
+        "path": "^0.12.7",
+        "postcss-loader": "^3.0.0",
+        "postcss-nested": "^4.2.1",
+        "prettier-stylelint": "^0.4.2",
+        "pretty-quick": "^2.0.0",
+        "raw-loader": "^3.1.0",
+        "stylelint": "^11.1.1",
+        "stylelint-config-standard": "^19.0.0",
+        "stylelint-prettier": "^1.1.1",
+        "tailwindcss": "^1.1.4",
+        "webpack": "^4.41.2",
+        "webpack-cli": "^3.3.10",
+        "webpack-dev-server": "^3.9.0"
     },
     "babel": {
         "presets": [
-            "@babel/preset-env"
+            "@babel/preset-env",
+            "@babel/preset-react",
+            "@babel/preset-flow"
+        ],
+        "plugins": [
+            [
+                "@babel/plugin-transform-react-jsx",
+                {
+                    "pragma": "h",
+                    "pragmaFrag": "Fragment"
+                }
+            ],
+            "@babel/plugin-transform-runtime"
         ]
     },
+    "browserslist": [
+        "> 1%",
+        "IE 11"
+    ],
     "prettier": {
         "singleQuote": true,
         "trailingComma": "es5"
-    },
-    "nodemonConfig": {
-        "watch": "app/",
-        "delay": 500
     }
 }
