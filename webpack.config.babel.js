@@ -7,6 +7,10 @@ import app from './app.json';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import { CleanWebpackPlugin } from 'clean-webpack-plugin';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
+import FaviconsWebpackPlugin from 'favicons-webpack-plugin';
+import WebpackPwaManifest from 'webpack-pwa-manifest';
+import { GenerateSW } from 'workbox-webpack-plugin';
+
 import tailwindcss from 'tailwindcss';
 
 module.exports = (env, argv) => {
@@ -66,6 +70,69 @@ module.exports = (env, argv) => {
               removeStyleLinkTypeAttributes: true,
               useShortDoctype: true,
             },
+      }),
+      new FaviconsWebpackPlugin({
+        logo: './src/assets/favicon.png',
+        prefix: 'assets/icon/[hash]/',
+        emitStats: true,
+        statsFilename: 'assets/icon/iconstats-[hash].json',
+        persistentCache: true,
+        inject: true,
+        background: app.colorbkg,
+        title: app.title,
+        icons: {
+          android: true,
+          appleIcon: true,
+          appleStartup: true,
+          coast: false,
+          favicons: true,
+          firefox: true,
+          opengraph: false,
+          twitter: true,
+          yandex: false,
+          windows: false,
+        },
+      }),
+      new WebpackPwaManifest({
+        name: app.title,
+        short_name: app.short,
+        description: app.description,
+        theme_color: app.color,
+        background_color: app.colorbkg,
+        display: 'standalone',
+        crossorigin: 'use-credentials',
+        icons: [
+          {
+            src: path.resolve('./src/assets/favicon.png'),
+            sizes: [96, 128, 192, 256, 384, 512],
+            destination: path.join('assets', 'icon'),
+            ios: true,
+          },
+        ],
+      }),
+      new GenerateSW({
+        importWorkboxFrom: 'local',
+        include: [/\.html$/, /\.js$/, /\.css$/],
+        importsDirectory: 'wb-assets',
+        exclude: [/app\.css$/],
+        runtimeCaching: [
+          {
+            urlPattern: new RegExp(/\.(?:png|gif|jpg|svg|ico|webp)$/),
+            handler: 'cacheFirst',
+            options: {
+              cacheName: 'image-cache',
+            },
+          },
+          {
+            urlPattern: new RegExp(/\.html$/),
+            handler: 'networkFirst',
+            options: {
+              cacheName: 'index-cache',
+            },
+          },
+        ],
+        navigateFallback: 'index.html',
+        skipWaiting: true,
       }),
     ],
     module: {

@@ -9,11 +9,13 @@ import Player from '@app/components/Player';
 import Legal from '@app/components/pages/Legal';
 import Privacy from '@app/components/pages/Privacy';
 import About from '@app/components/pages/About';
+import Recent from '@app/components/Recent';
+import Logo from '@app/components/global/Logo';
 
 const parsedUrl = new URL(window.location);
 
 const App = () => {
-  const [videoID, setVideoID] = useState(
+  const [videoID: string, setVideoID] = useState(
     parsedUrl.searchParams.get('v') === null
       ? ''
       : parsedUrl.searchParams.get('v')
@@ -21,10 +23,17 @@ const App = () => {
 
   return (
     <div className="w-full max-w-md">
+      <Link className="" href="/">
+        <Logo className="w-1/5 mx-auto" />
+        <p className="text-2xl font-bold text-center mb-8 mt-2">
+          YouTube Audio
+        </p>
+      </Link>
       <Router>
         <Legal path="/legal/" />
         <Privacy path="/privacy/" />
         <About path="/about/" />
+        <Recent path="/recent/" />
         <SelectVideo setVideoID={id => setVideoID(id)} default />
       </Router>
       <Router>

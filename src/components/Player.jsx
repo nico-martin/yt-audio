@@ -6,6 +6,7 @@ import { Link } from 'preact-router/match';
 import axios from 'axios';
 import Icon from '@app/components/global/Icon';
 import cn from 'classnames';
+import db from '@app/store';
 
 type Audio = {
   url: string,
@@ -20,13 +21,11 @@ const initAudio = {
 };
 
 const Player = ({ videoID }: { videoID: string }) => {
-  const [loading: boolean, setLoading] = useState(false);
   const [error: string, setError] = useState('');
   const [audio: Audio, setAudio] = useState(initAudio);
   const [play: boolean, setPlay] = useState(false);
 
   useEffect(() => {
-    setLoading(true);
     setError('');
     setAudio(initAudio);
     setPlay(false);
@@ -34,15 +33,14 @@ const Player = ({ videoID }: { videoID: string }) => {
     axios
       .get(`https://yt-source.nico.dev/${videoID}/`)
       .then(res => {
-        setLoading(false);
         if (!res.data.url) {
           setError('An unexpected error occured');
         } else {
           setAudio(res.data);
+          db.set(videoID, { ...res.data, id: videoID, date: new Date() });
         }
       })
       .catch(err => {
-        setLoading(false);
         setError('Audiofile not found');
       });
   }, [videoID]);
@@ -75,11 +73,6 @@ const Player = ({ videoID }: { videoID: string }) => {
           <b className="block">{audio.title}</b>
           <span className="block text-sm italic">{audio.author}</span>
         </p>
-        {play && (
-          <audio controls autoPlay={true} className="w-full mt-4">
-            <source src={audio.url} type="audio/ogg" />
-          </audio>
-        )}
       </Fragment>
     );
   }
@@ -87,13 +80,24 @@ const Player = ({ videoID }: { videoID: string }) => {
   return (
     <Fragment>
       <div className="fixed bottom-0 left-0 w-full bg-white p-4 pb-12 shadow z-40">
-        <div
-          className={cn('w-full max-w-md mx-auto items-center', {
-            flex: !play,
-          })}
-        >
+        <div className="w-full max-w-md mx-auto items-center flex">
           {content}
         </div>
+        {play && (
+          <Fragment>
+            <div className="text-xs w-full max-w-md mx-auto">
+              <a
+                href={`https://www.youtube.com/watch?v=${videoID}`}
+                className="cursor-pointer underline mt-2 inline-block"
+              >
+                open video
+              </a>
+              <audio controls autoPlay={true} className="w-full mt-4">
+                <source src={audio.url} type="audio/ogg" />
+              </audio>
+            </div>
+          </Fragment>
+        )}
       </div>
       <div className="fixed bottom-0 top-0 left-0 right-0 bg-black opacity-75" />
       <Link href="/" className="player-close text-white text-2xl">

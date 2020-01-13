@@ -37,24 +37,26 @@ const SelectVideo = () => {
 
   return (
     <p className="text-left">
-      <label>
-        <b>Youtube video URL</b>
-        <input
-          type="text"
-          ref={inputEl}
-          className={cn(
-            'shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mt-2',
-            {
-              'border-red-500': hasError,
-            }
-          )}
-          onKeyUp={() => updateURL()}
-          value={url}
-        />
-        {hasError && (
-          <span className="text-right text-red-500 block italic">{error}</span>
-        )}
+      <label htmlFor="youtubeUrl" className="text-sm">
+        Youtube video URL
       </label>
+      <input
+        type="text"
+        name="youtubeUrl"
+        id="youtubeUrl"
+        ref={inputEl}
+        className={cn(
+          'shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mt-2',
+          {
+            'border-red-500': hasError,
+          }
+        )}
+        onKeyUp={() => updateURL()}
+        value={url}
+      />
+      {hasError && (
+        <span className="text-right text-red-500 block italic">{error}</span>
+      )}
       <div className="mt-4">
         {video !== '' && (
           <Link
@@ -65,6 +67,11 @@ const SelectVideo = () => {
           </Link>
         )}
       </div>
+      <p className="text-right ">
+        <Link href="/recent/" className="text-right text-sm text-blue-700">
+          recently listened
+        </Link>
+      </p>
     </p>
   );
 };
