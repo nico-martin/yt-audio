@@ -109,6 +109,13 @@ module.exports = (env, argv) => {
             ios: true,
           },
         ],
+        share_target: {
+          action: '/',
+          method: 'GET',
+          params: {
+            url: 'url',
+          },
+        },
       }),
       new GenerateSW({
         importWorkboxFrom: 'local',
@@ -118,14 +125,14 @@ module.exports = (env, argv) => {
         runtimeCaching: [
           {
             urlPattern: new RegExp(/\.(?:png|gif|jpg|svg|ico|webp)$/),
-            handler: 'cacheFirst',
+            handler: 'CacheFirst',
             options: {
               cacheName: 'image-cache',
             },
           },
           {
             urlPattern: new RegExp(/\.html$/),
-            handler: 'networkFirst',
+            handler: 'NetworkFirst',
             options: {
               cacheName: 'index-cache',
             },
