@@ -1,0 +1,46 @@
+.icon {
+  @apply inline-block leading-none;
+
+  svg {
+    @apply fill-current align-middle text-center;
+    height: 1em;
+    width: 1em;
+  }
+
+  &--border {
+    border: 1px solid currentColor;
+    height: 1em;
+    line-height: 1em;
+    width: 1em;
+    text-align: center;
+
+    svg {
+      height: 0.6em;
+      vertical-align: inherit;
+    }
+  }
+
+  &--round {
+    @apply rounded-full;
+  }
+
+  &--animation-spin {
+    animation: spinner 2s infinite linear;
+  }
+
+  &--animation-spin-1s {
+    animation: spinner 1s infinite linear;
+  }
+
+  &--rotate-90 {
+    transform: rotate(90deg);
+  }
+
+  &--rotate-180 {
+    transform: rotate(180deg);
+  }
+
+  &--rotate-270 {
+    transform: rotate(270deg);
+  }
+}

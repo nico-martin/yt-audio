@@ -1,0 +1,63 @@
+@import 'styles/keyframes.css';
+
+@tailwind base;
+
+@tailwind components;
+
+@tailwind utilities;
+
+h1, h2, h3, h4, h5 {
+  @apply font-semibold;
+}
+
+h1 {
+  @apply text-4xl;
+}
+
+h2 {
+  @apply text-3xl;
+}
+
+h3 {
+  @apply text-xl;
+}
+
+h4 {
+  @apply text-lg;
+}
+
+h5 {
+  @apply text-base;
+}
+
+p a {
+  @apply underline;
+}
+
+.player-close {
+  position: absolute;
+  display: block;
+  right: .5em;
+  top: .5em;
+  width: 1em;
+  height: 1em;
+  text-indent: -9999px;
+  overflow: hidden;
+  @apply rounded-full;
+  &:focus {
+    @apply shadow-outline;
+  }
+  &:after, &:before {
+    content: '';
+    width: 1px;
+    height: 100%;
+    background-color: currentColor;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%) rotate(45deg);
+  }
+  &:before {
+    transform: translateX(-50%) translateY(-50%) rotate(-45deg);
+  }
+}
