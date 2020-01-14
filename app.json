@@ -2,6 +2,6 @@
   "title": "YouTube Audio Player",
   "short": "YouTube Audio",
   "description": "A YouTube Audio Player Progressive Web App",
-  "colorbkg": "#CC0000",
+  "colorbkg": "#fff",
   "color": "#000"
 }

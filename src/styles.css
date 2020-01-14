@@ -7,7 +7,7 @@
 @tailwind utilities;
 
 h1, h2, h3, h4, h5 {
-  @apply font-semibold;
+  @apply font-bold;
 }
 
 h1 {
@@ -34,8 +34,13 @@ p a {
   @apply underline;
 }
 
-.player-close {
+.c-close {
   position: absolute;
+
+  &--fixed {
+    position: fixed;
+  }
+
   display: block;
   right: .5em;
   top: .5em;
@@ -44,9 +49,11 @@ p a {
   text-indent: -9999px;
   overflow: hidden;
   @apply rounded-full;
+
   &:focus {
     @apply shadow-outline;
   }
+
   &:after, &:before {
     content: '';
     width: 1px;
@@ -57,6 +64,7 @@ p a {
     left: 50%;
     transform: translateX(-50%) translateY(-50%) rotate(45deg);
   }
+
   &:before {
     transform: translateX(-50%) translateY(-50%) rotate(-45deg);
   }

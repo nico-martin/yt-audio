@@ -1,6 +1,6 @@
 {
   "name": "youtube-player",
-  "version": "0.1.0",
+  "version": "0.1.5",
   "description": "An audio player for YouTube videos",
   "repository": {
     "type": "git",
@@ -44,7 +44,7 @@
     "babel-eslint": "^10.0.3",
     "babel-loader": "^8.0.6",
     "clean-webpack-plugin": "^3.0.0",
-    "copy-webpack-plugin": "^5.0.4",
+    "copy-webpack-plugin": "^5.1.1",
     "css-loader": "^3.2.0",
     "dotenv": "^8.2.0",
     "eslint": "^6.6.0",

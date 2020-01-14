@@ -9,41 +9,47 @@ import Player from '@app/components/Player';
 import Legal from '@app/components/pages/Legal';
 import Privacy from '@app/components/pages/Privacy';
 import About from '@app/components/pages/About';
-import Recent from '@app/components/Recent';
 import Logo from '@app/components/global/Logo';
 
-const parsedUrl = new URL(window.location);
-
 const App = () => {
-  const [videoID: string, setVideoID] = useState(
-    parsedUrl.searchParams.get('v') === null
-      ? ''
-      : parsedUrl.searchParams.get('v')
-  );
+  const [videoID: string, setVideoID] = useState('');
+  const [currentUrl: string, setCurrentUrl] = useState('');
 
   return (
     <div className="w-full max-w-md">
-      <Link className="" href="/">
+      <Link className="" href="/" activeClassName="">
         <Logo className="w-1/5 mx-auto" />
         <p className="text-2xl font-bold text-center mb-8 mt-2">
           YouTube Audio
         </p>
       </Link>
-      <Router>
+      <Router onChange={e => setCurrentUrl(e.url)}>
         <Legal path="/legal/" />
         <Privacy path="/privacy/" />
         <About path="/about/" />
-        <Recent path="/recent/" />
-        <SelectVideo setVideoID={id => setVideoID(id)} default />
+        <SelectVideo currentUrl={currentUrl} default />
       </Router>
       <Router>
         <Player path="/play/:videoID" />
       </Router>
-      <footer className="fixed bottom-0 left-0 z-50 w-full">
-        <nav className="flex p-4 text-xs items-center justify-around w-full max-w-xs mx-auto">
-          <Link href="/about/">About</Link>
-          <Link href="/legal/">Legal</Link>
-          <Link href="/privacy/">Privacy</Link>
+      <footer className="fixed left-0 top-0 w-full z-10">
+        <nav className="flex justify-end text-xs mt-2">
+          <Link
+            href="/"
+            className="ml-2 mr-auto leading-none text-gray-500 hover:text-black"
+            activeClassName=""
+          >
+            Search Audio
+          </Link>
+          {[/*'About',*/ 'Legal', 'Privacy'].map(e => (
+            <Link
+              href={`/${e.toLowerCase().replace(/\s/g, '-')}/`}
+              className="mr-2 leading-none text-gray-500 hover:text-black"
+              activeClassName=""
+            >
+              {e}
+            </Link>
+          ))}
         </nav>
       </footer>
     </div>

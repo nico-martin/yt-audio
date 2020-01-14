@@ -1,25 +1,27 @@
 // @flow
 
 import { h } from 'preact';
-import cn from 'classnames';
-import { useEffect, useRef, useState } from 'preact/hooks';
+import { useEffect, useState } from 'preact/hooks';
 import db from '@app/store';
 import { Link } from 'preact-router/match';
 
 type Video = {
   url: string,
+  formats: {},
   author: string,
   title: string,
   id: string,
+  description: string,
   date: Date,
 };
 
-const Recent = () => {
+const Recent = ({ searchString }: { searchString: string }) => {
   const [videos: Array<Video>, setVideos] = useState([]);
   const [filteredVideos: Array<Video>, setFilteredVideos] = useState([]);
-  const [searchString: string, setSearchString] = useState('');
-  const inputEl = useRef(null);
-  const filter = () => {};
+  const removeVideo = id => {
+    setVideos([...videos].filter(video => video.id !== id));
+    db.delete(id);
+  };
 
   useEffect(
     () =>
@@ -36,8 +38,9 @@ const Recent = () => {
       setFilteredVideos(
         videos.filter(video => {
           return (
-            video.author.indexOf(searchString) !== -1 ||
-            video.title.indexOf(searchString) !== -1
+            (video.id || '').indexOf(searchString) !== -1 ||
+            (video.author || '').indexOf(searchString) !== -1 ||
+            (video.title || '').indexOf(searchString) !== -1
           );
         })
       ),
@@ -45,37 +48,41 @@ const Recent = () => {
   );
 
   return (
-    <p className="text-left">
-      <label htmlFor="search" className="text-sm">
-        Search
-      </label>
-      <input
-        type="text"
-        name="search"
-        id="search"
-        ref={inputEl}
-        className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mt-2"
-        onKeyUp={() => setSearchString(inputEl.current.value)}
-      />
-      <div className="mt-8">
-        {videos.length !== 0 && (
+    <p className="text-left mt-8">
+      <h3 className="text-sm">recently listened</h3>
+      <div className="mt-4">
+        {filteredVideos.length !== 0 ? (
           <ul className="border-b border-gray-400">
             {filteredVideos.map(video => (
-              <li>
+              <li className="relative">
                 <Link
                   href={`/play/${video.id}/`}
-                  className="py-4 block border-t border-gray-400 no-underline hover:bg-gray-200"
+                  className="py-2 block text-left w-full border-t border-gray-400 no-underline hover:bg-gray-200"
+                  activeClassName=""
                 >
-                  <b className="block leading-tight">{video.title}</b>
-                  <span className="block text-sm italic mt-2">
+                  <b className="block leading-tight text-sm text-gray-800 font-semibold">
+                    {video.title}
+                  </b>
+                  <span className="block text-xs italic mt-1">
                     {video.author}
                   </span>
                 </Link>
+                <button
+                  className="c-close text-gray-400 hover:text-black text-xs"
+                  onClick={() => {
+                    if (confirm('Do you want to remove this video?')) {
+                      removeVideo(video.id);
+                    }
+                  }}
+                >
+                  remove
+                </button>
               </li>
             ))}
           </ul>
+        ) : (
+          <p className="text-xs">No videos found</p>
         )}
-        {videos.length === 0 && <p>No videos found</p>}
       </div>
     </p>
   );

@@ -6,8 +6,9 @@ import app from './app.json';
 
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import { CleanWebpackPlugin } from 'clean-webpack-plugin';
+import CopyWebpackPlugin from 'copy-webpack-plugin';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
-import FaviconsWebpackPlugin from 'favicons-webpack-plugin';
+//import FaviconsWebpackPlugin from 'favicons-webpack-plugin';
 import WebpackPwaManifest from 'webpack-pwa-manifest';
 import { GenerateSW } from 'workbox-webpack-plugin';
 
@@ -54,6 +55,12 @@ module.exports = (env, argv) => {
           ? 'assets/[name].[id].css'
           : 'assets/[name].[id].[hash].css',
       }),
+      new CopyWebpackPlugin([
+        {
+          from: 'src/static',
+          to: 'assets/static',
+        },
+      ]),
       new HtmlWebpackPlugin({
         title: app.title,
         description: app.description,
@@ -70,28 +77,6 @@ module.exports = (env, argv) => {
               removeStyleLinkTypeAttributes: true,
               useShortDoctype: true,
             },
-      }),
-      new FaviconsWebpackPlugin({
-        logo: './src/assets/favicon.png',
-        prefix: 'assets/icon/[hash]/',
-        emitStats: true,
-        statsFilename: 'assets/icon/iconstats-[hash].json',
-        persistentCache: true,
-        inject: true,
-        background: app.colorbkg,
-        title: app.title,
-        icons: {
-          android: true,
-          appleIcon: true,
-          appleStartup: true,
-          coast: false,
-          favicons: true,
-          firefox: true,
-          opengraph: false,
-          twitter: true,
-          yandex: false,
-          windows: false,
-        },
       }),
       new WebpackPwaManifest({
         name: app.title,
@@ -113,6 +98,8 @@ module.exports = (env, argv) => {
           action: '/',
           method: 'GET',
           params: {
+            title: 'title',
+            text: 'text',
             url: 'url',
           },
         },
@@ -140,7 +127,29 @@ module.exports = (env, argv) => {
         ],
         navigateFallback: 'index.html',
         skipWaiting: true,
-      }),
+      }) /*
+      new FaviconsWebpackPlugin({
+        logo: './src/assets/favicon.png',
+        prefix: 'assets/icon/[hash]/',
+        emitStats: true,
+        statsFilename: 'assets/icon/iconstats-[hash].json',
+        persistentCache: true,
+        inject: true,
+        background: app.colorbkg,
+        title: app.title,
+        icons: {
+          android: true,
+          appleIcon: true,
+          appleStartup: true,
+          coast: false,
+          favicons: true,
+          firefox: true,
+          opengraph: false,
+          twitter: true,
+          yandex: false,
+          windows: false,
+        },
+      })*/,
     ],
     module: {
       rules: [

@@ -15,3 +15,11 @@ export const youtubeParser: string = (url: string) => {
   }
   return typeof id === 'string' ? id : '';
 };
+
+export const nl2br = (str: string) => {
+  if (typeof str === 'undefined' || str === null) {
+    return '';
+  }
+
+  return (str + '').replace(/([^>\r\n]?)(\r\n|\n\r|\r|\n)/g, '$1<br />$2');
+};
