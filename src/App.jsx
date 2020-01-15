@@ -1,7 +1,7 @@
 // @flow
 
 import { render, h } from 'preact';
-import { useState } from 'preact/hooks';
+import { useEffect, useState } from 'preact/hooks';
 import { Router } from 'preact-router';
 import { Link } from 'preact-router/match';
 import SelectVideo from '@app/components/SelectVideo';
@@ -10,10 +10,14 @@ import Legal from '@app/components/pages/Legal';
 import Privacy from '@app/components/pages/Privacy';
 import About from '@app/components/pages/About';
 import Logo from '@app/components/global/Logo';
+import { matomoInit, matomoSetPage } from '@app/vendor/matomo';
 
 const App = () => {
   const [videoID: string, setVideoID] = useState('');
   const [currentUrl: string, setCurrentUrl] = useState('');
+  useEffect(() => {
+    matomoInit();
+  }, []);
 
   return (
     <div className="w-full max-w-md">
@@ -23,7 +27,12 @@ const App = () => {
           YouTube Audio
         </p>
       </Link>
-      <Router onChange={e => setCurrentUrl(e.url)}>
+      <Router
+        onChange={({ url, previous }) => {
+          previous && matomoSetPage(url);
+          setCurrentUrl(url);
+        }}
+      >
         <Legal path="/legal/" />
         <Privacy path="/privacy/" />
         <About path="/about/" />
