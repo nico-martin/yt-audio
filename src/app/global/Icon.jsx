@@ -29,7 +29,7 @@ const Icon = ({
   useEffect(() => {
     async function loadIcon() {
       return await import(
-        /* webpackMode: "eager" */ `@app/assets/icons/${icon}.svg`
+        /* webpackMode: "eager" */ `@assets/icons/${icon}.svg`
       );
     }
     loadIcon().then(loaded => setLoadedIcon(loaded.default));

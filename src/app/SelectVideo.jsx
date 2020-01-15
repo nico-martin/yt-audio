@@ -6,8 +6,8 @@ import cn from 'classnames';
 import { Link } from 'preact-router/match';
 import { route } from 'preact-router';
 import { youtubeParser } from '@app/vendor/helpers';
-import Recent from '@app/components/Recent';
-import Icon from '@app/components/global/Icon';
+import Recent from '@app/Recent';
+import Icon from '@app/global/Icon';
 
 const parsedUrl = new URL(window.location);
 

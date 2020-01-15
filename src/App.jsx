@@ -4,12 +4,12 @@ import { render, h } from 'preact';
 import { useEffect, useState } from 'preact/hooks';
 import { Router } from 'preact-router';
 import { Link } from 'preact-router/match';
-import SelectVideo from '@app/components/SelectVideo';
-import Player from '@app/components/Player';
-import Legal from '@app/components/pages/Legal';
-import Privacy from '@app/components/pages/Privacy';
-import About from '@app/components/pages/About';
-import Logo from '@app/components/global/Logo';
+import SelectVideo from '@app/SelectVideo';
+import Player from '@app/Player';
+import Legal from '@app/pages/Legal';
+import Privacy from '@app/pages/Privacy';
+import About from '@app/pages/About';
+import Logo from '@app/global/Logo';
 import { matomoInit, matomoSetPage } from '@app/vendor/matomo';
 
 const App = () => {

@@ -1,21 +1,14 @@
 // @flow
 
 import { h, Fragment } from 'preact';
-import { useEffect, useState } from 'preact/hooks';
+import { useEffect, useRef, useState } from 'preact/hooks';
 import { Link } from 'preact-router/match';
 import axios from 'axios';
-import Icon from '@app/components/global/Icon';
-import cn from 'classnames';
+import Icon from '@app/global/Icon';
 import db from '@app/store';
+import PlayerAudio from '@app/PlayerAudio';
 import { nl2br } from '@app/vendor/helpers';
-
-type Audio = {
-  url: string,
-  formats: {},
-  author: string,
-  description: string,
-  title: string,
-};
+import type { Audio } from '@app/vendor/types';
 
 const initTitle = document.title;
 const initAudio = {
@@ -28,7 +21,7 @@ const Player = ({ videoID }: { videoID: string }) => {
   const [error: string, setError] = useState('');
   const [audio: Audio, setAudio] = useState(initAudio);
 
-  useEffect(() => {
+  useEffect(async () => {
     setError('');
     setAudio(initAudio);
     axios
@@ -39,7 +32,11 @@ const Player = ({ videoID }: { videoID: string }) => {
         } else {
           setAudio(res.data);
           document.title = res.data.title;
-          db.set(videoID, { ...res.data, id: videoID, date: new Date() });
+          db.updateObject(videoID, {
+            ...res.data,
+            id: videoID,
+            date: new Date(),
+          });
         }
       })
       .catch(err => {
@@ -87,15 +84,7 @@ const Player = ({ videoID }: { videoID: string }) => {
               />
             </div>
           )}
-          <audio controls className="w-full mt-4">
-            {Object.keys(audio.formats).length !== 0 ? (
-              Object.keys(audio.formats).map(mime => (
-                <source src={audio.formats[mime]} type={mime} />
-              ))
-            ) : (
-              <source src={audio.url} type="audio/ogg" />
-            )}
-          </audio>
+          <PlayerAudio audio={{ ...audio, ...{ id: videoID } }} />
         </Fragment>
       );
     }
