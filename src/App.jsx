@@ -10,14 +10,10 @@ import Legal from '@app/pages/Legal';
 import Privacy from '@app/pages/Privacy';
 import About from '@app/pages/About';
 import Logo from '@app/global/Logo';
-import { matomoInit, matomoSetPage } from '@app/vendor/matomo';
+import { matomoSetPage } from '@app/vendor/matomo';
 
 const App = () => {
-  const [videoID: string, setVideoID] = useState('');
   const [currentUrl: string, setCurrentUrl] = useState('');
-  useEffect(() => {
-    matomoInit();
-  }, []);
 
   return (
     <div className="w-full max-w-md">

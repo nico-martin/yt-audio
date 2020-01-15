@@ -1,6 +1,6 @@
 {
   "name": "youtube-player",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "description": "An audio player for YouTube videos",
   "repository": {
     "type": "git",

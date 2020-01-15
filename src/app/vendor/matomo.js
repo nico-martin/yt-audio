@@ -1,25 +1,3 @@
-const validSources = ['*.yt.nico.dev', '*.localhost'];
-const url = 'https://analytics.sayhello.agency/';
-const siteID = '6';
-const _paq = window._paq || [];
-_paq.push(['setDocumentTitle', document.domain + '/' + document.title]);
-_paq.push(['setDomains', validSources]);
-_paq.push(['trackPageView']);
-_paq.push(['enableLinkTracking']);
-
-export const matomoInit = () => {
-  _paq.push(['setTrackerUrl', url + 'matomo.php']);
-  _paq.push(['setSiteId', siteID]);
-  const d = document,
-    g = d.createElement('script'),
-    s = d.getElementsByTagName('script')[0];
-  g.type = 'text/javascript';
-  g.async = true;
-  g.defer = true;
-  g.src = url + 'matomo.js';
-  s.parentNode.insertBefore(g, s);
-};
-
 let currentUrl = location.href;
 export const matomoSetPage = url => {
   _paq.push(['setReferrerUrl', currentUrl]);
