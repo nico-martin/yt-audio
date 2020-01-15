@@ -50,12 +50,25 @@ const Player = ({ videoID }: { videoID: string }) => {
     };
   }, [videoID]);
 
+  const Close = () => (
+    <Link
+      href="/"
+      className="c-close c-close--relative text-gray-600 hover:text-black mt-1 ml-auto text-lg z-40"
+      activeClassName=""
+    >
+      close
+    </Link>
+  );
+
   const Content = () => {
     if (audio.url !== '') {
       return (
         <Fragment>
+          <p className="flex">
+            <b className="block mr-4">{audio.title}</b>
+            <Close />
+          </p>
           <p>
-            <b className="block">{audio.title}</b>
             <span className="block text-sm italic mt-1">{audio.author}</span>
           </p>
           <a
@@ -92,6 +105,7 @@ const Player = ({ videoID }: { videoID: string }) => {
         <div className="flex items-center w-full">
           <Icon icon="warning" className="text-4xl mr-4" />
           <p>{error}</p>
+          <Close />
         </div>
       );
     }
@@ -103,6 +117,7 @@ const Player = ({ videoID }: { videoID: string }) => {
           className="text-4xl mr-4 icon--animation-spin-1s"
         />
         <p>loading..</p>
+        <Close />
       </div>
     );
   };
@@ -115,13 +130,6 @@ const Player = ({ videoID }: { videoID: string }) => {
         </div>
       </div>
       <div className="fixed bottom-0 top-0 left-0 right-0 bg-black opacity-75 z-30" />
-      <Link
-        href="/"
-        className="c-close c-close--fixed text-white text-2xl z-40"
-        activeClassName=""
-      >
-        close
-      </Link>
     </Fragment>
   );
 };

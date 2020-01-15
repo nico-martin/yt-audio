@@ -11,11 +11,11 @@ h1, h2, h3, h4, h5 {
 }
 
 h1 {
-  @apply text-4xl;
+  @apply text-3xl;
 }
 
 h2 {
-  @apply text-3xl;
+  @apply text-2xl;
 }
 
 h3 {
@@ -36,14 +36,20 @@ p a {
 
 .c-close {
   position: absolute;
+  right: .5em;
+  top: .5em;
 
   &--fixed {
     position: fixed;
   }
 
+  &--relative {
+    position: relative;
+    right: auto;
+    top: auto;
+  }
+
   display: block;
-  right: .5em;
-  top: .5em;
   width: 1em;
   height: 1em;
   text-indent: -9999px;
