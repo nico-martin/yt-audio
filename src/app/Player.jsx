@@ -17,11 +17,13 @@ const initAudio = {
   title: '',
 };
 
+let startTime = 0;
 const Player = ({ videoID }: { videoID: string }) => {
   const [error: string, setError] = useState('');
   const [audio: Audio, setAudio] = useState(initAudio);
+  const [start, setStart] = useState(0);
 
-  useEffect(async () => {
+  useEffect(() => {
     setError('');
     setAudio(initAudio);
     axios
@@ -68,12 +70,19 @@ const Player = ({ videoID }: { videoID: string }) => {
           <p>
             <span className="block text-sm italic mt-1">{audio.author}</span>
           </p>
-          <a
-            href={`https://www.youtube.com/watch?v=${videoID}`}
+          <button
+            onClick={() => {
+              window.open(
+                `https://www.youtube.com/watch?v=${videoID}&t=${parseInt(
+                  startTime
+                )}`,
+                '_blank'
+              );
+            }}
             className="cursor-pointer underline my-4 text-blue-700 inline-block text-xs"
           >
             open video
-          </a>
+          </button>
           {audio.description && (
             <div className="overflow-x-auto mb-8" style={{ maxHeight: '50vh' }}>
               <p
@@ -84,7 +93,12 @@ const Player = ({ videoID }: { videoID: string }) => {
               />
             </div>
           )}
-          <PlayerAudio audio={{ ...audio, ...{ id: videoID } }} />
+          <PlayerAudio
+            audio={{ ...audio, ...{ id: videoID } }}
+            passStartTime={time => {
+              startTime = time;
+            }}
+          />
         </Fragment>
       );
     }
