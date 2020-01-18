@@ -8,17 +8,24 @@ import db from '@app/store';
 const PlayerAudio = ({
   audio,
   passStartTime,
+  setError,
 }: {
   audio: Audio,
   passStartTime: Function,
+  setError: Function,
 }) => {
   const [startTime, setStartTime] = useState(0);
   const player = useRef(null);
+
+  const setParentError = () => {
+    setError('test');
+  };
 
   useEffect(() => {
     player.current.ontimeupdate = () => {
       passStartTime(player.current.currentTime);
     };
+
     db.get(audio.id).then(dbVideo => {
       dbVideo && dbVideo.time && setStartTime(dbVideo.time);
     });
@@ -33,10 +40,21 @@ const PlayerAudio = ({
   }, [startTime]);
 
   return (
-    <audio controls className="w-full mt-4" ref={player}>
+    <audio
+      controls
+      className="w-full mt-4"
+      ref={player}
+      onError={() => setError('There was an error playing the audio file')}
+    >
       {Object.keys(audio.formats).length !== 0 ? (
         Object.keys(audio.formats).map(mime => (
-          <source src={audio.formats[mime]} type={mime} />
+          <source
+            src={audio.formats[mime]}
+            type={mime}
+            onError={() =>
+              setError('There was an error loading the audio file')
+            }
+          />
         ))
       ) : (
         <source src={audio.url} type="audio/ogg" />

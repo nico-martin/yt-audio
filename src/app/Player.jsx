@@ -60,6 +60,16 @@ const Player = ({ videoID }: { videoID: string }) => {
   );
 
   const Content = () => {
+    if (error !== '') {
+      return (
+        <div className="flex items-center w-full">
+          <Icon icon="warning" className="text-4xl mr-4" />
+          <p>{error}</p>
+          <Close />
+        </div>
+      );
+    }
+
     if (audio.url !== '') {
       return (
         <Fragment>
@@ -98,18 +108,9 @@ const Player = ({ videoID }: { videoID: string }) => {
             passStartTime={time => {
               startTime = time;
             }}
+            setError={setError}
           />
         </Fragment>
-      );
-    }
-
-    if (error !== '') {
-      return (
-        <div className="flex items-center w-full">
-          <Icon icon="warning" className="text-4xl mr-4" />
-          <p>{error}</p>
-          <Close />
-        </div>
       );
     }
 
