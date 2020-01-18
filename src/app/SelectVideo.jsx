@@ -42,13 +42,17 @@ const SelectVideo = ({ currentUrl }: { currentUrl: string }) => {
   }, [currentUrl]);
 
   const hasError: boolean = false; // input !== '' && error !== '';
+  const onSubmit = e => {
+    e.preventDefault();
+    route(`/play/${video}`);
+  };
 
   return (
     <p className="text-left">
       <label htmlFor="youtubeUrl" className="text-xs">
         Youtube video URL
       </label>
-      <div className="flex mt-1">
+      <form className="flex mt-1" onSubmit={onSubmit}>
         <input
           type="text"
           name="youtubeUrl"
@@ -64,9 +68,7 @@ const SelectVideo = ({ currentUrl }: { currentUrl: string }) => {
           onChange={() => setInput(inputEl.current.value)}
           value={input}
         />
-        <Link
-          href={`/play/${video}`}
-          activeClassName=""
+        <button
           className={cn(
             'font-bold rounded rounded-l-none text-white px-4 hover:bg-blue-700 text-center no-underline block flex items-center',
             {
@@ -78,8 +80,8 @@ const SelectVideo = ({ currentUrl }: { currentUrl: string }) => {
           title="Open Audio"
         >
           <Icon icon="play" />
-        </Link>
-      </div>
+        </button>
+      </form>
       {hasError && (
         <span className="text-right text-red-500 block italic">{error}</span>
       )}

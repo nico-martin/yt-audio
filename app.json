@@ -1,7 +1,7 @@
 {
   "title": "YouTube Audio Player",
-  "short": "YouTube Audio",
-  "description": "A YouTube Audio Player Progressive Web App",
+  "short": "YTAudio",
+  "description": "An awesome audio player for YouTube videos",
   "colorbkg": "#fff",
   "color": "#000"
 }

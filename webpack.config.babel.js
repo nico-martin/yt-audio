@@ -11,13 +11,17 @@ import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 //import FaviconsWebpackPlugin from 'favicons-webpack-plugin';
 import WebpackPwaManifest from 'webpack-pwa-manifest';
 import { GenerateSW } from 'workbox-webpack-plugin';
-
+import PurgecssPlugin from 'purgecss-webpack-plugin';
+import glob from 'glob-all';
 import tailwindcss from 'tailwindcss';
+import RobotstxtPlugin from 'robotstxt-webpack-plugin';
+import SitemapPlugin from 'sitemap-webpack-plugin';
 
 module.exports = (env, argv) => {
   const dirDist = path.resolve(__dirname, 'dist');
   const dirSrc = path.resolve(__dirname, 'src');
   const dev = argv.mode !== 'production';
+
   let serveHttps = false;
   if (process.env.SSL_KEY && process.env.SSL_CRT && process.env.SSL_PEM) {
     serveHttps = {
@@ -54,6 +58,9 @@ module.exports = (env, argv) => {
         chunkFilename: dev
           ? 'assets/[name].[id].css'
           : 'assets/[name].[id].[hash].css',
+      }),
+      new PurgecssPlugin({
+        paths: glob.sync([`${dirSrc}/**/*.jsx`, `${dirSrc}/index.html`]),
       }),
       new CopyWebpackPlugin([
         {
@@ -127,29 +134,12 @@ module.exports = (env, argv) => {
         ],
         navigateFallback: 'index.html',
         skipWaiting: true,
-      }) /*
-      new FaviconsWebpackPlugin({
-        logo: './src/assets/favicon.png',
-        prefix: 'assets/icon/[hash]/',
-        emitStats: true,
-        statsFilename: 'assets/icon/iconstats-[hash].json',
-        persistentCache: true,
-        inject: true,
-        background: app.colorbkg,
-        title: app.title,
-        icons: {
-          android: true,
-          appleIcon: true,
-          appleStartup: true,
-          coast: false,
-          favicons: true,
-          firefox: true,
-          opengraph: false,
-          twitter: true,
-          yandex: false,
-          windows: false,
-        },
-      })*/,
+      }),
+      new RobotstxtPlugin({
+        sitemap: 'https://ytaud.io/sitemap.xml',
+        host: 'https://ytaud.io',
+      }),
+      new SitemapPlugin('https://ytaud.io', ['/', '/about/']),
     ],
     module: {
       rules: [

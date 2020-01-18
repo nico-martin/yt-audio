@@ -36,7 +36,7 @@ const Icon = ({
   }, [icon]);
 
   return (
-    <span
+    <div
       className={cn(
         className,
         'icon',

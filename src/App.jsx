@@ -18,7 +18,7 @@ const App = () => {
   return (
     <div className="w-full max-w-md">
       <Link className="" href="/" activeClassName="">
-        <Logo className="w-1/5 mx-auto" />
+        <Logo className="w-1/5 mx-auto" style={{ maxWidth: 80 }} />
         <p className="text-2xl font-bold text-center mb-8 mt-2">
           YouTube Audio
         </p>
@@ -41,7 +41,7 @@ const App = () => {
         <nav className="flex justify-end text-xs mt-2">
           <Link
             href="/"
-            className="ml-2 mr-auto leading-none text-gray-500 hover:text-black"
+            className="ml-2 mr-auto leading-none text-gray-700 hover:text-black"
             activeClassName=""
           >
             Search Audio
@@ -49,7 +49,7 @@ const App = () => {
           {[/*'About',*/ 'Legal', 'Privacy'].map(e => (
             <Link
               href={`/${e.toLowerCase().replace(/\s/g, '-')}/`}
-              className="mr-2 leading-none text-gray-500 hover:text-black"
+              className="mr-2 leading-none text-gray-700 hover:text-black"
               activeClassName=""
             >
               {e}
