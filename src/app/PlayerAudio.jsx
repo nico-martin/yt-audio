@@ -6,6 +6,7 @@ import type { Audio } from '@app/vendor/types';
 import db from '@app/store';
 import Icon from '@app/global/Icon';
 import cn from 'classnames';
+import { readableTime } from '@app/vendor/helpers';
 
 const PlayerAudio = ({
   audio,
@@ -20,6 +21,8 @@ const PlayerAudio = ({
   const [playing, setPlaying] = useState(false);
   const [playbackRate, setPlaybackRate] = useState(1);
   const [playTime, setPlayTime] = useState(0);
+  const [fullDuration, setFullDuration] = useState(100);
+  const [buffer, setBuffer] = useState(false);
   const player = useRef(null);
 
   useEffect(() => {
@@ -34,34 +37,15 @@ const PlayerAudio = ({
       db.updateObject(audio.id, { time: player.current.currentTime });
   }, []);
 
-  useEffect(() =>
-    window.setInterval(() => setPlayTime(player.current.currentTime, 1000))
-  );
-
-  useEffect(() => {
-    db.updateObject(audio.id, { time: player.current.currentTime });
-  }, [playing]);
-
-  useEffect(() => {
-    if (playing) {
-      player.current.play();
-    } else {
-      player.current.pause();
-    }
-  }, [playing]);
-
   useEffect(() => {
     passStartTime(startTime);
     player.current.currentTime =
       parseInt(startTime) >= 2 ? parseInt(startTime) - 2 : parseInt(startTime); // start at last position -2 Sec
   }, [startTime]);
 
-  useEffect(() => {
-    player.current.playbackRate = playbackRate;
-  }, [playbackRate]);
-
-  const setTime = add =>
+  const addTime = add =>
     (player.current.currentTime = player.current.currentTime + add);
+  const setTime = time => (player.current.currentTime = time);
 
   return (
     <Fragment>
@@ -72,7 +56,10 @@ const PlayerAudio = ({
         onError={() => setError('There was an error playing the audio file')}
         onPause={() => setPlaying(false)}
         onPlay={() => setPlaying(true)}
-        //onTimeUpdate={() => setPlayTime(player.current.currentTime)}
+        onTimeUpdate={() => setPlayTime(player.current.currentTime)}
+        onCanPlay={() => setFullDuration(parseInt(player.current.duration))}
+        onWaiting={() => setBuffer(true)}
+        onPlaying={() => setBuffer(false)}
       >
         {Object.keys(audio.formats).length !== 0 ? (
           Object.keys(audio.formats).map(mime => (
@@ -89,13 +76,19 @@ const PlayerAudio = ({
         )}
       </audio>
       <div className="flex">
-        <button onClick={() => setTime(-30)}>
+        <button onClick={() => addTime(-30)}>
           <Icon icon="30minus" />
         </button>
-        <button className="text-4xl" onClick={() => setPlaying(!playing)}>
+        <button
+          className="text-4xl"
+          onClick={() => {
+            !playing ? player.current.play() : player.current.pause();
+            setPlaying(!playing);
+          }}
+        >
           <Icon icon={playing ? 'pause' : 'play'} />
         </button>
-        <button onClick={() => setTime(30)}>
+        <button onClick={() => addTime(30)}>
           <Icon icon="30plus" />
         </button>
         <p>
@@ -104,14 +97,26 @@ const PlayerAudio = ({
               className={cn({
                 underline: playbackRate === speed,
               })}
-              onClick={() => setPlaybackRate(speed)}
+              onClick={() => {
+                player.current.playbackRate = speed;
+                setPlaybackRate(speed);
+              }}
             >
               {speed}x
             </button>
           ))}
         </p>
       </div>
-      {parseInt(playTime)}
+      <input
+        type="range"
+        min="0"
+        max={fullDuration}
+        value={parseInt(playTime)}
+        step="1"
+        onChange={e => setTime(e.target.value)}
+      />
+      <p>{readableTime(parseInt(playTime))}</p>
+      <p>{buffer ? 'buffer' : ''}</p>
     </Fragment>
   );
 };

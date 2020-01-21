@@ -23,3 +23,25 @@ export const nl2br = (str: string) => {
 
   return (str + '').replace(/([^>\r\n]?)(\r\n|\n\r|\r|\n)/g, '$1<br />$2');
 };
+
+export const readableTime = seconds => {
+  const hours = Math.floor(seconds / (60 * 60));
+  seconds -= hours * 60 * 60;
+  const minutes = Math.floor(seconds / 60);
+  seconds -= minutes * 60;
+  if (hours !== 0) {
+    return `${hours}:${leadingZero(minutes)}:${leadingZero(seconds)}`;
+  }
+  if (minutes !== 0) {
+    return `${minutes}:${leadingZero(seconds)}`;
+  }
+  return seconds;
+};
+
+const leadingZero = val => {
+  val = String(val);
+  if (val.length < 2) {
+    return '0' + val;
+  }
+  return val;
+};
