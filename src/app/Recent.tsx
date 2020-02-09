@@ -1,37 +1,30 @@
-// @flow
-
 import { h } from 'preact';
 import { useEffect, useState } from 'preact/hooks';
-import db from '@app/store';
+import db from './store';
 import { Link } from 'preact-router/match';
+import { Video } from './vendor/types';
 
-type Video = {
-  url: string,
-  formats: {},
-  author: string,
-  title: string,
-  id: string,
-  description: string,
-  date: Date,
-};
+interface Props {
+  searchString: string;
+}
 
-const Recent = ({ searchString }: { searchString: string }) => {
-  const [videos: Array<Video>, setVideos] = useState([]);
-  const [filteredVideos: Array<Video>, setFilteredVideos] = useState([]);
+const Recent = ({ searchString }: Props) => {
+  const [videos, setVideos] = useState<Array<Partial<Video>>>([]);
+  const [filteredVideos, setFilteredVideos] = useState<Array<Partial<Video>>>(
+    []
+  );
   const removeVideo = id => {
     setVideos([...videos].filter(video => video.id !== id));
     db.delete(id);
   };
 
-  useEffect(
-    () =>
-      db.getAll().then(resp => {
-        const v = resp.sort((a, b) => b.date.getTime() - a.date.getTime());
-        setVideos(v);
-        setFilteredVideos(v);
-      }),
-    []
-  );
+  useEffect(() => {
+    db.getAll().then(resp => {
+      const v = resp.sort((a, b) => b.date.getTime() - a.date.getTime());
+      setVideos(v);
+      setFilteredVideos(v);
+    });
+  }, []);
 
   useEffect(
     () =>
@@ -48,7 +41,7 @@ const Recent = ({ searchString }: { searchString: string }) => {
   );
 
   if (filteredVideos.length === 0) {
-    return '';
+    return <p />;
   }
 
   return (

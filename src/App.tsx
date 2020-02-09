@@ -1,19 +1,19 @@
-// @flow
-
 import { render, h } from 'preact';
 import { useEffect, useState } from 'preact/hooks';
-import { Router } from 'preact-router';
+import { Router, Route } from 'preact-router';
 import { Link } from 'preact-router/match';
-import SelectVideo from '@app/SelectVideo';
-import Player from '@app/Player';
-import Legal from '@app/pages/Legal';
-import Privacy from '@app/pages/Privacy';
-import About from '@app/pages/About';
-import Logo from '@app/global/Logo';
-import { matomoSetPage } from '@app/vendor/matomo';
+
+import SelectVideo from './app/SelectVideo';
+import Player from './app/Player';
+import Legal from './app/pages/Legal';
+import Privacy from './app/pages/Privacy';
+import About from './app/pages/About';
+import Logo from './app/global/Logo';
+
+import { matomoSetPage } from './app/vendor/matomo';
 
 const App = () => {
-  const [currentUrl: string, setCurrentUrl] = useState('');
+  const [currentUrl, setCurrentUrl] = useState<string>('');
 
   return (
     <div className="w-full max-w-md">
@@ -29,13 +29,13 @@ const App = () => {
           setCurrentUrl(url);
         }}
       >
-        <Legal path="/legal/" />
-        <Privacy path="/privacy/" />
-        <About path="/about/" />
-        <SelectVideo currentUrl={currentUrl} default />
+        <Route path="/legal/" component={Legal} />
+        <Route path="/privacy/" component={Privacy} />
+        <Route path="/about/" component={About} />
+        <Route default currentUrl={currentUrl} component={SelectVideo} />
       </Router>
       <Router>
-        <Player path="/play/:videoID" />
+        <Route path="/play/:videoID" component={Player} />
       </Router>
       <footer className="fixed left-0 top-0 w-full z-10">
         <nav className="flex justify-end text-xs mt-2">
@@ -44,7 +44,7 @@ const App = () => {
             className="ml-2 mr-auto leading-none text-gray-700 hover:text-black"
             activeClassName=""
           >
-            Search Audio
+            Home
           </Link>
           {[/*'About',*/ 'Legal', 'Privacy'].map(e => (
             <Link

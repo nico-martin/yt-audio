@@ -1,8 +1,11 @@
-// @flow
-
 import { h } from 'preact';
 
-export default ({ className, style }: { className: string, style: {} }) => {
+interface Props {
+  className: string;
+  style: {};
+}
+
+const Logo = ({ className, style }: Props) => {
   return (
     <svg
       viewBox="0 0 500 500"
@@ -27,3 +30,5 @@ export default ({ className, style }: { className: string, style: {} }) => {
     </svg>
   );
 };
+
+export default Logo;

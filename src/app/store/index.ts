@@ -1,27 +1,36 @@
-import { openDB } from 'idb';
+import { openDB, DBSchema } from 'idb';
+import { Video } from '../vendor/types';
+
 const dbName = 'YouTubeAudioPlayer';
 const store = 'videos';
 
-const dbPromise = openDB(dbName, 1, {
+interface VideoDBSchema extends DBSchema {
+  videos: {
+    key: string;
+    value: Partial<Video>;
+  };
+}
+
+const dbPromise = openDB<VideoDBSchema>(dbName, 1, {
   upgrade(db) {
     db.createObjectStore(store);
   },
 });
 
 const db = {
-  async get(key) {
+  async get(key: string) {
     return (await dbPromise).get(store, key);
   },
-  async set(key, val) {
+  async set(key: string, val: Video) {
     return (await dbPromise).put(store, val, key);
   },
-  async delete(key) {
+  async delete(key: string) {
     return (await dbPromise).delete(store, key);
   },
   async getAll() {
     return (await dbPromise).getAll(store);
   },
-  async updateObject(key, val) {
+  async updateObject(key: string, val: Partial<Video>) {
     const entry = (await db.get(key)) || {};
     return (await dbPromise).put(store, { ...entry, ...val }, key);
   },

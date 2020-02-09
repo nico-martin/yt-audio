@@ -1,29 +1,25 @@
-// @flow
-
 import { h, Fragment } from 'preact';
 import { useEffect, useRef, useState } from 'preact/hooks';
-import type { Audio } from '@app/vendor/types';
-import db from '@app/store';
-import Icon from '@app/global/Icon';
+import { Audio } from './vendor/types';
+import db from './store';
+import Icon from './global/Icon';
 import cn from 'classnames';
-import { readableTime } from '@app/vendor/helpers';
+import { readableTime } from './vendor/helpers';
 
-const PlayerAudio = ({
-  audio,
-  passStartTime,
-  setError,
-}: {
-  audio: Audio,
-  passStartTime: Function,
-  setError: Function,
-}) => {
+interface Props {
+  audio: Audio;
+  passStartTime: Function;
+  setError: Function;
+}
+
+const PlayerAudio = ({ audio, passStartTime, setError }: Props) => {
   const [startTime, setStartTime] = useState(0);
   const [playing, setPlaying] = useState(false);
   const [playbackRate, setPlaybackRate] = useState(1);
   const [playTime, setPlayTime] = useState(0);
   const [fullDuration, setFullDuration] = useState(100);
   const [buffer, setBuffer] = useState(false);
-  const player = useRef(null);
+  const player = useRef<HTMLAudioElement>(null);
 
   useEffect(() => {
     player.current.ontimeupdate = () => {
@@ -40,7 +36,9 @@ const PlayerAudio = ({
   useEffect(() => {
     passStartTime(startTime);
     player.current.currentTime =
-      parseInt(startTime) >= 2 ? parseInt(startTime) - 2 : parseInt(startTime); // start at last position -2 Sec
+      Math.round(startTime) >= 2
+        ? Math.round(startTime) - 2
+        : Math.round(startTime); // start at last position -2 Sec
   }, [startTime]);
 
   const addTime = add =>
@@ -57,7 +55,7 @@ const PlayerAudio = ({
         onPause={() => setPlaying(false)}
         onPlay={() => setPlaying(true)}
         onTimeUpdate={() => setPlayTime(player.current.currentTime)}
-        onCanPlay={() => setFullDuration(parseInt(player.current.duration))}
+        onCanPlay={() => setFullDuration(Math.round(player.current.duration))}
         onWaiting={() => setBuffer(true)}
         onPlaying={() => setBuffer(false)}
       >
@@ -111,11 +109,11 @@ const PlayerAudio = ({
         type="range"
         min="0"
         max={fullDuration}
-        value={parseInt(playTime)}
+        value={Math.round(playTime)}
         step="1"
-        onChange={e => setTime(e.target.value)}
+        onChange={e => setTime((e.target as HTMLInputElement).value)}
       />
-      <p>{readableTime(parseInt(playTime))}</p>
+      <p>{readableTime(Math.round(playTime))}</p>
       <p>{buffer ? 'buffer' : ''}</p>
     </Fragment>
   );

@@ -1,5 +1,3 @@
-// @flow
-
 import { h, Fragment } from 'preact';
 
 const About = () => {
