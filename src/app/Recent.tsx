@@ -1,6 +1,6 @@
 import { h } from 'preact';
 import { useEffect, useState } from 'preact/hooks';
-import db from './store';
+import { videosDB } from './store';
 import { Link } from 'preact-router/match';
 import { Video } from './vendor/types';
 
@@ -15,11 +15,11 @@ const Recent = ({ searchString }: Props) => {
   );
   const removeVideo = id => {
     setVideos([...videos].filter(video => video.id !== id));
-    db.delete(id);
+    videosDB.delete(id);
   };
 
   useEffect(() => {
-    db.getAll().then(resp => {
+    videosDB.getAll().then(resp => {
       const v = resp.sort((a, b) => b.date.getTime() - a.date.getTime());
       setVideos(v);
       setFilteredVideos(v);

@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from 'preact/hooks';
 import { Link } from 'preact-router/match';
 import axios from 'axios';
 import Icon from './global/Icon';
-import db from './store';
+import { videosDB } from './store';
 import PlayerAudio from './PlayerAudio';
 import { nl2br } from './vendor/helpers';
 import { Audio } from './vendor/types';
@@ -20,7 +20,7 @@ const initAudio = {
 };
 
 let startTime = 0;
-const Player = ({ videoID }:Props) => {
+const Player = ({ videoID }: Props) => {
   const [error, setError] = useState<string>('');
   const [audio, setAudio] = useState<Audio>(initAudio);
   const [start, setStart] = useState<number>(0);
@@ -36,7 +36,7 @@ const Player = ({ videoID }:Props) => {
         } else {
           setAudio(res.data);
           document.title = res.data.title;
-          db.updateObject(videoID, {
+          videosDB.updateObject(videoID, {
             ...res.data,
             id: videoID,
             date: new Date(),

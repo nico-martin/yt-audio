@@ -1,41 +1,75 @@
 <!DOCTYPE html>
 <html lang="en-US">
+  <head>
+    <meta charset="utf-8" />
+    <title>
+      <%= htmlWebpackPlugin.options.title %>
+    </title>
+    <meta
+      name="description"
+      content="<%= htmlWebpackPlugin.options.description %>"
+    />
+    <meta
+      name="viewport"
+      content="width=device-width,initial-scale=1,minimum-scale=1,user-scalable=yes"
+    />
+    <link rel="shortcut icon" href="/assets/static/favicon.ico" />
+    <link
+      rel="apple-touch-icon"
+      sizes="16x16"
+      href="/assets/static/favicon-16x16.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="32x32"
+      href="/assets/static/favicon-32x32.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="48x48"
+      href="/assets/static/favicon-48x48.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="/assets/static/favicon-16x16.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="/assets/static/favicon-32x32.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="48x48"
+      href="/assets/static/favicon-48x48.png"
+    />
+    <meta name="theme-color" content="#CC0000" />
+  </head>
 
-<head>
-  <meta charset="utf-8">
-  <title>
-    <%= htmlWebpackPlugin.options.title %>
-  </title>
-  <meta name="description" content="<%= htmlWebpackPlugin.options.description %>">
-  <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,user-scalable=yes">
-  <link rel="shortcut icon" href="/assets/static/favicon.ico">
-  <link rel="apple-touch-icon" sizes="16x16" href="/assets/static/favicon-16x16.png">
-  <link rel="apple-touch-icon" sizes="32x32" href="/assets/static/favicon-32x32.png">
-  <link rel="apple-touch-icon" sizes="48x48" href="/assets/static/favicon-48x48.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="/assets/static/favicon-16x16.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="/assets/static/favicon-32x32.png">
-  <link rel="icon" type="image/png" sizes="48x48" href="/assets/static/favicon-48x48.png">
-  <meta name="theme-color" content="#CC0000"/>
-</head>
-
-<body class="bg-gray-100">
-<div id="app" class="overflow-hidden px-5 py-10 flex justify-center"></div>
-<script type="text/javascript">
-	var _paq = window._paq || [];
-	_paq.push(['trackPageView']);
-	_paq.push(['enableLinkTracking']);
-	(function () {
-		var u = "https://analytics.sayhello.agency/";
-		_paq.push(['setTrackerUrl', u + 'piwik.php']);
-		_paq.push(['setSiteId', '6']);
-		var d = document, g = d.createElement('script'), s = d.getElementsByTagName('script')[0];
-		g.type = 'text/javascript';
-		g.async = true;
-		g.defer = true;
-		g.src = u + 'piwik.js';
-		s.parentNode.insertBefore(g, s);
-	})();
-</script>
-</body>
-
+  <body class="bg-gray-100">
+    <div id="app" class="overflow-hidden px-5 py-10 flex justify-center"></div>
+    <div id="modals"></div>
+    <script type="text/javascript">
+      var _paq = window._paq || [];
+      _paq.push(['trackPageView']);
+      _paq.push(['enableLinkTracking']);
+      (function() {
+        var u = 'https://analytics.sayhello.agency/';
+        _paq.push(['setTrackerUrl', u + 'piwik.php']);
+        _paq.push(['setSiteId', '6']);
+        var d = document,
+          g = d.createElement('script'),
+          s = d.getElementsByTagName('script')[0];
+        g.type = 'text/javascript';
+        g.async = true;
+        g.defer = true;
+        g.src = u + 'piwik.js';
+        s.parentNode.insertBefore(g, s);
+      })();
+    </script>
+  </body>
 </html>

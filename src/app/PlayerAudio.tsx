@@ -1,8 +1,9 @@
 import { h, Fragment } from 'preact';
 import { useEffect, useRef, useState } from 'preact/hooks';
 import { Audio } from './vendor/types';
-import db from './store';
+import { videosDB, settingsDB } from './store';
 import Icon from './global/Icon';
+import Modal from './global/Modal';
 import cn from 'classnames';
 import { readableTime } from './vendor/helpers';
 
@@ -16,6 +17,7 @@ const PlayerAudio = ({ audio, passStartTime, setError }: Props) => {
   const [startTime, setStartTime] = useState(0);
   const [playing, setPlaying] = useState(false);
   const [playbackRate, setPlaybackRate] = useState(1);
+  const [playbackModal, setPlaybackModal] = useState(false);
   const [playTime, setPlayTime] = useState(0);
   const [fullDuration, setFullDuration] = useState(100);
   const [buffer, setBuffer] = useState(false);
@@ -26,11 +28,16 @@ const PlayerAudio = ({ audio, passStartTime, setError }: Props) => {
       passStartTime(player.current.currentTime);
     };
 
-    db.get(audio.id).then(dbVideo => {
+    videosDB.get(audio.id).then(dbVideo => {
       dbVideo && dbVideo.time && setStartTime(dbVideo.time);
     });
+
+    settingsDB.get('playbackRate').then(speed => {
+      speed && setPlaybackRate(Number(speed));
+    });
+
     return () =>
-      db.updateObject(audio.id, { time: player.current.currentTime });
+      videosDB.updateObject(audio.id, { time: player.current.currentTime });
   }, []);
 
   useEffect(() => {
@@ -47,6 +54,41 @@ const PlayerAudio = ({ audio, passStartTime, setError }: Props) => {
 
   return (
     <Fragment>
+      {playbackModal && (
+        <Modal
+          title="Playback speed"
+          onClose={() => setPlaybackModal(false)}
+          width="xsmall"
+        >
+          <p className="border-t border-gray-400 mt-4">
+            {[
+              [0.8, 'Jamaica'],
+              [1, 'Boring'],
+              [1.2, 'Speedy'],
+              [1.5, 'Fast'],
+              [2, 'Crazy'],
+              [3, 'Aleksej'],
+            ].map(([speed, text]: [number, string]) => (
+              <button
+                className={cn(
+                  'w-full border-b border-gray-400 hover:bg-gray-100 py-2 px-1 text-left font-light',
+                  {
+                    'font-bold': playbackRate === speed,
+                  }
+                )}
+                onClick={() => {
+                  player.current.playbackRate = speed;
+                  setPlaybackModal(false);
+                  settingsDB.set('playbackRate', speed);
+                  setPlaybackRate(speed);
+                }}
+              >
+                {text} ({speed}x)
+              </button>
+            ))}
+          </p>
+        </Modal>
+      )}
       <audio
         controls
         className="w-full mt-4"
@@ -89,21 +131,9 @@ const PlayerAudio = ({ audio, passStartTime, setError }: Props) => {
         <button onClick={() => addTime(30)}>
           <Icon icon="30plus" />
         </button>
-        <p>
-          {[0.8, 1, 1.2, 1.5].map(speed => (
-            <button
-              className={cn({
-                underline: playbackRate === speed,
-              })}
-              onClick={() => {
-                player.current.playbackRate = speed;
-                setPlaybackRate(speed);
-              }}
-            >
-              {speed}x
-            </button>
-          ))}
-        </p>
+        <button onClick={() => setPlaybackModal(true)} className="font-bold">
+          {playbackRate}x
+        </button>
       </div>
       <input
         type="range"
