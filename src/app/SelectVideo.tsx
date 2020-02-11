@@ -45,8 +45,6 @@ const SelectVideo = ({ currentUrl }: { currentUrl: string }) => {
     route(`/play/${video}`);
   };
 
-  console.log('INPUT', input);
-
   return (
     <p className="text-left">
       <label htmlFor="youtubeUrl" className="text-xs">

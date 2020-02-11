@@ -4,7 +4,7 @@ import { Router, Route } from 'preact-router';
 import { Link } from 'preact-router/match';
 
 import SelectVideo from './app/SelectVideo';
-import Player from './app/Player';
+import Audio from './app/Audio';
 import Legal from './app/pages/Legal';
 import Privacy from './app/pages/Privacy';
 import About from './app/pages/About';
@@ -35,7 +35,7 @@ const App = () => {
         <Route default currentUrl={currentUrl} component={SelectVideo} />
       </Router>
       <Router>
-        <Route path="/play/:videoID" component={Player} />
+        <Route path="/play/:videoID" component={Audio} />
       </Router>
       <footer className="fixed left-0 top-0 w-full z-10">
         <nav className="flex justify-end text-xs mt-2">

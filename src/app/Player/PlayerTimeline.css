@@ -1,0 +1,72 @@
+:root {
+  --range-background: gray;
+  --range-height: 5px;
+  --range-thumb: red;
+  --range-thumb-size: 10px;
+}
+
+.player-timeline {
+  position: relative;
+  &__time {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    height: var(--range-height);
+    background-color: var(--range-thumb);
+    width: 20%;
+    display: block;
+  }
+
+  input[type='range'] {
+    -webkit-appearance: none;
+    margin: 0;
+    width: 100%;
+    display: block;
+
+    &:focus {
+      outline: none;
+    }
+
+    /*
+    &::-webkit-slider-runnable-track {
+      width: 100%;
+      height: var(--range-height);
+      cursor: pointer;
+      animate: 0.2s;
+      background: var(--range-background);
+      border-radius: 50%;
+    }
+
+    &::-webkit-slider-thumb {
+      height: var(--range-thumb-size);
+      width: var(--range-thumb-size);
+      background: var(--range-thumb);
+      cursor: pointer;
+      -webkit-appearance: none;
+    }
+
+    &:focus::-webkit-slider-runnable-track {
+      background: var(--range-background);
+    }
+
+     */
+
+    &::-moz-range-track {
+      width: 100%;
+      height: var(--range-height);
+      cursor: pointer;
+      animate: 0.2s;
+      background: var(--range-background);
+    }
+
+    &::-moz-range-thumb {
+      height: var(--range-thumb-size);
+      width: var(--range-thumb-size);
+      background: var(--range-thumb);
+      border-radius: 50%;
+      border: none;
+      cursor: pointer;
+    }
+  }
+}

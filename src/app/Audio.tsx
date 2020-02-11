@@ -4,7 +4,7 @@ import { Link } from 'preact-router/match';
 import axios from 'axios';
 import Icon from './global/Icon';
 import { videosDB } from './store';
-import PlayerAudio from './PlayerAudio';
+import Player from './Player/Player';
 import { nl2br } from './vendor/helpers';
 import { Audio } from './vendor/types';
 
@@ -20,7 +20,7 @@ const initAudio = {
 };
 
 let startTime = 0;
-const Player = ({ videoID }: Props) => {
+const Audio = ({ videoID }: Props) => {
   const [error, setError] = useState<string>('');
   const [audio, setAudio] = useState<Audio>(initAudio);
   const [start, setStart] = useState<number>(0);
@@ -105,7 +105,7 @@ const Player = ({ videoID }: Props) => {
               />
             </div>
           )}
-          <PlayerAudio
+          <Player
             audio={{ ...audio, ...{ id: videoID } }}
             passStartTime={time => {
               startTime = time;
@@ -140,4 +140,4 @@ const Player = ({ videoID }: Props) => {
   );
 };
 
-export default Player;
+export default Audio;

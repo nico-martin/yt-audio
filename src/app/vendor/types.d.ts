@@ -1,3 +1,5 @@
+import { number } from 'prop-types';
+
 export interface Audio {
   id?: string;
   url: string;
@@ -15,5 +17,12 @@ export interface Video {
   id: string;
   description: string;
   date: Date;
-  time: number
+  time: number;
+}
+
+export interface PlayerTypes {
+  playing: boolean;
+  duration: number;
+  time: number;
+  speed: number;
 }
