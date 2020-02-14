@@ -9,7 +9,9 @@ interface Props {
 }
 
 const PlayerTimeline = ({ player, time }: Props) => {
-  const [duration, setDuration] = useState(100);
+  const [playingBefore, setPlayingBefore] = useState(false);
+  const [duration, setDuration] = useState(0);
+  const [sliderTime, setSliderTime] = useState(0);
   const [buffer, setBuffer] = useState(false);
 
   useEffect(() => {
@@ -18,33 +20,46 @@ const PlayerTimeline = ({ player, time }: Props) => {
     player.onplaying = () => setBuffer(false);
   }, [player]);
 
+  useEffect(() => {
+    setSliderTime(time);
+  }, [time]);
+
   return (
     <Fragment>
       <div className="player-timeline">
         <span
           className="player-timeline__time"
           style={{
-            width: (duration / 100) * time + '%',
+            width: (100 / duration) * sliderTime + '%',
           }}
         />
         <input
           type="range"
           min="0"
           max={duration}
-          value={time}
+          value={sliderTime}
           step="1"
-          onMouseDown={() => player.pause()}
-          onMouseUp={() => player.play()}
-          onInput={e =>
+          onMouseDown={() => {
+            setPlayingBefore(!player.paused);
+            player.pause();
+          }}
+          onMouseUp={() => {
+            playingBefore && player.play();
+            setPlayingBefore(false);
+          }}
+          onChange={e =>
             (player.currentTime = parseInt(
               (e.target as HTMLInputElement).value
             ))
           }
+          onInput={e =>
+            setSliderTime(parseInt((e.target as HTMLInputElement).value))
+          }
         />
       </div>
       <div className="flex justify-between text-xs mb-2">
-        <span>{readableTime(time)}</span>
-        <span>-{readableTime(-(time - duration))}</span>
+        <span>{readableTime(sliderTime)}</span>
+        <span>-{readableTime(duration - sliderTime)}</span>
       </div>
     </Fragment>
   );

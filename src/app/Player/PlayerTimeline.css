@@ -16,6 +16,7 @@
     background-color: var(--range-thumb);
     width: 20%;
     display: block;
+    pointer-events: none;
   }
 
   input[type='range'] {
