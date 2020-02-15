@@ -5,6 +5,7 @@ import { videosDB, settingsDB } from '../store';
 import PlayerTimeline from './PlayerTimeline';
 import PlayerPlaybackSpeed from './PlayerPlaybackSpeed';
 import PlayerControls from './PlayerControls';
+import PlayerReplay from './PlayerReplay';
 
 interface Props {
   audio: Audio;
@@ -56,13 +57,20 @@ const Player = ({ audio, passStartTime, setError }: Props) => {
           <source src={audio.url} type="audio/ogg" />
         )}
       </audio>
-      {playerRef.current && (
+      {playerRef && playerRef.current && (
         <Fragment>
-          <PlayerControls player={playerRef.current} paused={paused} />
-          <PlayerTimeline player={playerRef.current} time={time} />
-          <PlayerPlaybackSpeed
+          <div className="flex w-full justify-between">
+            <PlayerPlaybackSpeed
+              player={playerRef.current}
+              speed={playbackRate}
+            />
+            <PlayerControls player={playerRef.current} paused={paused} />
+            <PlayerReplay player={playerRef.current} />
+          </div>
+          <PlayerTimeline
             player={playerRef.current}
-            speed={playbackRate}
+            time={time}
+            className="mt-2"
           />
         </Fragment>
       )}

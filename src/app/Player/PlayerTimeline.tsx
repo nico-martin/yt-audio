@@ -1,4 +1,4 @@
-import { h, Fragment } from 'preact';
+import { h } from 'preact';
 import { useEffect, useState } from 'preact/hooks';
 import { readableTime } from '../vendor/helpers';
 import './PlayerTimeline.css';
@@ -6,9 +6,10 @@ import './PlayerTimeline.css';
 interface Props {
   player: HTMLAudioElement;
   time: number;
+  className?: string;
 }
 
-const PlayerTimeline = ({ player, time }: Props) => {
+const PlayerTimeline = ({ player, time, className = '' }: Props) => {
   const [playingBefore, setPlayingBefore] = useState(false);
   const [duration, setDuration] = useState(0);
   const [sliderTime, setSliderTime] = useState(0);
@@ -25,7 +26,7 @@ const PlayerTimeline = ({ player, time }: Props) => {
   }, [time]);
 
   return (
-    <Fragment>
+    <div className={className}>
       <div className="player-timeline">
         <span
           className="player-timeline__time"
@@ -61,7 +62,7 @@ const PlayerTimeline = ({ player, time }: Props) => {
         <span>{readableTime(sliderTime)}</span>
         <span>-{readableTime(duration - sliderTime)}</span>
       </div>
-    </Fragment>
+    </div>
   );
 };
 

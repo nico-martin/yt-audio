@@ -5,12 +5,13 @@ import './PlayerControls.css';
 interface Props {
   player: HTMLAudioElement;
   paused: boolean;
+  className?: string;
 }
 
-const PlayerControls = ({ player, paused }: Props) => {
+const PlayerControls = ({ player, paused, className = '' }: Props) => {
   const addTime = add => (player.currentTime = player.currentTime + add);
   return (
-    <div className="flex justify-center">
+    <div className={`flex justify-center ${className}`}>
       <button onClick={() => addTime(-30)} className="text-2xl">
         <Icon icon="30minus" />
       </button>

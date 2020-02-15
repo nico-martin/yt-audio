@@ -1,4 +1,4 @@
-import { h, Fragment } from 'preact';
+import { h } from 'preact';
 import { useEffect, useState } from 'preact/hooks';
 import { settingsDB } from '../store';
 import Modal from '../global/Modal';
@@ -7,9 +7,10 @@ import cn from 'classnames';
 interface Props {
   player: HTMLAudioElement;
   speed: number;
+  className?: string;
 }
 
-const PlayerPlaybackSpeed = ({ player, speed }: Props) => {
+const PlayerPlaybackSpeed = ({ player, speed, className = '' }: Props) => {
   const [modal, setModal] = useState(false);
   useEffect(() => {
     settingsDB
@@ -18,7 +19,7 @@ const PlayerPlaybackSpeed = ({ player, speed }: Props) => {
   }, []);
 
   return (
-    <Fragment>
+    <div className={className}>
       <button onClick={() => setModal(true)} className="font-bold">
         {speed}x
       </button>
@@ -56,7 +57,7 @@ const PlayerPlaybackSpeed = ({ player, speed }: Props) => {
           </p>
         </Modal>
       )}
-    </Fragment>
+    </div>
   );
 };
 
