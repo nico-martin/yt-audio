@@ -1,9 +1,9 @@
 :root {
   --range-background: #d4d4d4;
-  --range-height: 5px;
+  --range-height: 8px;
   --range-thumb: #c00;
   --range-thumb-disabled: #a3a3a3;
-  --range-thumb-size: 10px;
+  --range-thumb-size: 15px;
 }
 
 .player-timeline {

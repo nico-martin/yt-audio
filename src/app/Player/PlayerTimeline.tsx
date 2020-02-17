@@ -60,7 +60,7 @@ const PlayerTimeline = ({ player, time, className = '' }: Props) => {
           }}
         />
       </div>
-      <div className="flex justify-between text-xs mb-2">
+      <div className="flex justify-between text-xs mb-2 mt-2">
         <span>{readableTime(sliderTime)}</span>
         <span>-{readableTime(duration - sliderTime)}</span>
       </div>

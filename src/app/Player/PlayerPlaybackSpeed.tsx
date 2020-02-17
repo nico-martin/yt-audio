@@ -20,7 +20,7 @@ const PlayerPlaybackSpeed = ({ player, speed, className = '' }: Props) => {
 
   return (
     <div className={className}>
-      <button onClick={() => setModal(true)} className="font-bold">
+      <button onClick={() => setModal(true)} className="font-semibold">
         {speed}x
       </button>
       {modal && (
