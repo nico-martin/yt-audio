@@ -1,24 +1,22 @@
-// @flow
-
 import { h } from 'preact';
 import { useState, useRef, useEffect } from 'preact/hooks';
 import cn from 'classnames';
 import { Link } from 'preact-router/match';
 import { route } from 'preact-router';
-import { youtubeParser } from '@app/vendor/helpers';
-import Recent from '@app/Recent';
-import Icon from '@app/global/Icon';
+import { youtubeParser } from './vendor/helpers';
+import Recent from './Recent';
+import Icon from './global/Icon';
 
-const parsedUrl = new URL(window.location);
+const parsedUrl = new URL(String(window.location));
 
 const SelectVideo = ({ currentUrl }: { currentUrl: string }) => {
-  const [input: string, setInput] = useState(
+  const [input, setInput] = useState<string>(
     parsedUrl.searchParams.get('text') === null
       ? ''
       : parsedUrl.searchParams.get('text')
   );
-  const [error: string, setError] = useState('');
-  const [video: string, setVideo] = useState('');
+  const [error, setError] = useState<string>('');
+  const [video, setVideo] = useState<string>('');
   const inputEl = useRef(null);
 
   useEffect(() => {
@@ -29,7 +27,7 @@ const SelectVideo = ({ currentUrl }: { currentUrl: string }) => {
     } else {
       setError('');
       setVideo(videoID);
-      if (new URL(window.location).searchParams.get('text') !== null) {
+      if (new URL(String(window.location)).searchParams.get('text') !== null) {
         route(`/play/${videoID}/`, true);
       }
     }

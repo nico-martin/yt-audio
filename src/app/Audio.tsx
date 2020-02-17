@@ -1,14 +1,16 @@
-// @flow
-
 import { h, Fragment } from 'preact';
 import { useEffect, useRef, useState } from 'preact/hooks';
 import { Link } from 'preact-router/match';
 import axios from 'axios';
-import Icon from '@app/global/Icon';
-import db from '@app/store';
-import PlayerAudio from '@app/PlayerAudio';
-import { nl2br } from '@app/vendor/helpers';
-import type { Audio } from '@app/vendor/types';
+import Icon from './global/Icon';
+import { videosDB } from './store';
+import Player from './Player/Player';
+import { nl2br } from './vendor/helpers';
+import { Audio } from './vendor/types';
+
+interface Props {
+  videoID: string;
+}
 
 const initTitle = document.title;
 const initAudio = {
@@ -18,10 +20,10 @@ const initAudio = {
 };
 
 let startTime = 0;
-const Player = ({ videoID }: { videoID: string }) => {
-  const [error: string, setError] = useState('');
-  const [audio: Audio, setAudio] = useState(initAudio);
-  const [start, setStart] = useState(0);
+const Audio = ({ videoID }: Props) => {
+  const [error, setError] = useState<string>('');
+  const [audio, setAudio] = useState<Audio>(initAudio);
+  const [start, setStart] = useState<number>(0);
 
   useEffect(() => {
     setError('');
@@ -34,7 +36,7 @@ const Player = ({ videoID }: { videoID: string }) => {
         } else {
           setAudio(res.data);
           document.title = res.data.title;
-          db.updateObject(videoID, {
+          videosDB.updateObject(videoID, {
             ...res.data,
             id: videoID,
             date: new Date(),
@@ -83,7 +85,7 @@ const Player = ({ videoID }: { videoID: string }) => {
           <button
             onClick={() => {
               window.open(
-                `https://www.youtube.com/watch?v=${videoID}&t=${parseInt(
+                `https://www.youtube.com/watch?v=${videoID}&t=${Math.round(
                   startTime
                 )}`,
                 '_blank'
@@ -103,7 +105,7 @@ const Player = ({ videoID }: { videoID: string }) => {
               />
             </div>
           )}
-          <PlayerAudio
+          <Player
             audio={{ ...audio, ...{ id: videoID } }}
             passStartTime={time => {
               startTime = time;
@@ -138,4 +140,4 @@ const Player = ({ videoID }: { videoID: string }) => {
   );
 };
 
-export default Player;
+export default Audio;

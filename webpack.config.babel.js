@@ -17,6 +17,12 @@ import tailwindcss from 'tailwindcss';
 import RobotstxtPlugin from 'robotstxt-webpack-plugin';
 import SitemapPlugin from 'sitemap-webpack-plugin';
 
+class TailwindExtractor {
+  static extract(content) {
+    return content.match(/[A-Za-z0-9-_:\/]+/g) || [];
+  }
+}
+
 module.exports = (env, argv) => {
   const dirDist = path.resolve(__dirname, 'dist');
   const dirSrc = path.resolve(__dirname, 'src');
@@ -33,7 +39,7 @@ module.exports = (env, argv) => {
 
   return {
     entry: {
-      app: `${dirSrc}/index.js`,
+      app: `${dirSrc}/index.ts`,
     },
     devServer: {
       contentBase: dirDist,
@@ -59,9 +65,19 @@ module.exports = (env, argv) => {
           ? 'assets/[name].[id].css'
           : 'assets/[name].[id].[hash].css',
       }),
-      new PurgecssPlugin({
-        paths: glob.sync([`${dirSrc}/**/*.jsx`, `${dirSrc}/index.html`]),
-      }),
+      ...(dev
+        ? []
+        : [
+          new PurgecssPlugin({
+            paths: glob.sync([`${dirSrc}/**/*.jsx`,`${dirSrc}/**/*.tsx`, `${dirSrc}/index.html`]),
+            extractors: [
+              {
+                extractor: TailwindExtractor,
+                extensions: ['html', 'js', 'jsx', 'ts', 'tsx'],
+              },
+            ],
+          }),
+        ]),
       new CopyWebpackPlugin([
         {
           from: 'src/static',
@@ -149,6 +165,11 @@ module.exports = (env, argv) => {
           loader: ['babel-loader', 'raw-loader'],
         },
         {
+          test: /\.(ts|tsx)$/,
+          loader: 'ts-loader',
+          exclude: /node_modules/,
+        },
+        {
           test: /\.(js|jsx)$/,
           loader: 'babel-loader',
           exclude: /node_modules/,
@@ -187,13 +208,11 @@ module.exports = (env, argv) => {
     },
     resolve: {
       alias: {
-        '@app': dirSrc + '/app',
-        '@assets': dirSrc + '/assets',
         react: 'preact/compat',
         'react-dom/test-utils': 'preact/test-utils',
         'react-dom': 'preact/compat',
       },
-      extensions: ['.js', '.jsx'],
+      extensions: ['.js', '.jsx', '.ts', '.tsx'],
     },
   };
 };
