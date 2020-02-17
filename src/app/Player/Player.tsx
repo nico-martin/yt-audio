@@ -59,7 +59,7 @@ const Player = ({ audio, passStartTime, setError }: Props) => {
       </audio>
       {playerRef && playerRef.current && (
         <Fragment>
-          <div className="flex w-full justify-between">
+          <div className="flex w-full justify-between items-center">
             <PlayerPlaybackSpeed
               player={playerRef.current}
               speed={playbackRate}

@@ -31,12 +31,12 @@ const PlayerPlaybackSpeed = ({ player, speed, className = '' }: Props) => {
         >
           <p className="border-t border-gray-400 mt-4">
             {[
-              [0.8, 'Jamaica'],
+              [0.8, 'Bärndütsch'],
               [1.0, 'Boring'],
               [1.2, 'Speedy'],
               [1.5, 'Fast'],
               [2.0, 'Crazy'],
-              [3.0, 'Aleksej'],
+              [3.0, 'Out of this world'],
             ].map(([rate, text]: [number, string]) => (
               <button
                 className={cn(

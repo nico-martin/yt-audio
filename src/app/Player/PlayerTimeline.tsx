@@ -25,21 +25,17 @@ const PlayerTimeline = ({ player, time, className = '' }: Props) => {
     setSliderTime(time);
   }, [time]);
 
+  const sliderWidth = (100 / duration) * sliderTime;
   return (
     <div className={className}>
       <div className="player-timeline">
-        <span
-          className="player-timeline__time"
-          style={{
-            width: (100 / duration) * sliderTime + '%',
-          }}
-        />
         <input
           type="range"
           min="0"
           max={duration}
           value={sliderTime}
           step="1"
+          disabled={buffer}
           onMouseDown={() => {
             setPlayingBefore(!player.paused);
             player.pause();
@@ -56,6 +52,12 @@ const PlayerTimeline = ({ player, time, className = '' }: Props) => {
           onInput={e =>
             setSliderTime(parseInt((e.target as HTMLInputElement).value))
           }
+        />
+        <span
+          className="player-timeline__time"
+          style={{
+            width: (isNaN(sliderWidth) ? 0 : sliderWidth) + '%',
+          }}
         />
       </div>
       <div className="flex justify-between text-xs mb-2">
