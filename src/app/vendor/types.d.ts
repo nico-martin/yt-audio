@@ -7,6 +7,11 @@ export interface Audio {
   author: string;
   description?: string;
   title: string;
+  images?: Array<{
+    width: number;
+    height: number;
+    url: string;
+  }>;
 }
 
 export interface Video {
