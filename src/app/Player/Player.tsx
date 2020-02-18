@@ -26,11 +26,19 @@ const Player = ({ audio, passStartTime, setError }: Props) => {
     setRefLoaded(true);
     if ('mediaSession' in navigator) {
       const player = playerRef.current as HTMLAudioElement;
+
+      const artwork = [];
+      audio.images.forEach(image => {
+        artwork.push({
+          src: image.url,
+        });
+      });
+
       navigator.mediaSession.metadata = new MediaMetadata({
         title: audio.title,
         artist: audio.author,
         album: 'YouTube Audio Player',
-        artwork: [],
+        artwork,
       });
 
       navigator.mediaSession.setActionHandler('play', () => player.play());
@@ -85,7 +93,9 @@ const Player = ({ audio, passStartTime, setError }: Props) => {
         {Object.keys(audio.formats).length !== 0 ? (
           Object.keys(audio.formats).map(mime => (
             <source
-              src={audio.formats[mime]}
+              src={`https://yt-source.nico.dev/play/${encodeURIComponent(
+                audio.formats[mime]
+              )}`}
               type={mime}
               onError={() =>
                 setError('There was an error loading the audio file')
