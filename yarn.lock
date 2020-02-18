@@ -1579,6 +1579,11 @@
     "@types/webpack-sources" "*"
     source-map "^0.6.0"
 
+"@types/wicg-mediasession@^1.0.3":
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/@types/wicg-mediasession/-/wicg-mediasession-1.0.3.tgz#1a86bb99bd288a96f7645455195f19677a2bddd7"
+  integrity sha512-lijaDXKIEHeyauPVvrlFY899FiIFEFFIYqAgpqgSVhsBUWV5tijbacB1raFObQ024W/Nu1Kd/bys0/v5mqVv/g==
+
 "@webassemblyjs/ast@1.8.5":
   version "1.8.5"
   resolved "https://registry.yarnpkg.com/@webassemblyjs/ast/-/ast-1.8.5.tgz#51b1c5fe6576a34953bf4b253df9f0d490d9e359"

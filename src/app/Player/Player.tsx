@@ -22,7 +22,29 @@ const Player = ({ audio, passStartTime, setError }: Props) => {
   const playerRef = useRef<HTMLAudioElement | null>(null);
   const [interval, setInterval] = useState<number | boolean>(0);
 
-  useEffect(() => setRefLoaded(true), []);
+  useEffect(() => {
+    setRefLoaded(true);
+    if ('mediaSession' in navigator) {
+      const player = playerRef.current as HTMLAudioElement;
+      navigator.mediaSession.metadata = new MediaMetadata({
+        title: audio.title,
+        artist: audio.author,
+        album: 'YouTube Audio Player',
+        artwork: [],
+      });
+
+      navigator.mediaSession.setActionHandler('play', () => player.play());
+      navigator.mediaSession.setActionHandler('pause', () => player.pause());
+      navigator.mediaSession.setActionHandler('seekbackward', () => {
+        player.currentTime = player.currentTime - 30;
+      });
+      navigator.mediaSession.setActionHandler('seekforward', () => {
+        player.currentTime = player.currentTime + 30;
+      });
+      //navigator.mediaSession.setActionHandler('previoustrack', function() {});
+      //navigator.mediaSession.setActionHandler('nexttrack', function() {});
+    }
+  }, []);
 
   useEffect(() => {
     videosDB.get(audio.id).then(dbVideo => {
