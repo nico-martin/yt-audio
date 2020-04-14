@@ -1,0 +1,20 @@
+.app {
+  &__header {
+    display: flex;
+    align-items: center;
+    padding: var(--spacing);
+  }
+
+  &__logo {
+    svg {
+      height: 2.5rem;
+      display: block;
+    }
+    padding: 0.5rem;
+    @mixin shape-concave 0.2rem;
+  }
+
+  &__navigation {
+    margin-left: auto;
+  }
+}

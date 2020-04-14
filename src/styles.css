@@ -1,3 +1,61 @@
+:root {
+  --spacing: 1.4rem;
+  --spacing-small: 0.7rem;
+  --spacing-section: 2.5rem;
+  --spacing-page: 7vmin;
+  --transition-speed: 200ms;
+
+  --c-p: #1d1d1b;
+  --c-bkg: #dbdbdb;
+
+  --c-nm-bkg: #dbdbdb;
+  --c-nm-bkg-grad-start: #c5c5c5;
+  --c-nm-bkg-grad-end: #eaeaea;
+  --c-nm-shadow-light: #bababa;
+  --c-nm-shadow-dark: #fcfcfc;
+
+  --c-bkg-inverse: #353535;
+
+  --c-nm-inverse-bkg: #353535;
+  --c-nm-inverse-bkg-grad-start: #393939;
+  --c-nm-inverse-bkg-grad-end: #303030;
+  --c-nm-inverse-shadow-light: #2d2d2d;
+  --c-nm-inverse-shadow-dark: #3d3d3d;
+
+  --c-primary: #c00;
+
+  --fs: 1rem;
+  --fs-s: 0.8rem;
+  --fs-xs: 0.6rem;
+  --fs-l: 1.2rem;
+  --fs-nav: 1.4rem;
+  --fs-xl: 2rem;
+
+  @media (prefers-color-scheme: dark) {
+    --c-p: #f2f2f2;
+    --c-bkg: #252525;
+
+    --c-bkg-inverse: #dbdbdb;
+
+    --c-nm-bkg: #353535;
+    --c-nm-bkg-grad-start: #393939;
+    --c-nm-bkg-grad-end: #303030;
+    --c-nm-shadow-light: #2d2d2d;
+    --c-nm-shadow-dark: #3d3d3d;
+
+    --c-nm-inverse-bkg: #dbdbdb;
+    --c-nm-inverse-bkg-grad-start: #eaeaea;
+    --c-nm-inverse-bkg-grad-end: #c5c5c5;
+    --c-nm-inverse-shadow-light: #bababa;
+    --c-nm-inverse-shadow-dark: #fcfcfc;
+  }
+}
+
+@import 'styles/reset.css';
+@import 'styles/typography.css';
+@import 'styles/document.css';
+
+/*
 @import 'styles/keyframes.css';
 
 @tailwind base;
@@ -6,7 +64,11 @@
 
 @tailwind utilities;
 
-h1, h2, h3, h4, h5 {
+h1,
+h2,
+h3,
+h4,
+h5 {
   @apply font-bold;
 }
 
@@ -36,8 +98,8 @@ p a {
 
 .c-close {
   position: absolute;
-  right: .5em;
-  top: .5em;
+  right: 0.5em;
+  top: 0.5em;
 
   &--fixed {
     position: fixed;
@@ -60,7 +122,8 @@ p a {
     @apply shadow-outline;
   }
 
-  &:after, &:before {
+  &:after,
+  &:before {
     content: '';
     width: 1px;
     height: 100%;
@@ -75,3 +138,4 @@ p a {
     transform: translateX(-50%) translateY(-50%) rotate(-45deg);
   }
 }
+ */

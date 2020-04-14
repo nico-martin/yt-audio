@@ -68,16 +68,20 @@ module.exports = (env, argv) => {
       ...(dev
         ? []
         : [
-          new PurgecssPlugin({
-            paths: glob.sync([`${dirSrc}/**/*.jsx`,`${dirSrc}/**/*.tsx`, `${dirSrc}/index.html`]),
-            extractors: [
-              {
-                extractor: TailwindExtractor,
-                extensions: ['html', 'js', 'jsx', 'ts', 'tsx'],
-              },
-            ],
-          }),
-        ]),
+            new PurgecssPlugin({
+              paths: glob.sync([
+                `${dirSrc}/**/*.jsx`,
+                `${dirSrc}/**/*.tsx`,
+                `${dirSrc}/index.html`,
+              ]),
+              extractors: [
+                {
+                  extractor: TailwindExtractor,
+                  extensions: ['html', 'js', 'jsx', 'ts', 'tsx'],
+                },
+              ],
+            }),
+          ]),
       new CopyWebpackPlugin([
         {
           from: 'src/static',
@@ -196,6 +200,9 @@ module.exports = (env, argv) => {
               loader: 'postcss-loader',
               options: {
                 plugins: () => [
+                  require('postcss-mixins')({
+                    mixinsDir: path.join(__dirname, 'src/styles/mixins'),
+                  }),
                   require('postcss-nested'),
                   tailwindcss('./tailwind.config.js'),
                   require('autoprefixer'),
