@@ -8,6 +8,8 @@ import Player from './Player/Player';
 import { nl2br } from './vendor/helpers';
 import { Audio } from './vendor/types';
 
+import './Audio.css';
+
 interface Props {
   videoID: string;
 }
@@ -61,10 +63,10 @@ const Audio = ({ videoID }: Props) => {
     </Link>
   );
 
-  const Content = () => {
+  const Content = ({ className }: { className: string }) => {
     if (error !== '') {
       return (
-        <div className="flex items-center w-full">
+        <div className={className}>
           <Icon icon="warning" className="text-4xl mr-4" />
           <p>{error}</p>
           <Close />
@@ -75,6 +77,7 @@ const Audio = ({ videoID }: Props) => {
     if (audio.url !== '') {
       return (
         <Fragment>
+          {/*
           <p className="flex">
             <b className="block mr-4">{audio.title}</b>
             <Close />
@@ -105,12 +108,14 @@ const Audio = ({ videoID }: Props) => {
               />
             </div>
           )}
+          */}
           <Player
             audio={{ ...audio, ...{ id: videoID } }}
             passStartTime={time => {
               startTime = time;
             }}
             setError={setError}
+            className={className}
           />
         </Fragment>
       );
@@ -129,14 +134,9 @@ const Audio = ({ videoID }: Props) => {
   };
 
   return (
-    <Fragment>
-      <div className="fixed bottom-0 left-0 w-full bg-white p-4 shadow-lg-top z-40">
-        <div className="w-full max-w-md mx-auto">
-          <Content />
-        </div>
-      </div>
-      <div className="fixed bottom-0 top-0 left-0 right-0 bg-black opacity-75 z-30" />
-    </Fragment>
+    <div className="audio">
+      <Content className="audio__content" />
+    </div>
   );
 };
 

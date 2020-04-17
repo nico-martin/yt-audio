@@ -1,11 +1,11 @@
-@define-mixin shape-flat $size: 0.5rem {
+@define-mixin shape-flat $size: 0.5em {
   border-radius: calc($size * 2);
   background: var(--c-nm-bkg);
   box-shadow: $size $size calc($size * 2) var(--c-nm-shadow-light),
     calc($size * -1) calc($size * -1) calc($size * 2) var(--c-nm-shadow-dark);
 }
 
-@define-mixin shape-concave $size: 0.5rem {
+@define-mixin shape-concave $size: 0.5em {
   border-radius: calc($size * 2);
   background: linear-gradient(
     145deg,
@@ -16,7 +16,7 @@
     calc($size * -1) calc($size * -1) calc($size * 2) var(--c-nm-shadow-dark);
 }
 
-@define-mixin shape-convex $size: 0.5rem {
+@define-mixin shape-convex $size: 0.5em {
   border-radius: calc($size * 2);
   background: linear-gradient(
     145deg,
@@ -27,7 +27,7 @@
     calc($size * -1) calc($size * -1) calc($size * 2) var(--c-nm-shadow-dark);
 }
 
-@define-mixin shape-pressed $size: 0.5rem {
+@define-mixin shape-pressed $size: 0.5em {
   border-radius: calc($size * 2);
   background: var(--c-nm-bkg);
   box-shadow: inset $size $size calc($size * 2) var(--c-nm-shadow-light),
@@ -35,7 +35,7 @@
       var(--c-nm-shadow-dark);
 }
 
-@define-mixin shape-inverse-flat $size: 0.5rem {
+@define-mixin shape-inverse-flat $size: 0.5em {
   border-radius: calc($size * 2);
   background: var(--c-nm-inverse-bkg);
   box-shadow: $size $size calc($size * 2) var(--c-nm-inverse-shadow-light),
@@ -43,7 +43,7 @@
       var(--c-nm-inverse-shadow-dark);
 }
 
-@define-mixin shape-inverse-concave $size: 0.5rem {
+@define-mixin shape-inverse-concave $size: 0.5em {
   border-radius: calc($size * 2);
   background: linear-gradient(
     145deg,
@@ -55,7 +55,7 @@
       var(--c-nm-inverse-shadow-dark);
 }
 
-@define-mixin shape-inverse-convex $size: 0.5rem {
+@define-mixin shape-inverse-convex $size: 0.5em {
   border-radius: calc($size * 2);
   background: linear-gradient(
     145deg,
@@ -67,7 +67,7 @@
       var(--c-nm-inverse-shadow-dark);
 }
 
-@define-mixin shape-inverse-pressed $size: 0.5rem {
+@define-mixin shape-inverse-pressed $size: 0.5em {
   border-radius: calc($size * 2);
   background: var(--c-nm-inverse-bkg);
   box-shadow: inset $size $size calc($size * 2) var(--c-nm-inverse-shadow-light),

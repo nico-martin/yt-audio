@@ -1,24 +1,29 @@
 :root {
   --range-background: #d4d4d4;
-  --range-height: 8px;
+  --range-height: 0.8rem;
   --range-thumb: #c00;
   --range-thumb-disabled: #a3a3a3;
-  --range-thumb-size: 15px;
 }
 
 .player-timeline {
-  position: relative;
+  margin-top: var(--spacing-section);
+
+  &__timeline {
+    background-color: transparent;
+    position: relative;
+  }
 
   &__time {
     position: absolute;
-    left: 0;
+    left: 0.5rem;
     top: 50%;
     transform: translateY(-50%);
-    height: var(--range-height);
+    height: 2px;
     background-color: var(--range-thumb);
     width: 20%;
     display: block;
     pointer-events: none;
+    border-radius: 50px;
   }
 
   input[type='range'] {
@@ -26,6 +31,8 @@
     margin: 0;
     width: 100%;
     display: block;
+    height: var(--range-height);
+    background-color: var(--c-bkg);
 
     &:focus {
       outline: none;
@@ -40,9 +47,8 @@
     }
 
     &::-webkit-slider-thumb {
-      height: var(--range-thumb-size);
-      width: var(--range-thumb-size);
-      margin-top: calc(var(--range-thumb-size) * 0.25 * -1);
+      height: var(--range-height);
+      width: var(--range-height);
       background-color: var(--range-thumb);
       border-radius: 50%;
       border: none;
@@ -55,16 +61,23 @@
       height: var(--range-height);
       cursor: pointer;
       animate: 0.2s;
-      background-color: var(--range-background);
+      @mixin shape-pressed 0.1rem;
+      border-radius: 50px;
+      //margin: 0 -0.1rem 0 -0.1rem;
+
+      //background-color: var(--range-background);
     }
 
     &::-moz-range-thumb {
-      height: var(--range-thumb-size);
-      width: var(--range-thumb-size);
-      background-color: var(--range-thumb);
-      border-radius: 50%;
+      height: var(--range-height);
+      width: var(--range-height);
       border: none;
       cursor: pointer;
+      transform: scale(1.5);
+      border-radius: 149px;
+      background: linear-gradient(145deg, #da0000, #b80000);
+      box-shadow: 3px 3px 5px var(--c-nm-shadow-light),
+        -3px -3px 5px var(--c-nm-shadow-dark);
     }
 
     &:disabled {

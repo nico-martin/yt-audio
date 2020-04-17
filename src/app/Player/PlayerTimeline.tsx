@@ -27,8 +27,8 @@ const PlayerTimeline = ({ player, time, className = '' }: Props) => {
 
   const sliderWidth = (100 / duration) * sliderTime;
   return (
-    <div className={className}>
-      <div className="player-timeline">
+    <div className={`${className} player-timeline`}>
+      <div className="player-timeline__timeline">
         <input
           type="range"
           min="0"
@@ -60,7 +60,7 @@ const PlayerTimeline = ({ player, time, className = '' }: Props) => {
           }}
         />
       </div>
-      <div className="flex justify-between text-xs mb-2 mt-2">
+      <div className="player-timeline__times">
         <span>{readableTime(sliderTime)}</span>
         <span>-{readableTime(duration - sliderTime)}</span>
       </div>

@@ -1,0 +1,36 @@
+.selectvideo {
+  margin: var(--spacing-page) auto 0 auto;
+  max-width: 90%;
+
+  &__label {
+    display: block;
+    //margin-bottom: var(--spacing-small); font-size: var(--fs-s);
+  }
+
+  &__row {
+    width: 100%;
+    display: flex;
+    align-items: center;
+  }
+
+  &__input {
+    background-color: var(--c-bkg-2);
+    border: none;
+    padding: 0.7em;
+    line-height: 1;
+    border-radius: 0.5em;
+    flex-grow: 1;
+    margin-right: var(--spacing);
+  }
+
+  &__submit {
+    height: 4rem;
+    width: 4rem;
+    @mixin shape-concave;
+    border-radius: 50%;
+  }
+
+  &__icon {
+    font-size: 1.5rem;
+  }
+}

@@ -21,33 +21,33 @@ const App = () => {
   return (
     <div className="app">
       <header className="app__header">
-        <div className="app__logo">
+        <Link href="/" className="app__logo" activeClassName="">
           <Logo title="YouTube Audio" />
-        </div>
+        </Link>
         <Navigation className="app__navigation" />
       </header>
-      {/*
+      <div className="app__content">
+        {/*
       <Link className="" href="/" activeClassName="">
         <Logo className="w-1/5 mx-auto" style={{ maxWidth: 80 }} />
         <p className="text-2xl font-bold text-center mb-8 mt-2">
           YouTube Audio
         </p>
       </Link>
-      <Router
-        onChange={({ url, previous }) => {
-          previous && matomoSetPage(url);
-          setCurrentUrl(url);
-        }}
-      >
-        <Route path="/legal/" component={Legal} />
-        <Route path="/privacy/" component={Privacy} />
-        <Route path="/about/" component={About} />
-        <Route default currentUrl={currentUrl} component={SelectVideo} />
-      </Router>
-      <Router>
-        <Route path="/play/:videoID" component={Audio} />
-      </Router>
       */}
+        <Router
+          onChange={({ url, previous }) => {
+            previous && matomoSetPage(url);
+            setCurrentUrl(url);
+          }}
+        >
+          <Route path="/legal/" component={Legal} />
+          <Route path="/privacy/" component={Privacy} />
+          <Route path="/about/" component={About} />
+          <Route path="/play/:videoID" component={Audio} />
+          <Route default currentUrl={currentUrl} component={SelectVideo} />
+        </Router>
+      </div>
     </div>
   );
 };

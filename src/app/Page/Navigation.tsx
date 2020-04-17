@@ -13,7 +13,7 @@ const Navigation = ({ className }: Props) => {
   const [open, setOpen] = useState(false);
 
   return (
-    <div className={`${className} navigation`}>
+    <nav className={`${className} navigation`}>
       <button
         className="navigation__toggle"
         aria-controls="main-navigation"
@@ -22,7 +22,7 @@ const Navigation = ({ className }: Props) => {
       >
         Toggle Navigation
       </button>
-      <nav
+      <div
         className="navigation__nav"
         id="main-navigation"
         aria-hidden={open ? 'false' : 'true'}
@@ -43,8 +43,8 @@ const Navigation = ({ className }: Props) => {
             {e}
           </Link>
         ))}
-      </nav>
-    </div>
+      </div>
+    </nav>
   );
 };
 

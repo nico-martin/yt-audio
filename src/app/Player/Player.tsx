@@ -6,15 +6,17 @@ import PlayerTimeline from './PlayerTimeline';
 import PlayerPlaybackSpeed from './PlayerPlaybackSpeed';
 import PlayerControls from './PlayerControls';
 import PlayerReplay from './PlayerReplay';
-import { bool, number } from 'prop-types';
+
+import './Player.css';
 
 interface Props {
   audio: Audio;
   passStartTime: Function;
   setError: Function;
+  className: string;
 }
 
-const Player = ({ audio, passStartTime, setError }: Props) => {
+const Player = ({ audio, passStartTime, setError, className }: Props) => {
   const [paused, setPaused] = useState(true);
   const [playbackRate, setPlaybackRate] = useState(1);
   const [time, setTime] = useState(0);
@@ -71,10 +73,10 @@ const Player = ({ audio, passStartTime, setError }: Props) => {
   }, [playerRef, interval]);
 
   return (
-    <Fragment>
+    <div className={`player ${className}`}>
       <audio
         controls={false}
-        className="w-full"
+        className="player__audio"
         ref={playerRef}
         onError={() => setError('There was an error playing the audio file')}
         onPause={() => setPaused(true)}
@@ -108,23 +110,26 @@ const Player = ({ audio, passStartTime, setError }: Props) => {
       </audio>
       {playerRef && playerRef.current !== null && (
         <Fragment>
-          <div className="flex w-full justify-around items-center mt-12">
+          <div className="player__controls">
             <PlayerPlaybackSpeed
               player={playerRef.current}
               speed={playbackRate}
-              className="text-xl"
+              className="player__speed"
             />
             <PlayerControls player={playerRef.current} paused={paused} />
-            <PlayerReplay player={playerRef.current} className="text-2xl" />
+            <PlayerReplay
+              player={playerRef.current}
+              className="player__replay"
+            />
           </div>
           <PlayerTimeline
             player={playerRef.current}
             time={time}
-            className="mt-6"
+            className="player__timeline"
           />
         </Fragment>
       )}
-    </Fragment>
+    </div>
   );
 };
 

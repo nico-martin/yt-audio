@@ -17,4 +17,8 @@
   &__navigation {
     margin-left: auto;
   }
+
+  &__content {
+    padding: 0 var(--spacing);
+  }
 }

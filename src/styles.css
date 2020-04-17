@@ -2,11 +2,13 @@
   --spacing: 1.4rem;
   --spacing-small: 0.7rem;
   --spacing-section: 2.5rem;
-  --spacing-page: 7vmin;
+  --spacing-page: 4rem;
   --transition-speed: 200ms;
 
-  --c-p: #1d1d1b;
+  --c-p: #696960;
+  --c-h: #1d1d1b;
   --c-bkg: #dbdbdb;
+  --c-bkg-2: #cecece;
 
   --c-nm-bkg: #dbdbdb;
   --c-nm-bkg-grad-start: #c5c5c5;
@@ -32,8 +34,10 @@
   --fs-xl: 2rem;
 
   @media (prefers-color-scheme: dark) {
-    --c-p: #f2f2f2;
+    --c-p: #e2e2e2;
+    --c-h: #f2f2f2;
     --c-bkg: #252525;
+    --c-bkg-light: #151515;
 
     --c-bkg-inverse: #dbdbdb;
 
