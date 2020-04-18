@@ -1,6 +1,6 @@
 :root {
   --range-background: #d4d4d4;
-  --range-height: 0.8rem;
+  --range-height: 0.6rem;
   --range-thumb: #c00;
   --range-thumb-disabled: #a3a3a3;
 }
@@ -15,10 +15,10 @@
 
   &__time {
     position: absolute;
-    left: 0.5rem;
+    left: 1px;
     top: 50%;
     transform: translateY(-50%);
-    height: 2px;
+    height: calc(100% - 2px);
     background-color: var(--range-thumb);
     width: 20%;
     display: block;
@@ -43,16 +43,22 @@
       height: var(--range-height);
       cursor: pointer;
       animate: 0.2s;
-      background-color: var(--range-background);
+      @mixin shape-pressed 0.1rem;
+      border-radius: 50px;
     }
 
     &::-webkit-slider-thumb {
+      position: relative;
       height: var(--range-height);
       width: var(--range-height);
-      background-color: var(--range-thumb);
-      border-radius: 50%;
-      border: none;
       cursor: pointer;
+      transform: scale(1.3);
+      border-radius: 50px;
+      border: 1px solid #cc0000;
+      background: linear-gradient(145deg, #d30000, #fa0000);
+      box-shadow: 3px 3px 5px var(--c-nm-shadow-light),
+        -3px -3px 5px var(--c-nm-shadow-dark);
+      z-index: 999;
       -webkit-appearance: none;
     }
 
@@ -63,38 +69,26 @@
       animate: 0.2s;
       @mixin shape-pressed 0.1rem;
       border-radius: 50px;
-      //margin: 0 -0.1rem 0 -0.1rem;
-
-      //background-color: var(--range-background);
     }
 
     &::-moz-range-thumb {
       height: var(--range-height);
       width: var(--range-height);
-      border: none;
       cursor: pointer;
-      transform: scale(1.5);
+      transform: scale(1.3);
       border-radius: 149px;
-      background: linear-gradient(145deg, #da0000, #b80000);
+      border: 1px solid #cc0000;
+      background: linear-gradient(145deg, #d30000, #fa0000);
       box-shadow: 3px 3px 5px var(--c-nm-shadow-light),
         -3px -3px 5px var(--c-nm-shadow-dark);
+      z-index: 999;
     }
+  }
 
-    &:disabled {
-      background-color: transparent;
-      cursor: wait;
-
-      &::-webkit-slider-thumb {
-        background-color: var(--range-thumb-disabled);
-      }
-
-      &::-moz-range-thumb {
-        background-color: var(--range-thumb-disabled);
-      }
-
-      & + .player-timeline__time {
-        background-color: var(--range-thumb-disabled);
-      }
-    }
+  &__times {
+    padding: 0.3em 0.4em;
+    display: flex;
+    justify-content: space-between;
+    font-size: var(--fs-s);
   }
 }

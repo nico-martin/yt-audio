@@ -14,6 +14,7 @@ import Logo from './app/global/Logo';
 import './App.css';
 
 import { matomoSetPage } from './app/vendor/matomo';
+import Icon from './app/global/Icon';
 
 const App = () => {
   const [currentUrl, setCurrentUrl] = useState<string>('');
@@ -21,9 +22,14 @@ const App = () => {
   return (
     <div className="app">
       <header className="app__header">
+        <Link href="/" className="app__back" activeClassName="">
+          <Icon icon="arrow" /> back
+        </Link>
+        {/*
         <Link href="/" className="app__logo" activeClassName="">
           <Logo title="YouTube Audio" />
         </Link>
+        */}
         <Navigation className="app__navigation" />
       </header>
       <div className="app__content">
@@ -39,6 +45,11 @@ const App = () => {
           onChange={({ url, previous }) => {
             previous && matomoSetPage(url);
             setCurrentUrl(url);
+            if (url === '/') {
+              document.body.classList.add('home');
+            } else {
+              document.body.classList.remove('home');
+            }
           }}
         >
           <Route path="/legal/" component={Legal} />

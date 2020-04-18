@@ -34,6 +34,7 @@
     align-items: center;
     border-radius: 50%;
     border: calc(0.5em / 4) solid #e2e2e2;
+    cursor: pointer;
   }
 
   &__stepback,

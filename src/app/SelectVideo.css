@@ -28,6 +28,7 @@
     width: 4rem;
     @mixin shape-concave;
     border-radius: 50%;
+    cursor: pointer;
   }
 
   &__icon {

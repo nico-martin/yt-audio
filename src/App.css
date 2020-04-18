@@ -1,4 +1,8 @@
 .app {
+  overflow-x: hidden;
+  max-width: 800px;
+  margin: 0 auto;
+
   &__header {
     display: flex;
     align-items: center;
@@ -10,6 +14,7 @@
       height: 2.5rem;
       display: block;
     }
+
     padding: 0.5rem;
     @mixin shape-concave 0.2rem;
   }
@@ -21,4 +26,15 @@
   &__content {
     padding: 0 var(--spacing);
   }
+
+  &__back {
+    text-decoration: none;
+    opacity: 1;
+    @mixin transition 200ms, opacity;
+    will-change: opacity;
+  }
+}
+
+body.home .app__back {
+  opacity: 0;
 }

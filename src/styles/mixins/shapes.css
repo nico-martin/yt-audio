@@ -70,7 +70,7 @@
 @define-mixin shape-inverse-pressed $size: 0.5em {
   border-radius: calc($size * 2);
   background: var(--c-nm-inverse-bkg);
-  box-shadow: inset $size $size calc($size * 2) var(--c-nm-inverse-shadow-light),
+  box-shadow: inset $size $size calc($size * 2) var(--c-nm-inverse-shadow-dark),
     inset calc($size * -1) calc($size * -1) calc($size * 2)
-      var(--c-nm-inverse-shadow-dark);
+      var(--c-nm-inverse-shadow-light);
 }

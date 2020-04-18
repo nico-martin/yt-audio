@@ -13,7 +13,7 @@ interface Props {
   audio: Audio;
   passStartTime: Function;
   setError: Function;
-  className: string;
+  className?: string;
 }
 
 const Player = ({ audio, passStartTime, setError, className }: Props) => {
