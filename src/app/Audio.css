@@ -24,7 +24,7 @@
 
   &__error-icon,
   &__loading-icon {
-    @mixin shape-concave 0.2em;
+    @mixin shape-concave;
     border-radius: 50%;
     border: calc(0.5em / 4) solid #e2e2e2;
     width: 4.5rem;

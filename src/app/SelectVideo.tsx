@@ -76,7 +76,7 @@ const SelectVideo = ({ currentUrl }: { currentUrl: string }) => {
         </form>
         {hasError && <span className="selectvideo__error">{error}</span>}
       </div>
-      {/*<Recent searchString={input} />*/}
+      <Recent searchString={input} />
     </Fragment>
   );
 };
