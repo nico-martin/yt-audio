@@ -7,6 +7,7 @@
     left: 0;
     right: 0;
     margin: 0 auto;
+    top: 19rem;
     max-width: calc(800px - var(--spacing) * 2);
     width: calc(100% - var(--spacing) * 2);
     @mixin shape-pressed;

@@ -77,7 +77,7 @@ const Audio = ({ videoID }: Props) => {
       return (
         <div className={className}>
           <Player
-            audio={{ ...audio, ...{ id: videoID } }}
+            source={{ ...audio, ...{ id: videoID } }}
             passStartTime={time => {
               startTime = time;
             }}

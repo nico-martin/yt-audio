@@ -45,8 +45,6 @@ const Recent = ({ searchString }: Props) => {
     return <p />;
   }
 
-  filteredVideos.map(video => console.log(video.images));
-
   return (
     <div className="recent">
       <h3 className="recent__title">recently listened</h3>

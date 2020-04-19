@@ -35,6 +35,13 @@
     border-radius: 50%;
     border: calc(0.5em / 4) solid #e2e2e2;
     cursor: pointer;
+
+    &:disabled {
+      pointer-events: none;
+      svg {
+        opacity: 0.7;
+      }
+    }
   }
 
   &__stepback,
@@ -48,5 +55,36 @@
     width: 4.5rem;
     height: 4.5rem;
     font-size: 2rem;
+    position: relative;
+
+    svg {
+      @mixin transition 100ms, opacity;
+      will-change: opacity;
+    }
+
+    &:after {
+      content: '';
+      display: block;
+      bottom: 0;
+      right: 0;
+      left: 0;
+      top: 0;
+      border: 2px solid var(--c-p);
+      border-top-color: transparent;
+      border-left-color: transparent;
+      box-sizing: border-box;
+      position: absolute;
+      border-radius: 50%;
+      animation: spinner 1000ms linear infinite;
+      @mixin transition 100ms, opacity;
+      will-change: opacity;
+      opacity: 0;
+    }
+
+    &:disabled {
+      &:after {
+        opacity: 0.7;
+      }
+    }
   }
 }
