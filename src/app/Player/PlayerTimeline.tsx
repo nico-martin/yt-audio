@@ -1,7 +1,7 @@
 import { h } from 'preact';
 import { useEffect, useState } from 'preact/hooks';
 import { readableTime } from '../vendor/helpers';
-import cn from 'classNames';
+import cn from 'classnames';
 import './PlayerTimeline.css';
 
 import { HTMLAudioState, HTMLAudioControls } from './hooks/useAudio';
