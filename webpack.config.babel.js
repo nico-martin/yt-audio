@@ -11,9 +11,7 @@ import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 //import FaviconsWebpackPlugin from 'favicons-webpack-plugin';
 import WebpackPwaManifest from 'webpack-pwa-manifest';
 import { GenerateSW } from 'workbox-webpack-plugin';
-import PurgecssPlugin from 'purgecss-webpack-plugin';
 import glob from 'glob-all';
-import tailwindcss from 'tailwindcss';
 import RobotstxtPlugin from 'robotstxt-webpack-plugin';
 import SitemapPlugin from 'sitemap-webpack-plugin';
 
@@ -33,7 +31,7 @@ module.exports = (env, argv) => {
 
   return {
     entry: {
-      app: `${dirSrc}/index.js`,
+      app: `${dirSrc}/index.ts`,
     },
     devServer: {
       contentBase: dirDist,
@@ -58,9 +56,6 @@ module.exports = (env, argv) => {
         chunkFilename: dev
           ? 'assets/[name].[id].css'
           : 'assets/[name].[id].[hash].css',
-      }),
-      new PurgecssPlugin({
-        paths: glob.sync([`${dirSrc}/**/*.jsx`, `${dirSrc}/index.html`]),
       }),
       new CopyWebpackPlugin([
         {
@@ -149,6 +144,11 @@ module.exports = (env, argv) => {
           loader: ['babel-loader', 'raw-loader'],
         },
         {
+          test: /\.(ts|tsx)$/,
+          loader: 'ts-loader',
+          exclude: /node_modules/,
+        },
+        {
           test: /\.(js|jsx)$/,
           loader: 'babel-loader',
           exclude: /node_modules/,
@@ -175,8 +175,10 @@ module.exports = (env, argv) => {
               loader: 'postcss-loader',
               options: {
                 plugins: () => [
+                  require('postcss-mixins')({
+                    mixinsDir: path.join(__dirname, 'src/styles/mixins'),
+                  }),
                   require('postcss-nested'),
-                  tailwindcss('./tailwind.config.js'),
                   require('autoprefixer'),
                 ],
               },
@@ -187,13 +189,11 @@ module.exports = (env, argv) => {
     },
     resolve: {
       alias: {
-        '@app': dirSrc + '/app',
-        '@assets': dirSrc + '/assets',
         react: 'preact/compat',
         'react-dom/test-utils': 'preact/test-utils',
         'react-dom': 'preact/compat',
       },
-      extensions: ['.js', '.jsx'],
+      extensions: ['.js', '.jsx', '.ts', '.tsx'],
     },
   };
 };

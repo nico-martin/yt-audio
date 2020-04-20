@@ -1,0 +1,35 @@
+html {
+  font-size: 100%;
+}
+
+body {
+  font-family: Affogato, sans-serif;
+  font-size: var(--fs);
+  line-height: 1.2;
+  color: var(--c-p);
+}
+
+a {
+  cursor: pointer;
+  color: var(--c-p);
+}
+
+button {
+  border: none;
+  background-color: transparent;
+  padding: 0;
+  cursor: pointer;
+  color: var(--c-p);
+}
+
+::selection {
+  color: var(--c-bkg);
+  background: var(--c-bkg-inverse);
+}
+
+h1,
+h2,
+h3,
+h4 {
+  color: var(--c-h);
+}

@@ -1,77 +1,47 @@
-@import 'styles/keyframes.css';
+:root {
+  --spacing: 1.4rem;
+  --spacing-small: 0.7rem;
+  --spacing-section: 2.5rem;
+  --spacing-page: 2.5rem;
+  --transition-speed: 200ms;
 
-@tailwind base;
+  --c-p: #696960;
+  --c-h: #1d1d1b;
+  --c-bkg: #dbdbdb;
+  --c-bkg-2: #cecece;
+  --c-border: #e2e2e2;
 
-@tailwind components;
+  --c-nm-bkg: #dbdbdb;
+  --c-nm-bkg-grad-start: #c5c5c5;
+  --c-nm-bkg-grad-end: #eaeaea;
+  --c-nm-shadow-light: #bababa;
+  --c-nm-shadow-dark: #fcfcfc;
 
-@tailwind utilities;
+  --c-primary: #c00;
 
-h1, h2, h3, h4, h5 {
-  @apply font-bold;
-}
+  --fs: 1rem;
+  --fs-s: 0.8rem;
+  --fs-xs: 0.6rem;
+  --fs-l: 1.2rem;
+  --fs-nav: 1.4rem;
+  --fs-xl: 2rem;
 
-h1 {
-  @apply text-3xl;
-}
+  @media (prefers-color-scheme: dark) {
+    --c-p: #adadad;
+    --c-h: #cbcbcb;
+    --c-bkg: #2f2f2f;
+    --c-bkg-2: #212121;
+    --c-border: #393939;
 
-h2 {
-  @apply text-2xl;
-}
-
-h3 {
-  @apply text-xl;
-}
-
-h4 {
-  @apply text-lg;
-}
-
-h5 {
-  @apply text-base;
-}
-
-p a {
-  @apply underline;
-}
-
-.c-close {
-  position: absolute;
-  right: .5em;
-  top: .5em;
-
-  &--fixed {
-    position: fixed;
-  }
-
-  &--relative {
-    position: relative;
-    right: auto;
-    top: auto;
-  }
-
-  display: block;
-  width: 1em;
-  height: 1em;
-  text-indent: -9999px;
-  overflow: hidden;
-  @apply rounded-full;
-
-  &:focus {
-    @apply shadow-outline;
-  }
-
-  &:after, &:before {
-    content: '';
-    width: 1px;
-    height: 100%;
-    background-color: currentColor;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translateX(-50%) translateY(-50%) rotate(45deg);
-  }
-
-  &:before {
-    transform: translateX(-50%) translateY(-50%) rotate(-45deg);
+    --c-nm-bkg: #2f2f2f;
+    --c-nm-bkg-grad-start: #2a2a2a;
+    --c-nm-bkg-grad-end: #323232;
+    --c-nm-shadow-light: #282828;
+    --c-nm-shadow-dark: #363636;
   }
 }
+
+@import 'styles/reset.css';
+@import 'styles/typography.css';
+@import 'styles/document.css';
+@import 'styles/keyframes/spinner.css';
