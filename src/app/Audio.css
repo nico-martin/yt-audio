@@ -16,6 +16,16 @@
     &-inner {
       padding: calc(var(--spacing) * 1.5);
     }
+
+    &-author {
+      margin-top: 1rem;
+    }
+
+    &-open {
+      margin: 1rem 0;
+      font-size: var(--fs-s);
+      text-decoration: underline;
+    }
   }
 
   &__error,

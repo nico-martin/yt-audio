@@ -85,14 +85,14 @@ const Audio = ({ videoID }: Props) => {
           />
           <div className="audio__about">
             <div className="audio__about-inner">
-              <p>
                 <h3>{audio.title}</h3>
+                {/*
                 <Close />
-              </p>
-              <p>
-                <span>{audio.author}</span>
+                */}
+              <p className="audio__about-author">{audio.author}
               </p>
               <button
+                className="audio__about-open"
                 onClick={() => {
                   window.open(
                     `https://www.youtube.com/watch?v=${videoID}&t=${Math.round(
