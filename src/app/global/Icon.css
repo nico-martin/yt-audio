@@ -1,8 +1,11 @@
 .icon {
-  @apply inline-block leading-none;
+  display: inline-block;
+  line-height: 1;
 
   svg {
-    @apply fill-current align-middle text-center;
+    text-align: center;
+    vertical-align: middle;
+    fill: currentColor;
     height: 1em;
     width: 1em;
   }
@@ -21,7 +24,7 @@
   }
 
   &--round {
-    @apply rounded-full;
+    border-radius: 9999px;
   }
 
   &--animation-spin {

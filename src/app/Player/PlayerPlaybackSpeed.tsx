@@ -1,35 +1,41 @@
-import { h } from 'preact';
+import { h, Fragment } from 'preact';
 import { useEffect, useState } from 'preact/hooks';
 import { settingsDB } from '../store';
 import Modal from '../global/Modal';
 import cn from 'classnames';
 
+import './PlayerPlaybackSpeed.css';
+
+import { HTMLAudioState, HTMLAudioControls } from './hooks/useAudio';
+
 interface Props {
-  player: HTMLAudioElement;
-  speed: number;
+  audioState: HTMLAudioState;
+  audioControls: HTMLAudioControls;
   className?: string;
 }
 
-const PlayerPlaybackSpeed = ({ player, speed, className = '' }: Props) => {
+const PlayerPlaybackSpeed = ({
+  audioState,
+  audioControls,
+  className = '',
+}: Props) => {
   const [modal, setModal] = useState(false);
-  useEffect(() => {
-    settingsDB
-      .get('playbackRate')
-      .then(rate => (player.playbackRate = Number(rate || speed)));
-  }, []);
 
   return (
-    <div className={className}>
-      <button onClick={() => setModal(true)} className="font-semibold">
-        {speed}x
+    <Fragment>
+      <button
+        className={`${className} player-playback-speed`}
+        onClick={() => setModal(true)}
+      >
+        {audioState.playbackRate}x
       </button>
       {modal && (
         <Modal
           title="Playback speed"
           onClose={() => setModal(false)}
-          width="xsmall"
+          width="small"
         >
-          <p className="border-t border-gray-400 mt-4">
+          <p className="player-playback-speed-modal">
             {[
               [0.8, 'Bärndütsch'],
               [1.0, 'Boring'],
@@ -39,16 +45,13 @@ const PlayerPlaybackSpeed = ({ player, speed, className = '' }: Props) => {
               [3.0, 'Out of this world'],
             ].map(([rate, text]: [number, string]) => (
               <button
-                className={cn(
-                  'w-full border-b border-gray-400 hover:bg-gray-100 py-2 px-1 text-left font-light',
-                  {
-                    'font-bold': rate === speed,
-                  }
-                )}
+                className={cn('player-playback-speed-modal__button', {
+                  'player-playback-speed-modal__button--active':
+                    rate === audioState.playbackRate,
+                })}
                 onClick={() => {
-                  settingsDB.set('playbackRate', rate);
                   setModal(false);
-                  player.playbackRate = rate;
+                  audioControls.setPlaybackRate(rate);
                 }}
               >
                 {text} ({rate}x)
@@ -57,7 +60,7 @@ const PlayerPlaybackSpeed = ({ player, speed, className = '' }: Props) => {
           </p>
         </Modal>
       )}
-    </div>
+    </Fragment>
   );
 };
 

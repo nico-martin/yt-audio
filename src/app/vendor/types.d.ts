@@ -23,6 +23,11 @@ export interface Video {
   description: string;
   date: Date;
   time: number;
+  images?: Array<{
+    url: string;
+    height: number;
+    width: number;
+  }>;
 }
 
 export interface PlayerTypes {

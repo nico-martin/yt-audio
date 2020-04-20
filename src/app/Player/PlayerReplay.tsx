@@ -2,13 +2,15 @@ import { h } from 'preact';
 import { useEffect, useState } from 'preact/hooks';
 import { settingsDB } from '../store';
 import Icon from './../global/Icon';
+import { HTMLAudioControls, HTMLAudioState } from './hooks/useAudio';
 
 interface Props {
-  player: HTMLAudioElement;
+  audioState: HTMLAudioState;
+  audioControls: HTMLAudioControls;
   className?: string;
 }
 
-const PlayerReplay = ({ player, className = '' }: Props) => {
+const PlayerReplay = ({ audioState, audioControls, className = '' }: Props) => {
   const states = ['none', 'one', 'all'];
   const [replayState, setReplayState] = useState(0);
 
@@ -20,15 +22,16 @@ const PlayerReplay = ({ player, className = '' }: Props) => {
 
   useEffect(() => {
     settingsDB.set('replay', replayState);
-    player.onended = () => {
-      if (replayState !== 0) {
-        player.currentTime = 0;
-        player.play();
-      }
-      if (replayState === 1) {
-        setReplayState(0);
-      }
-    };
+
+    if (replayState !== 0) {
+      audioControls.setEndedCallback(() => {
+        audioControls.seek(0);
+        audioControls.play();
+        if (replayState === 1) {
+          setReplayState(0);
+        }
+      });
+    }
   }, [replayState]);
 
   return (

@@ -1,31 +1,32 @@
-import { h, Fragment } from 'preact';
+import { h } from 'preact';
+import './Page.css';
 
 const Legal = () => {
   return (
-    <Fragment>
-      <h1>Legal</h1>
-      <div className="mt-8">
+    <div className="page">
+      <h1 className="page__header">Legal</h1>
+      <div className="page__content">
         <p>Responsible for the content of this website:</p>
-        <p className="mt-2">Nico Martin</p>
-        <p className="mt-2">
+        <p>Nico Martin</p>
+        <p>
           Say Hello GmbH
           <br />
           Thunstrasse 4
           <br />
           3700 Spiez
         </p>
-        <p className="mt-2">
+        <p>
           <a href="mailto:nico@sayhello.ch">nico@sayhello.ch</a>
         </p>
-        <h2 className="mt-4">Disclaimer</h2>
-        <p className="mt-2">
+        <h2>Disclaimer</h2>
+        <p>
           The texts and contents of this site were created with great care.
           Nevertheless, I cannot give any guarantee with regard to the
           correctness, accuracy, up-to-dateness, reliability and completeness of
           the information.
         </p>
       </div>
-    </Fragment>
+    </div>
   );
 };
 

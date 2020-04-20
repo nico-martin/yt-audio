@@ -1,0 +1,19 @@
+.page {
+  margin-top: var(--spacing-page);
+
+  &__content {
+    margin-top: var(--spacing);
+
+    & > * + * {
+      margin-top: var(--spacing-small);
+    }
+
+    & > * + h2 {
+      margin-top: var(--spacing);
+    }
+
+    a {
+      //color: var(--c-primary);
+    }
+  }
+}

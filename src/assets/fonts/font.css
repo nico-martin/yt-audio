@@ -1,0 +1,59 @@
+@font-face {
+  font-family: 'Affogato';
+  src: url('Affogato-Black.eot');
+  src: url('Affogato-Black.eot?#iefix') format('embedded-opentype'),
+    url('Affogato-Black.woff') format('woff'),
+    url('Affogato-Black.woff2') format('woff2'),
+    url('Affogato-Black.ttf') format('truetype'),
+    url('Affogato-Black.svg') format('svg');
+  font-weight: 900;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Affogato';
+  src: url('Affogato-Bold.eot');
+  src: url('Affogato-Bold.eot?#iefix') format('embedded-opentype'),
+    url('Affogato-Bold.woff') format('woff'),
+    url('Affogato-Bold.woff2') format('woff2'),
+    url('Affogato-Bold.ttf') format('truetype'),
+    url('Affogato-Bold.svg') format('svg');
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Affogato';
+  src: url('Affogato-Medium.eot');
+  src: url('Affogato-Medium.eot?#iefix') format('embedded-opentype'),
+    url('Affogato-Medium.woff') format('woff'),
+    url('Affogato-Medium.woff2') format('woff2'),
+    url('Affogato-Medium.ttf') format('truetype'),
+    url('Affogato-Medium.svg') format('svg');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Affogato';
+  src: url('Affogato-Regular.eot');
+  src: url('Affogato-Regular.eot?#iefix') format('embedded-opentype'),
+    url('Affogato-Regular.woff') format('woff'),
+    url('Affogato-Regular.woff2') format('woff2'),
+    url('Affogato-Regular.ttf') format('truetype'),
+    url('Affogato-Regular.svg') format('svg');
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Affogato';
+  src: url('Affogato-Light.eot');
+  src: url('Affogato-Light.eot?#iefix') format('embedded-opentype'),
+    url('Affogato-Light.woff') format('woff'),
+    url('Affogato-Light.woff2') format('woff2'),
+    url('Affogato-Light.ttf') format('truetype'),
+    url('Affogato-Light.svg') format('svg');
+  font-weight: 100;
+  font-style: normal;
+}

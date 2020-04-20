@@ -1,68 +1,67 @@
 import { h } from 'preact';
 import { useEffect, useState } from 'preact/hooks';
 import { readableTime } from '../vendor/helpers';
+import cn from 'classNames';
 import './PlayerTimeline.css';
 
+import { HTMLAudioState, HTMLAudioControls } from './hooks/useAudio';
+
 interface Props {
-  player: HTMLAudioElement;
-  time: number;
+  audioState: HTMLAudioState;
+  audioControls: HTMLAudioControls;
   className?: string;
 }
 
-const PlayerTimeline = ({ player, time, className = '' }: Props) => {
+const PlayerTimeline = ({
+  audioState,
+  audioControls,
+  className = '',
+}: Props) => {
   const [playingBefore, setPlayingBefore] = useState(false);
-  const [duration, setDuration] = useState(0);
   const [sliderTime, setSliderTime] = useState(0);
-  const [buffer, setBuffer] = useState(false);
 
   useEffect(() => {
-    player.oncanplay = () => setDuration(Math.ceil(player.duration));
-    player.onwaiting = () => setBuffer(true);
-    player.onplaying = () => setBuffer(false);
-  }, [player]);
+    setSliderTime(audioState.time);
+  }, [audioState.time]);
 
-  useEffect(() => {
-    setSliderTime(time);
-  }, [time]);
-
-  const sliderWidth = (100 / duration) * sliderTime;
+  const sliderWidth = (100 / audioState.duration) * sliderTime;
   return (
-    <div className={className}>
-      <div className="player-timeline">
+    <div className={`${className} player-timeline`}>
+      <div className="player-timeline__timeline">
         <input
           type="range"
           min="0"
-          max={duration}
+          max={audioState.duration}
           value={sliderTime}
           step="1"
-          disabled={buffer}
+          disabled={audioState.waiting}
           onMouseDown={() => {
-            setPlayingBefore(!player.paused);
-            player.pause();
+            setPlayingBefore(!audioState.paused);
+            audioControls.pause();
           }}
           onMouseUp={() => {
-            playingBefore && player.play();
+            playingBefore && audioControls.play();
             setPlayingBefore(false);
           }}
           onChange={e =>
-            (player.currentTime = parseInt(
-              (e.target as HTMLInputElement).value
-            ))
+            audioControls.seek(parseInt((e.target as HTMLInputElement).value))
           }
-          onInput={e =>
-            setSliderTime(parseInt((e.target as HTMLInputElement).value))
-          }
+          onInput={e => {
+            setSliderTime(parseInt((e.target as HTMLInputElement).value));
+          }}
         />
         <span
-          className="player-timeline__time"
+          className={cn('player-timeline__time', {
+            'player-timeline__time--disabled': audioState.waiting,
+          })}
           style={{
             width: (isNaN(sliderWidth) ? 0 : sliderWidth) + '%',
           }}
         />
       </div>
-      <div className="flex justify-between text-xs mb-2 mt-2">
-        <span>{readableTime(sliderTime)}</span>
-        <span>-{readableTime(duration - sliderTime)}</span>
+      <div className="player-timeline__times">
+        <span>{readableTime(audioState.time)}</span>
+        <span>-{readableTime(audioState.duration - audioState.time)}</span>
       </div>
     </div>
   );

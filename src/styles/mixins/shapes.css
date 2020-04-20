@@ -1,0 +1,36 @@
+@define-mixin shape-flat $size: 0.5em {
+  border-radius: calc($size * 2);
+  background: var(--c-nm-bkg);
+  box-shadow: $size $size calc($size * 2) var(--c-nm-shadow-light),
+    calc($size * -1) calc($size * -1) calc($size * 2) var(--c-nm-shadow-dark);
+}
+
+@define-mixin shape-concave $size: 0.5em {
+  border-radius: calc($size * 2);
+  background: linear-gradient(
+    145deg,
+    var(--c-nm-bkg-grad-start),
+    var(--c-nm-bkg-grad-end)
+  );
+  box-shadow: $size $size calc($size * 2) var(--c-nm-shadow-light),
+    calc($size * -1) calc($size * -1) calc($size * 2) var(--c-nm-shadow-dark);
+}
+
+@define-mixin shape-convex $size: 0.5em {
+  border-radius: calc($size * 2);
+  background: linear-gradient(
+    145deg,
+    var(--c-nm-bkg-grad-end),
+    var(--c-nm-bkg-grad-start)
+  );
+  box-shadow: $size $size calc($size * 2) var(--c-nm-shadow-light),
+    calc($size * -1) calc($size * -1) calc($size * 2) var(--c-nm-shadow-dark);
+}
+
+@define-mixin shape-pressed $size: 0.5em {
+  border-radius: calc($size * 2);
+  background: var(--c-nm-bkg);
+  box-shadow: inset $size $size calc($size * 2) var(--c-nm-shadow-light),
+    inset calc($size * -1) calc($size * -1) calc($size * 2)
+      var(--c-nm-shadow-dark);
+}

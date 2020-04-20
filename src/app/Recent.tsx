@@ -3,6 +3,7 @@ import { useEffect, useState } from 'preact/hooks';
 import { videosDB } from './store';
 import { Link } from 'preact-router/match';
 import { Video } from './vendor/types';
+import './Recent.css';
 
 interface Props {
   searchString: string;
@@ -45,39 +46,45 @@ const Recent = ({ searchString }: Props) => {
   }
 
   return (
-    <p className="text-left mt-8">
-      <h3 className="text-sm">recently listened</h3>
-      <div className="mt-4">
-        <ul className="border-b border-gray-400">
-          {filteredVideos.map(video => (
-            <li className="relative">
-              <Link
-                href={`/play/${video.id}/`}
-                className="py-2 block text-left w-full border-t border-gray-400 no-underline hover:bg-gray-200"
-                activeClassName=""
-              >
-                <b className="block leading-tight text-sm text-gray-800 font-semibold">
-                  {video.title}
-                </b>
-                <span className="block text-xs italic mt-1">
-                  {video.author}
-                </span>
-              </Link>
-              <button
-                className="c-close text-gray-400 hover:text-black text-xs"
-                onClick={() => {
-                  if (confirm('Do you want to remove this video?')) {
-                    removeVideo(video.id);
-                  }
-                }}
-              >
-                remove
-              </button>
-            </li>
-          ))}
-        </ul>
-      </div>
-    </p>
+    <div className="recent">
+      <h3 className="recent__title">recently listened</h3>
+      <ul className="recent__list">
+        {filteredVideos.map(video => (
+          <li className="recent__element recent-element">
+            <Link
+              href={`/play/${video.id}/`}
+              className="recent-element__link"
+              activeClassName=""
+            >
+              {video.images[video.images.length - 1].url && (
+                <div className="recent-element__image">
+                  <img
+                    src={video.images[video.images.length - 1].url}
+                    width={video.images[video.images.length - 1].width}
+                    height={video.images[video.images.length - 1].height}
+                    alt={`Thumbnail for ${video.title} by ${video.author}`}
+                  />
+                </div>
+              )}
+              <div className="recent-element__about">
+                <h4 className="recent-element__title">{video.title}</h4>
+                <span className="recent-element__author">{video.author}</span>
+              </div>
+            </Link>
+            <button
+              className="recent-element__remove"
+              onClick={() => {
+                if (confirm('Do you want to remove this video?')) {
+                  removeVideo(video.id);
+                }
+              }}
+            >
+              remove
+            </button>
+          </li>
+        ))}
+      </ul>
+    </div>
   );
 };
 

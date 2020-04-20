@@ -11,17 +11,9 @@ import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 //import FaviconsWebpackPlugin from 'favicons-webpack-plugin';
 import WebpackPwaManifest from 'webpack-pwa-manifest';
 import { GenerateSW } from 'workbox-webpack-plugin';
-import PurgecssPlugin from 'purgecss-webpack-plugin';
 import glob from 'glob-all';
-import tailwindcss from 'tailwindcss';
 import RobotstxtPlugin from 'robotstxt-webpack-plugin';
 import SitemapPlugin from 'sitemap-webpack-plugin';
-
-class TailwindExtractor {
-  static extract(content) {
-    return content.match(/[A-Za-z0-9-_:\/]+/g) || [];
-  }
-}
 
 module.exports = (env, argv) => {
   const dirDist = path.resolve(__dirname, 'dist');
@@ -65,19 +57,6 @@ module.exports = (env, argv) => {
           ? 'assets/[name].[id].css'
           : 'assets/[name].[id].[hash].css',
       }),
-      ...(dev
-        ? []
-        : [
-          new PurgecssPlugin({
-            paths: glob.sync([`${dirSrc}/**/*.jsx`,`${dirSrc}/**/*.tsx`, `${dirSrc}/index.html`]),
-            extractors: [
-              {
-                extractor: TailwindExtractor,
-                extensions: ['html', 'js', 'jsx', 'ts', 'tsx'],
-              },
-            ],
-          }),
-        ]),
       new CopyWebpackPlugin([
         {
           from: 'src/static',
@@ -196,8 +175,10 @@ module.exports = (env, argv) => {
               loader: 'postcss-loader',
               options: {
                 plugins: () => [
+                  require('postcss-mixins')({
+                    mixinsDir: path.join(__dirname, 'src/styles/mixins'),
+                  }),
                   require('postcss-nested'),
-                  tailwindcss('./tailwind.config.js'),
                   require('autoprefixer'),
                 ],
               },

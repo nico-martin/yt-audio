@@ -22,6 +22,7 @@ export const nl2br = (str: string) => {
 };
 
 export const readableTime = seconds => {
+  seconds = Math.floor(seconds);
   const hours = Math.floor(seconds / (60 * 60));
   seconds -= hours * 60 * 60;
   const minutes = Math.floor(seconds / 60);
