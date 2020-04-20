@@ -1,0 +1,30 @@
+name: Deploy
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@master
+      - uses: actions/setup-node@v1
+        with:
+          node-version: '10.x'
+      - name: Project setup
+        run: yarn install
+      - name: Compile for production
+        run: yarn prod
+      - name: Upload ftp
+        uses: SamKirkland/FTP-Deploy-Action@3.0.0
+        with:
+          local-dir: dist/
+          ftp-server: ftp://s019.cyon.net
+          ftp-username: ${{ secrets.FTP_USER }}
+          ftp-password: ${{ secrets.FTP_PASSWORD }}

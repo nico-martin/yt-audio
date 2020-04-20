@@ -1,0 +1,31 @@
+.player-playback-speed {
+  font-size: var(--fs-s);
+}
+
+.player-playback-speed-modal {
+  &__button {
+    & + .player-playback-speed-modal__button {
+      margin-top: 1rem;
+    }
+
+    display: block;
+    width: 100%;
+    text-align: left;
+    padding: 0.7rem 1rem;
+    cursor: pointer;
+    @mixin shape-flat 0.3rem;
+    @mixin transition 100ms, transform;
+    will-change: transform;
+
+    &:hover {
+      transform: scale(1.05);
+    }
+
+    &--active {
+      @mixin shape-pressed 0.3rem;
+      &:hover {
+        transform: scale(1);
+      }
+    }
+  }
+}
