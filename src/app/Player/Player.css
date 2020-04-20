@@ -33,8 +33,9 @@
     justify-content: center;
     align-items: center;
     border-radius: 50%;
-    border: calc(0.5em / 4) solid #e2e2e2;
+    border: calc(0.5em / 4) solid var(--c-border);
     cursor: pointer;
+    color: var(--c-p);
 
     &:disabled {
       pointer-events: none;

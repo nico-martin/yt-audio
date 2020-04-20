@@ -9,23 +9,13 @@
   --c-h: #1d1d1b;
   --c-bkg: #dbdbdb;
   --c-bkg-2: #cecece;
-
-  --c-inverse-p: #dcdcdc;
-  --c-inverse-h: #f2f2f2;
-  --c-inverse-bkg: #252525;
-  --c-inverse-bkg-2: #151515;
+  --c-border: #e2e2e2;
 
   --c-nm-bkg: #dbdbdb;
   --c-nm-bkg-grad-start: #c5c5c5;
   --c-nm-bkg-grad-end: #eaeaea;
   --c-nm-shadow-light: #bababa;
   --c-nm-shadow-dark: #fcfcfc;
-
-  --c-nm-inverse-bkg: #353535;
-  --c-nm-inverse-bkg-grad-start: #393939;
-  --c-nm-inverse-bkg-grad-end: #303030;
-  --c-nm-inverse-shadow-light: #2d2d2d;
-  --c-nm-inverse-shadow-dark: #1f1f1f;
 
   --c-primary: #c00;
 
@@ -37,27 +27,17 @@
   --fs-xl: 2rem;
 
   @media (prefers-color-scheme: dark) {
-    --c-p: #dcdcdc;
-    --c-h: #f2f2f2;
-    --c-bkg: #252525;
-    --c-bkg-2: #151515;
+    --c-p: #adadad;
+    --c-h: #cbcbcb;
+    --c-bkg: #2f2f2f;
+    --c-bkg-2: #212121;
+    --c-border: #393939;
 
-    --c-inverse-p: #696960;
-    --c-inverse-h: #1d1d1b;
-    --c-inverse-bkg: #dbdbdb;
-    --c-inverse-bkg-2: #cecece;
-
-    --c-nm-bkg: #353535;
-    --c-nm-bkg-grad-start: #393939;
-    --c-nm-bkg-grad-end: #303030;
-    --c-nm-shadow-light: #2d2d2d;
-    --c-nm-shadow-dark: #3d3d3d;
-
-    --c-nm-inverse-bkg: #dbdbdb;
-    --c-nm-inverse-bkg-grad-start: #eaeaea;
-    --c-nm-inverse-bkg-grad-end: #c5c5c5;
-    --c-nm-inverse-shadow-light: #bababa;
-    --c-nm-inverse-shadow-dark: #fcfcfc;
+    --c-nm-bkg: #2f2f2f;
+    --c-nm-bkg-grad-start: #2a2a2a;
+    --c-nm-bkg-grad-end: #323232;
+    --c-nm-shadow-light: #282828;
+    --c-nm-shadow-dark: #363636;
   }
 }
 

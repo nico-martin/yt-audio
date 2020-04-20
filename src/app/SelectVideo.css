@@ -19,6 +19,7 @@
     border-radius: 0.5em;
     flex-grow: 1;
     margin-right: var(--spacing);
+    color: var(--c-p);
   }
 
   &__submit {
@@ -27,6 +28,12 @@
     @mixin shape-concave;
     border-radius: 50%;
     cursor: pointer;
+    color: var(--c-p);
+    &:disabled {
+      .selectvideo__icon {
+        opacity: 0.5;
+      }
+    }
   }
 
   &__icon {
