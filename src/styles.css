@@ -41,6 +41,12 @@
   }
 }
 
+body.no-outline {
+  a, button, .o-helloform__element--type-checkbox .o-helloform__input:focus + label:after, .o-helloform__input:focus {
+    outline: none;
+  }
+}
+
 @import 'styles/reset.css';
 @import 'styles/typography.css';
 @import 'styles/document.css';

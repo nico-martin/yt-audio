@@ -28,7 +28,7 @@
 
   &__image {
     width: 25%;
-    flex: 25% 1 0;
+    flex: 25% 0 0;
     margin-right: calc(var(--spacing) * 0.7);
     @mixin shape-pressed 0.2em;
     padding: 0.6em;
