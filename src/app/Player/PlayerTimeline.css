@@ -62,7 +62,7 @@
       background: linear-gradient(145deg, #d30000, #fa0000);
       box-shadow: 3px 3px 5px var(--c-nm-shadow-light),
         -3px -3px 5px var(--c-nm-shadow-dark);
-      z-index: 999;
+      z-index: 100;
       -webkit-appearance: none;
     }
 
@@ -85,7 +85,7 @@
       background: linear-gradient(145deg, #d30000, #fa0000);
       box-shadow: 3px 3px 5px var(--c-nm-shadow-light),
         -3px -3px 5px var(--c-nm-shadow-dark);
-      z-index: 999;
+      z-index: 100;
     }
   }
 

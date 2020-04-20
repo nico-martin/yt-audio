@@ -1,8 +1,10 @@
-import { h } from 'preact';
+import { h, Fragment } from 'preact';
 import { useEffect, useState } from 'preact/hooks';
 import { settingsDB } from '../store';
 import Modal from '../global/Modal';
 import cn from 'classnames';
+
+import './PlayerPlaybackSpeed.css';
 
 import { HTMLAudioState, HTMLAudioControls } from './hooks/useAudio';
 
@@ -20,15 +22,20 @@ const PlayerPlaybackSpeed = ({
   const [modal, setModal] = useState(false);
 
   return (
-    <div className={className}>
-      <button onClick={() => setModal(true)}>{audioState.playbackRate}x</button>
+    <Fragment>
+      <button
+        className={`${className} player-playback-speed`}
+        onClick={() => setModal(true)}
+      >
+        {audioState.playbackRate}x
+      </button>
       {modal && (
         <Modal
           title="Playback speed"
           onClose={() => setModal(false)}
-          width="xsmall"
+          width="small"
         >
-          <p>
+          <p className="player-playback-speed-modal">
             {[
               [0.8, 'Bärndütsch'],
               [1.0, 'Boring'],
@@ -38,8 +45,9 @@ const PlayerPlaybackSpeed = ({
               [3.0, 'Out of this world'],
             ].map(([rate, text]: [number, string]) => (
               <button
-                className={cn({
-                  'font-bold': rate === audioState.playbackRate,
+                className={cn('player-playback-speed-modal__button', {
+                  'player-playback-speed-modal__button--active':
+                    rate === audioState.playbackRate,
                 })}
                 onClick={() => {
                   setModal(false);
@@ -52,7 +60,7 @@ const PlayerPlaybackSpeed = ({
           </p>
         </Modal>
       )}
-    </div>
+    </Fragment>
   );
 };
 
