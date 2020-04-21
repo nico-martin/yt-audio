@@ -20,7 +20,9 @@ interface Props {
 }
 
 const Player = ({ source, passStartTime, setError, className }: Props) => {
-  const audio = useAudio({ src: source.url });
+  const audio = useAudio({
+    src: `https://yt-source.nico.dev/play/${encodeURIComponent(source.url)}`,
+  });
   useMediaSession({
     element: audio.element,
     mediaMetadata: {
