@@ -12,6 +12,10 @@ interface HTMLAudioProps {
   autoPlay?: boolean;
   startsAt?: number;
   startPlaybackRate?: number;
+  formats?: Array<{
+    mimeType: string;
+    src: string;
+  }>;
 }
 
 export interface HTMLAudioState {
@@ -35,6 +39,8 @@ export interface HTMLAudioControls {
   setEndedCallback: (callback: Function) => void;
 }
 
+export const states = {};
+
 const parseTimeRange = ranges =>
   ranges.length < 1
     ? {
@@ -51,6 +57,7 @@ export default ({
   autoPlay = false,
   startsAt = 0,
   startPlaybackRate = 1,
+  formats = [],
 }: HTMLAudioProps) => {
   const [state, setOrgState] = useState<HTMLAudioState>({
     buffered: {
@@ -68,42 +75,53 @@ export default ({
     setOrgState({ ...state, ...partState });
   const ref = useRef<HTMLAudioElement | null>(null);
 
-  const element = h('audio', {
-    src,
-    controls: false,
-    ref,
-    onPlay: () => setState({ paused: false }),
-    onPause: () => setState({ paused: true }),
-    onWaiting: () => setState({ waiting: true }),
-    onPlaying: () => setState({ waiting: false }),
-    onEnded: state.endedCallback,
-    onDurationChange: () => {
-      const el = ref.current;
-      if (!el) {
-        return;
-      }
-      const { duration, buffered } = el;
-      setState({
-        duration,
-        buffered: parseTimeRange(buffered),
-      });
-    },
-    onTimeUpdate: () => {
-      const el = ref.current;
-      if (!el) {
-        return;
-      }
-      setState({ time: el.currentTime });
-    },
-    onProgress: () => {
-      const el = ref.current;
-      if (!el) {
-        return;
-      }
+  const element = h(
+    'audio',
+    {
+      src,
+      controls: false,
+      ref,
+      onPlay: () => setState({ paused: false }),
+      onPause: () => setState({ paused: true }),
+      onWaiting: () => setState({ waiting: true }),
+      onPlaying: () => setState({ waiting: false }),
+      onEnded: state.endedCallback,
+      onDurationChange: () => {
+        const el = ref.current;
+        if (!el) {
+          return;
+        }
+        const { duration, buffered } = el;
+        setState({
+          duration,
+          buffered: parseTimeRange(buffered),
+        });
+      },
+      onTimeUpdate: () => {
+        const el = ref.current;
+        if (!el) {
+          return;
+        }
+        setState({ time: el.currentTime });
+      },
+      onProgress: () => {
+        const el = ref.current;
+        if (!el) {
+          return;
+        }
 
-      setState({ buffered: parseTimeRange(el.buffered) });
-    },
-  } as any);
+        setState({ buffered: parseTimeRange(el.buffered) });
+      },
+    } as any,
+    formats.map(({ mimeType, src }) => [
+      h('source', {
+        mime: mimeType,
+        src,
+        // Todo: Set Error!?!
+        onError: () => setError('There was an error loading the audio file'),
+      }),
+    ])
+  );
 
   // Some browsers return `Promise` on `.play()` and may throw errors
   // if one tries to execute another `.play()` or `.pause()` while that
