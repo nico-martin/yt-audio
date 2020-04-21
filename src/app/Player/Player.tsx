@@ -60,7 +60,7 @@ const Player = ({ source, setError, className }: Props) => {
     videosDB.get(source.id).then(v => setStartTime(v.time));
     settingsDB
       .get('playbackRate')
-      .then(rate => audio.controls.setPlaybackRate(Number(rate)));
+      .then(rate => audio.controls.setPlaybackRate(rate ? Number(rate) : 1));
   }, [source.id]);
 
   useEffect(() => {

@@ -18,7 +18,7 @@ const PlayerReplay = ({ audioState, audioControls, className = '' }: Props) => {
   useEffect(() => {
     if (audioState.duration !== 0 && !init) {
       settingsDB.get('replay').then(v => {
-        setReplayState(Number(v));
+        setReplayState(v ? Number(v) : 0);
       });
       setInit(true);
     }
