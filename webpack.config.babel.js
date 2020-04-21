@@ -86,7 +86,7 @@ module.exports = (env, argv) => {
         description: app.description,
         theme_color: app.color,
         background_color: app.colorbkg,
-        display: 'fullscreen',
+        display: 'standalone',
         crossorigin: 'use-credentials',
         icons: [
           {
