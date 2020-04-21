@@ -13,16 +13,21 @@ interface Props {
 const PlayerReplay = ({ audioState, audioControls, className = '' }: Props) => {
   const states = ['none', 'one', 'all'];
   const [replayState, setReplayState] = useState(0);
+  const [init, setInit] = useState<boolean>(false);
 
   useEffect(() => {
-    settingsDB.get('replay').then(v => {
-      setReplayState(Number(v));
-    });
-  }, []);
+    if (audioState.duration !== 0 && !init) {
+      settingsDB.get('replay').then(v => {
+        setReplayState(Number(v));
+      });
+      setInit(true);
+    }
+  }, [audioState.duration]);
 
   useEffect(() => {
-    settingsDB.set('replay', replayState);
-
+    if (init) {
+      settingsDB.set('replay', replayState);
+    }
     if (replayState !== 0) {
       audioControls.setEndedCallback(() => {
         audioControls.seek(0);

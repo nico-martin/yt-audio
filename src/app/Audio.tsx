@@ -25,7 +25,6 @@ let startTime = 0;
 const Audio = ({ videoID }: Props) => {
   const [error, setError] = useState<string>('');
   const [audio, setAudio] = useState<Audio>(initAudio);
-  const [start, setStart] = useState<number>(0);
 
   useEffect(() => {
     setError('');
@@ -53,22 +52,20 @@ const Audio = ({ videoID }: Props) => {
     };
   }, [videoID]);
 
-  const Close = () => (
-    <Link
-      href="/"
-      className="c-close c-close--relative text-gray-600 hover:text-black mt-1 ml-auto text-lg z-40"
-      activeClassName=""
-    >
-      close
-    </Link>
-  );
-
   const Content = ({ className }: { className: string }) => {
     if (error !== '') {
       return (
         <div className={`${className} audio__error`}>
           <Icon icon="warning" className="audio__error-icon" />
-          <p className="audio__error-text">{error}</p>
+          <p className="audio__error-text">
+            {error}{' '}
+            <button
+              className="audio__error-reload"
+              onClick={() => window.location.reload(true)}
+            >
+              (reload)
+            </button>
+          </p>
         </div>
       );
     }
@@ -78,19 +75,12 @@ const Audio = ({ videoID }: Props) => {
         <div className={className}>
           <Player
             source={{ ...audio, ...{ id: videoID } }}
-            passStartTime={time => {
-              startTime = time;
-            }}
             setError={setError}
           />
           <div className="audio__about">
             <div className="audio__about-inner">
-                <h3>{audio.title}</h3>
-                {/*
-                <Close />
-                */}
-              <p className="audio__about-author">{audio.author}
-              </p>
+              <h3>{audio.title}</h3>
+              <p className="audio__about-author">{audio.author}</p>
               <button
                 className="audio__about-open"
                 onClick={() => {
@@ -102,17 +92,19 @@ const Audio = ({ videoID }: Props) => {
                   );
                 }}
               >
+                <Icon icon="youtube" className="audio__about-open-icon" />
                 open video
               </button>
               {audio.description && (
-                <div>
-                  <p
-                    dangerouslySetInnerHTML={{
-                      __html: nl2br(audio.description),
-                    }}
-                  />
-                </div>
+                <p
+                  dangerouslySetInnerHTML={{
+                    __html: nl2br(audio.description),
+                  }}
+                />
               )}
+              <Link href="/" className="audio__about-close" activeClassName="">
+                <Icon icon="arrow" className="audio__about-close-icon" /> back
+              </Link>
             </div>
           </div>
         </div>

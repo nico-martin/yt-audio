@@ -14,15 +14,26 @@ import './Player.css';
 
 interface Props {
   source: Audio;
-  passStartTime: Function;
   setError: Function;
   className?: string;
 }
 
-const Player = ({ source, passStartTime, setError, className }: Props) => {
+const Player = ({ source, setError, className }: Props) => {
+  const [startTime, setStartTime] = useState<number>(0);
+
   const audio = useAudio({
     src: `https://yt-source.nico.dev/play/${encodeURIComponent(source.url)}`,
+    setError,
+    formats: Object.keys(source.formats).map(mimeType => {
+      return {
+        mimeType,
+        src: `https://yt-source.nico.dev/play/${encodeURIComponent(
+          source.formats[mimeType]
+        )}`,
+      };
+    }),
   });
+
   useMediaSession({
     element: audio.element,
     mediaMetadata: {
@@ -44,6 +55,28 @@ const Player = ({ source, passStartTime, setError, className }: Props) => {
       seekforward: () => audio.controls.seek(audio.state.time + 30),
     },
   });
+
+  useEffect(() => {
+    videosDB.get(source.id).then(v => setStartTime(v.time));
+    settingsDB
+      .get('playbackRate')
+      .then(rate => audio.controls.setPlaybackRate(Number(rate)));
+  }, [source.id]);
+
+  useEffect(() => {
+    if (startTime !== 0 && audio.state.duration !== 0) {
+      audio.controls.seek(startTime >= 5 ? startTime - 5 : startTime);
+    }
+  }, [startTime, audio.state.duration]);
+
+  useEffect(
+    () => () => {
+      videosDB.updateObject(source.id, {
+        time: audio.state.time,
+      });
+    },
+    [audio.state.time]
+  );
 
   return (
     <div className={`player ${className}`}>

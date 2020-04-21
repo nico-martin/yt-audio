@@ -24,7 +24,7 @@ button {
 
 ::selection {
   color: var(--c-bkg);
-  background: var(--c-bkg-inverse);
+  background: var(--c-p);
 }
 
 h1,
