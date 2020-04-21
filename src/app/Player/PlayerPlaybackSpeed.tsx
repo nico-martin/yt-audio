@@ -52,6 +52,7 @@ const PlayerPlaybackSpeed = ({
                 onClick={() => {
                   setModal(false);
                   audioControls.setPlaybackRate(rate);
+                  settingsDB.set('playbackRate', rate);
                 }}
               >
                 {text} ({rate}x)

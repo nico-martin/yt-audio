@@ -10,12 +10,12 @@ import { useEffect, useRef, useState } from 'preact/hooks';
 interface HTMLAudioProps {
   src: string;
   autoPlay?: boolean;
-  startsAt?: number;
   startPlaybackRate?: number;
   formats?: Array<{
     mimeType: string;
     src: string;
   }>;
+  setError?: Function;
 }
 
 export interface HTMLAudioState {
@@ -55,9 +55,9 @@ const parseTimeRange = ranges =>
 export default ({
   src,
   autoPlay = false,
-  startsAt = 0,
   startPlaybackRate = 1,
   formats = [],
+  setError = error => console.log(error),
 }: HTMLAudioProps) => {
   const [state, setOrgState] = useState<HTMLAudioState>({
     buffered: {
@@ -78,7 +78,7 @@ export default ({
   const element = h(
     'audio',
     {
-      src,
+      ...(formats.length === 0 ? { src } : {}),
       controls: false,
       ref,
       onPlay: () => setState({ paused: false }),
@@ -109,15 +109,14 @@ export default ({
         if (!el) {
           return;
         }
-
         setState({ buffered: parseTimeRange(el.buffered) });
       },
+      onError: () => setError('There was an error playing the audio file'),
     } as any,
     formats.map(({ mimeType, src }) => [
       h('source', {
         mime: mimeType,
         src,
-        // Todo: Set Error!?!
         onError: () => setError('There was an error loading the audio file'),
       }),
     ])
@@ -184,12 +183,10 @@ export default ({
 
   useEffect(() => {
     const el = ref.current!;
-
     setState({
       paused: el.paused,
     });
 
-    controls.seek(startsAt);
     controls.setPlaybackRate(startPlaybackRate);
 
     // Start media, if autoPlay requested.
