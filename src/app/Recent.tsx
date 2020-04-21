@@ -7,13 +7,15 @@ import './Recent.css';
 
 interface Props {
   searchString: string;
+  Intro: any;
 }
 
-const Recent = ({ searchString }: Props) => {
+const Recent = ({ searchString, Intro }: Props) => {
   const [videos, setVideos] = useState<Array<Partial<Video>>>([]);
   const [filteredVideos, setFilteredVideos] = useState<Array<Partial<Video>>>(
     []
   );
+  const [init, setInit] = useState<boolean>(false);
   const removeVideo = id => {
     setVideos([...videos].filter(video => video.id !== id));
     videosDB.delete(id);
@@ -21,6 +23,7 @@ const Recent = ({ searchString }: Props) => {
 
   useEffect(() => {
     videosDB.getAll().then(resp => {
+      setInit(true);
       const v = resp.sort((a, b) => b.date.getTime() - a.date.getTime());
       setVideos(v);
       setFilteredVideos(v);
@@ -41,8 +44,12 @@ const Recent = ({ searchString }: Props) => {
     [videos, searchString]
   );
 
-  if (filteredVideos.length === 0) {
+  if (!init) {
     return <p />;
+  }
+
+  if (filteredVideos.length === 0) {
+    return <Intro />;
   }
 
   return (

@@ -5,6 +5,7 @@ import { Link } from 'preact-router/match';
 import { route } from 'preact-router';
 import { youtubeParser } from './vendor/helpers';
 import Recent from './Recent';
+import Intro from './Intro';
 import Icon from './global/Icon';
 
 import './SelectVideo.css';
@@ -76,7 +77,7 @@ const SelectVideo = ({ currentUrl }: { currentUrl: string }) => {
         </form>
         {hasError && <span className="selectvideo__error">{error}</span>}
       </div>
-      <Recent searchString={input} />
+      <Recent searchString={input} Intro={Intro} />
     </Fragment>
   );
 };

@@ -1,0 +1,15 @@
+.intro {
+  margin: 12vh 0 0 0;
+  text-align: center;
+
+  &__text {
+    width: 30%;
+    margin: 0 auto;
+    line-height: 1.5;
+    font-size: var(--fs-s);
+  }
+
+  &__logo {
+    width: 20%;
+  }
+}
