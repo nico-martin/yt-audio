@@ -1,7 +1,6 @@
-import { h } from 'preact';
-import { useEffect, useState } from 'preact/hooks';
+import React, { useEffect, useState } from 'react';
 import { videosDB } from './store';
-import { Link } from 'preact-router/match';
+import { Link } from 'react-router-dom';
 import { Video } from './vendor/types';
 import './Recent.css';
 
@@ -58,11 +57,7 @@ const Recent = ({ searchString, Intro }: Props) => {
       <ul className="recent__list">
         {filteredVideos.map(video => (
           <li className="recent__element recent-element">
-            <Link
-              href={`/play/${video.id}/`}
-              className="recent-element__link"
-              activeClassName=""
-            >
+            <Link to={`/play/${video.id}/`} className="recent-element__link">
               {video.images[video.images.length - 1].url && (
                 <div className="recent-element__image">
                   <img

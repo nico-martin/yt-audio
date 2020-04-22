@@ -1,4 +1,4 @@
-import { h, Fragment } from 'preact';
+import React, { Fragment } from 'react';
 
 const Privacy = () => {
   return (

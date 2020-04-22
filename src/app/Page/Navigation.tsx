@@ -1,7 +1,6 @@
-import { h, Fragment } from 'preact';
-import { useState } from 'preact/hooks';
+import React, { useState, Fragment } from 'react';
 
-import { Link } from 'preact-router/match';
+import { NavLink } from 'react-router-dom';
 
 import './Navigation.css';
 
@@ -27,21 +26,23 @@ const Navigation = ({ className }: Props) => {
         id="main-navigation"
         aria-hidden={open ? 'false' : 'true'}
       >
-        <Link
+        <NavLink
+          exact
           className="navigation__link"
-          href="/"
+          to="/"
           activeClassName="navigation__link--active"
         >
           Home
-        </Link>
+        </NavLink>
         {[/*'About',*/ 'Legal', 'Privacy'].map(e => (
-          <Link
-            href={`/${e.toLowerCase().replace(/\s/g, '-')}/`}
+          <NavLink
+            exact
+            to={`/${e.toLowerCase().replace(/\s/g, '-')}/`}
             className="navigation__link"
             activeClassName="navigation__link--active"
           >
             {e}
-          </Link>
+          </NavLink>
         ))}
       </div>
     </nav>

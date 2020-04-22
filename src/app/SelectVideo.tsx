@@ -1,8 +1,6 @@
-import { h, Fragment } from 'preact';
-import { useState, useRef, useEffect } from 'preact/hooks';
+import React, { useEffect, useState, useRef, Fragment } from 'react';
 import cn from 'classnames';
-import { Link } from 'preact-router/match';
-import { route } from 'preact-router';
+import { withRouter, useLocation } from 'react-router-dom';
 import { youtubeParser } from './vendor/helpers';
 import Recent from './Recent';
 import Intro from './Intro';
@@ -10,9 +8,13 @@ import Icon from './global/Icon';
 
 import './SelectVideo.css';
 
+interface Props {
+  history: { push: Function };
+}
+
 const parsedUrl = new URL(String(window.location));
 
-const SelectVideo = ({ currentUrl }: { currentUrl: string }) => {
+const SelectVideo = ({ history }: Props) => {
   const [input, setInput] = useState<string>(
     parsedUrl.searchParams.get('text') === null
       ? ''
@@ -21,7 +23,7 @@ const SelectVideo = ({ currentUrl }: { currentUrl: string }) => {
   const [error, setError] = useState<string>('');
   const [video, setVideo] = useState<string>('');
   const inputEl = useRef(null);
-
+  const location = useLocation();
   useEffect(() => {
     const videoID = youtubeParser(input);
     if (videoID === '') {
@@ -31,21 +33,21 @@ const SelectVideo = ({ currentUrl }: { currentUrl: string }) => {
       setError('');
       setVideo(videoID);
       if (new URL(String(window.location)).searchParams.get('text') !== null) {
-        route(`/play/${videoID}/`, true);
+        history.push(`/play/${videoID}/`);
       }
     }
   }, [input]);
 
   useEffect(() => {
-    if (currentUrl === '/') {
+    if (location.pathname === '/') {
       setInput('');
     }
-  }, [currentUrl]);
+  }, [location.pathname]);
 
   const hasError: boolean = false; // input !== '' && error !== '';
   const onSubmit = e => {
     e.preventDefault();
-    route(`/play/${video}`);
+    history.push(`/play/${video}`);
   };
 
   return (
@@ -82,4 +84,4 @@ const SelectVideo = ({ currentUrl }: { currentUrl: string }) => {
   );
 };
 
-export default SelectVideo;
+export default withRouter(SelectVideo);

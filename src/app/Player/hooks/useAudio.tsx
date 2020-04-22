@@ -1,5 +1,4 @@
-import { h } from 'preact';
-import { useEffect, useRef, useState } from 'preact/hooks';
+import React, { useEffect, useRef, useState } from 'react';
 
 /**
  * Shout-out to:
@@ -75,7 +74,7 @@ export default ({
     setOrgState({ ...state, ...partState });
   const ref = useRef<HTMLAudioElement | null>(null);
 
-  const element = h(
+  const element = React.createElement(
     'audio',
     {
       ...(formats.length === 0 ? { src } : {}),
@@ -114,7 +113,7 @@ export default ({
       onError: () => setError('There was an error playing the audio file'),
     } as any,
     formats.map(({ mimeType, src }) => [
-      h('source', {
+      React.createElement('source', {
         mime: mimeType,
         src,
         onError: () => setError('There was an error loading the audio file'),
@@ -163,7 +162,7 @@ export default ({
         return;
       }
       time = Math.min(state.duration, Math.max(0, time));
-      el.currentTime = time;
+      el.currentTime = time || 0;
     },
     setPlaybackRate: (rate: number) => {
       const el = ref.current;

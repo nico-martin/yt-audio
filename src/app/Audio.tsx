@@ -1,6 +1,5 @@
-import { h, Fragment } from 'preact';
-import { useEffect, useRef, useState } from 'preact/hooks';
-import { Link } from 'preact-router/match';
+import React, { useEffect, useState } from 'react';
+import { Link, useParams } from 'react-router-dom';
 import axios from 'axios';
 import Icon from './global/Icon';
 import { videosDB } from './store';
@@ -9,12 +8,6 @@ import { nl2br } from './vendor/helpers';
 import { Audio } from './vendor/types';
 
 import './Audio.css';
-import { JSXInternal } from 'preact/src/jsx';
-import TargetedEvent = JSXInternal.TargetedEvent;
-
-interface Props {
-  videoID: string;
-}
 
 const initTitle = document.title;
 const initAudio = {
@@ -24,10 +17,11 @@ const initAudio = {
 };
 
 let startTime = 0;
-const Audio = ({ videoID }: Props) => {
+const Audio = () => {
   const [error, setError] = useState<string>('');
   const [audio, setAudio] = useState<Audio>(initAudio);
-
+  const [audioTime, setAudioTime] = useState<number>(0);
+  const { videoID } = useParams();
   useEffect(() => {
     setError('');
     setAudio(initAudio);
@@ -63,10 +57,12 @@ const Audio = ({ videoID }: Props) => {
           <p className="audio__error-reload">
             <button
               className="audio__error-reload-button"
-              // @ts-ignore
-              onClick={(e: MouseEvent<HTMLButtonElement>) => {
+              onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
                 window.location.reload(true);
-                e.target.setAttribute('disabled', true);
+                (e.target as HTMLButtonElement).setAttribute(
+                  'disabled',
+                  'disabled'
+                );
               }}
             >
               <Icon icon="reload" className="audio__error-reload-button-icon" />
@@ -109,7 +105,7 @@ const Audio = ({ videoID }: Props) => {
                   }}
                 />
               )}
-              <Link href="/" className="audio__about-close" activeClassName="">
+              <Link to="/" className="audio__about-close">
                 <Icon icon="arrow" className="audio__about-close-icon" /> back
               </Link>
             </div>

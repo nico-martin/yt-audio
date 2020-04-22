@@ -5,7 +5,6 @@ export const matomoSetPage = url => {
 
   currentUrl = url;
   _paq.push(['setCustomUrl', currentUrl]);
-  // _paq.push(['setDocumentTitle', 'My New Title']);
   _paq.push(['deleteCustomVariables', 'page']);
   _paq.push(['setGenerationTimeMs', 0]);
   _paq.push(['trackPageView']);

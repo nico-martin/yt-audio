@@ -1,5 +1,4 @@
-import { h, Fragment } from 'preact';
-import { useEffect, useState } from 'preact/hooks';
+import React, { Fragment, useEffect, useState } from 'react';
 import { settingsDB } from '../store';
 import Modal from '../global/Modal';
 import cn from 'classnames';

@@ -1,4 +1,4 @@
-import { h, Fragment } from 'preact';
+import React, { Fragment } from 'react';
 import Icon from '../global/Icon';
 
 import { HTMLAudioState, HTMLAudioControls } from './hooks/useAudio';

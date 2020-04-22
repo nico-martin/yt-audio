@@ -1,5 +1,4 @@
-import { h, Fragment } from 'preact';
-import { useEffect, useRef, useState } from 'preact/hooks';
+import React, { useEffect, useState } from 'react';
 import { Audio } from '../vendor/types';
 import { videosDB, settingsDB } from '../store';
 import PlayerTimeline from './PlayerTimeline';

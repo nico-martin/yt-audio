@@ -4,7 +4,6 @@
     "module": "commonjs",
     "target": "es5",
     "jsx": "react",
-    "jsxFactory": "h",
     "esModuleInterop": true,
     "baseUrl": "./",
     "resolveJsonModule": true

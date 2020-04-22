@@ -1,5 +1,5 @@
-import { h, VNode } from 'preact';
-import { createPortal } from 'preact/compat';
+import React from 'react';
+import ReactDOM from 'react-dom';
 import './Modal.css';
 
 import cn from 'classnames';
@@ -9,12 +9,12 @@ const container = document.getElementById('modals');
 interface Props {
   title: string;
   onClose: Function;
-  children: VNode | VNode[];
+  children: any;
   width?: 'large' | 'medium' | 'small';
 }
 
 const Modal = ({ title, onClose, children, width = 'large' }: Props) => {
-  return createPortal(
+  return ReactDOM.createPortal(
     <div className="modal">
       <div className={cn('modal__window', `modal__window--${width}`)}>
         <div className="modal__header">

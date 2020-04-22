@@ -1,5 +1,4 @@
-import { h } from 'preact';
-import { useEffect, useState } from 'preact/hooks';
+import React, { useEffect, useState } from 'react';
 import { settingsDB } from '../store';
 import Icon from './../global/Icon';
 import { HTMLAudioControls, HTMLAudioState } from './hooks/useAudio';
