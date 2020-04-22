@@ -9,6 +9,8 @@ import { nl2br } from './vendor/helpers';
 import { Audio } from './vendor/types';
 
 import './Audio.css';
+import { JSXInternal } from 'preact/src/jsx';
+import TargetedEvent = JSXInternal.TargetedEvent;
 
 interface Props {
   videoID: string;
@@ -57,13 +59,18 @@ const Audio = ({ videoID }: Props) => {
       return (
         <div className={`${className} audio__error`}>
           <Icon icon="warning" className="audio__error-icon" />
-          <p className="audio__error-text">
-            {error}{' '}
+          <p className="audio__error-text">{error}</p>
+          <p className="audio__error-reload">
             <button
-              className="audio__error-reload"
-              onClick={() => window.location.reload(true)}
+              className="audio__error-reload-button"
+              // @ts-ignore
+              onClick={(e: MouseEvent<HTMLButtonElement>) => {
+                window.location.reload(true);
+                e.target.setAttribute('disabled', true);
+              }}
             >
-              (reload)
+              <Icon icon="reload" className="audio__error-reload-button-icon" />
+              retry
             </button>
           </p>
         </div>

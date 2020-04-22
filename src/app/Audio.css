@@ -49,7 +49,16 @@
 
   &__error-reload {
     font-weight: bold;
-    padding-left: 0.5em;
+    display: block;
+    margin-top: var(--spacing);
+  }
+
+  &__error-reload-button:disabled svg {
+    animation: spinner 800ms linear infinite;
+  }
+
+  &__error-reload-button-icon {
+    margin-right: 0.3em;
   }
 
   &__error,
