@@ -3,7 +3,7 @@ import React, { useEffect, useRef, useState } from 'react';
 interface Props {
   element: any;
   mediaMetadata: MediaMetadata;
-  controls?: { [action in MediaSessionAction]?: (() => void) | null };
+  controls?: { [action in MediaSessionAction]?: ((details?) => void) | null };
 }
 
 export default ({

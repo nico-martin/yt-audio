@@ -58,16 +58,18 @@ const Recent = ({ searchString, Intro }: Props) => {
         {filteredVideos.map(video => (
           <li className="recent__element recent-element">
             <Link to={`/play/${video.id}/`} className="recent-element__link">
-              {video.images[video.images.length - 1].url && (
-                <div className="recent-element__image">
-                  <img
-                    src={video.images[video.images.length - 1].url}
-                    width={video.images[video.images.length - 1].width}
-                    height={video.images[video.images.length - 1].height}
-                    alt={`Thumbnail for ${video.title} by ${video.author}`}
-                  />
-                </div>
-              )}
+              {video.images &&
+                video.images.length !== 0 &&
+                video.images[video.images.length - 1].url && (
+                  <div className="recent-element__image">
+                    <img
+                      src={video.images[video.images.length - 1].url}
+                      width={video.images[video.images.length - 1].width}
+                      height={video.images[video.images.length - 1].height}
+                      alt={`Thumbnail for ${video.title} by ${video.author}`}
+                    />
+                  </div>
+                )}
               <div className="recent-element__about">
                 <h4 className="recent-element__title">{video.title}</h4>
                 <span className="recent-element__author">{video.author}</span>
