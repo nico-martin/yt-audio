@@ -47,6 +47,14 @@ const Player = ({ source, setError, className }: Props) => {
         };
       }),
     },
+    controls: {
+      play: audio.controls.play,
+      pause: audio.controls.pause,
+      seekbackward: () => audio.controls.seek(audio.state.time - 30),
+      seekforward: () => audio.controls.seek(audio.state.time + 30),
+      // @ts-ignore => https://github.com/DefinitelyTyped/DefinitelyTyped/pull/44231
+      seekto: details => audio.controls.seek(details.seekTime),
+    },
   });
 
   useEffect(() => {
