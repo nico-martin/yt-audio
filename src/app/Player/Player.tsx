@@ -33,7 +33,21 @@ const Player = ({ source, setError, className }: Props) => {
     }),
   });
 
-  useMediaSession({ audio, source });
+  useMediaSession({
+    element: audio.element,
+    mediaMetadata: {
+      title: source.title,
+      artist: source.author,
+      album: 'YouTube Audio Player',
+      artwork: source.images.map(e => {
+        return {
+          src: e.url,
+          height: e.height,
+          width: e.width,
+        };
+      }),
+    },
+  });
 
   useEffect(() => {
     videosDB.get(source.id).then(v => setStartTime(v.time));

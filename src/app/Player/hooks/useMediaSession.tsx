@@ -3,85 +3,35 @@ import { Audio } from '../../vendor/types';
 import { HTMLAudioState, HTMLAudioControls } from '../types';
 
 interface Props {
-  audio: {
-    state: HTMLAudioState;
-    controls: HTMLAudioControls;
-    element: HTMLAudioElement | null | any;
-  };
-  source: Audio;
+  element: any;
+  mediaMetadata: MediaMetadata;
+  controls?: { [action in MediaSessionAction]?: (() => void) | null };
 }
 
-export default ({ audio, source }: Props) => {
+export default ({
+  element,
+  mediaMetadata: { title, album, artist, artwork },
+  controls,
+}: Props) => {
   if (!('mediaSession' in navigator)) {
     return;
   }
 
-  const updatePositionState = () => {
-    if (
-      'mediaSession' in navigator &&
-      'setPositionState' in navigator.mediaSession
-    ) {
-      console.log({
-        duration: audio.state.duration,
-        playbackRate: audio.state.playbackRate,
-        position: audio.state.time,
-      });
-      // @ts-ignore
-      navigator.mediaSession.setPositionState({
-        duration: audio.state.duration,
-        playbackRate: audio.state.playbackRate,
-        position: audio.state.time,
-      });
-    }
-  };
-
   useEffect(() => {
-    // Media Session API
-    if (!audio.element || !('mediaSession' in navigator)) {
+    if (!element) {
       return;
     }
 
     navigator.mediaSession.metadata = new MediaMetadata({
-      title: source.title,
-      artist: source.author,
-      album: 'YouTube Audio Player',
-      artwork: source.images.map(e => {
-        return {
-          src: e.url,
-          height: e.height,
-          width: e.width,
-        };
-      }),
+      title,
+      artist,
+      album,
+      artwork,
     });
 
-    updatePositionState();
-
-    const controls = {
-      play: audio.controls.play,
-      pause: audio.controls.pause,
-      seekbackward: () => {
-        audio.controls.seek(audio.state.time - 30);
-        updatePositionState();
-      },
-      seekforward: () => {
-        audio.controls.seek(audio.state.time + 30);
-        updatePositionState();
-      },
-      // @ts-ignore => https://github.com/DefinitelyTyped/DefinitelyTyped/pull/44231
-      seekto: details => {
-        console.log('details.seekTime', details.seekTime);
-        audio.controls.seek(details.seekTime);
-        updatePositionState();
-      },
-    };
     Object.keys(controls).forEach((e: MediaSessionAction) =>
       navigator.mediaSession.setActionHandler(e, controls[e])
     );
-  }, []);
-
-  useEffect(() => {
-    updatePositionState();
-  }, [audio.state.playbackRate]);
-
+  }, [element]);
   return;
 };
