@@ -3,7 +3,7 @@ import { readableTime } from '../vendor/helpers';
 import cn from 'classnames';
 import './PlayerTimeline.css';
 
-import { HTMLAudioState, HTMLAudioControls } from './hooks/useAudio';
+import { HTMLAudioState, HTMLAudioControls } from './types';
 
 interface Props {
   audioState: HTMLAudioState;

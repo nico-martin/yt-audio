@@ -1,42 +1,11 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { HTMLAudioState, HTMLAudioControls, HTMLAudioProps } from '../types';
 
 /**
  * Shout-out to:
  * https://github.com/streamich/react-use/blob/master/src/util/createHTMLMediaHook.ts
  *💐 💪
  */
-
-interface HTMLAudioProps {
-  src: string;
-  autoPlay?: boolean;
-  startPlaybackRate?: number;
-  formats?: Array<{
-    mimeType: string;
-    src: string;
-  }>;
-  setError?: Function;
-}
-
-export interface HTMLAudioState {
-  buffered: {
-    start: number;
-    end: number;
-  };
-  time: number;
-  duration: number;
-  paused: boolean;
-  waiting: boolean;
-  playbackRate: number;
-  endedCallback: Function;
-}
-
-export interface HTMLAudioControls {
-  play: () => Promise<void> | void;
-  pause: () => void;
-  seek: (time: number) => void;
-  setPlaybackRate: (rate: number) => void;
-  setEndedCallback: (callback: Function) => void;
-}
 
 export const states = {};
 
@@ -109,6 +78,13 @@ export default ({
           return;
         }
         setState({ buffered: parseTimeRange(el.buffered) });
+      },
+      onRateChange: () => {
+        const el = ref.current;
+        if (!el) {
+          return;
+        }
+        setState({ playbackRate: el.playbackRate });
       },
       onError: () => setError('There was an error playing the audio file'),
     } as any,

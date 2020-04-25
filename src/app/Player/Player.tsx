@@ -33,29 +33,7 @@ const Player = ({ source, setError, className }: Props) => {
     }),
   });
 
-  useMediaSession({
-    element: audio.element,
-    mediaMetadata: {
-      title: source.title,
-      artist: source.author,
-      album: 'YouTube Audio Player',
-      artwork: source.images.map(e => {
-        return {
-          src: e.url,
-          height: e.height,
-          width: e.width,
-        };
-      }),
-    },
-    controls: {
-      play: audio.controls.play,
-      pause: audio.controls.pause,
-      seekbackward: () => audio.controls.seek(audio.state.time - 30),
-      seekforward: () => audio.controls.seek(audio.state.time + 30),
-      // @ts-ignore => https://github.com/DefinitelyTyped/DefinitelyTyped/pull/44231
-      seekto: details => audio.controls.seek(details.seekTime),
-    },
-  });
+  useMediaSession({ audio, source });
 
   useEffect(() => {
     videosDB.get(source.id).then(v => setStartTime(v.time));

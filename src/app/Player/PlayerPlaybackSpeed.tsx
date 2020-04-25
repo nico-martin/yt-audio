@@ -5,7 +5,7 @@ import cn from 'classnames';
 
 import './PlayerPlaybackSpeed.css';
 
-import { HTMLAudioState, HTMLAudioControls } from './hooks/useAudio';
+import { HTMLAudioState, HTMLAudioControls } from './types';
 
 interface Props {
   audioState: HTMLAudioState;

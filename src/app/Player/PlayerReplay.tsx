@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { settingsDB } from '../store';
 import Icon from './../global/Icon';
-import { HTMLAudioControls, HTMLAudioState } from './hooks/useAudio';
+import { HTMLAudioControls, HTMLAudioState } from './types';
 
 interface Props {
   audioState: HTMLAudioState;

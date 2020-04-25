@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import Icon from '../global/Icon';
 
-import { HTMLAudioState, HTMLAudioControls } from './hooks/useAudio';
+import { HTMLAudioState, HTMLAudioControls } from './types';
 
 interface Props {
   audioState: HTMLAudioState;
