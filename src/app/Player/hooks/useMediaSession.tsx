@@ -21,6 +21,11 @@ export default ({ audio, source }: Props) => {
       'mediaSession' in navigator &&
       'setPositionState' in navigator.mediaSession
     ) {
+      console.log({
+        duration: audio.state.duration,
+        playbackRate: audio.state.playbackRate,
+        position: audio.state.time,
+      });
       // @ts-ignore
       navigator.mediaSession.setPositionState({
         duration: audio.state.duration,
@@ -64,6 +69,7 @@ export default ({ audio, source }: Props) => {
       },
       // @ts-ignore => https://github.com/DefinitelyTyped/DefinitelyTyped/pull/44231
       seekto: details => {
+        console.log('details.seekTime', details.seekTime);
         audio.controls.seek(details.seekTime);
         updatePositionState();
       },
@@ -71,7 +77,7 @@ export default ({ audio, source }: Props) => {
     Object.keys(controls).forEach((e: MediaSessionAction) =>
       navigator.mediaSession.setActionHandler(e, controls[e])
     );
-  }, [audio.element]);
+  }, []);
 
   useEffect(() => {
     updatePositionState();
