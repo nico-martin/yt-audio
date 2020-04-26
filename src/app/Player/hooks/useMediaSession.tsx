@@ -1,6 +1,4 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Audio } from '../../vendor/types';
-import { HTMLAudioState, HTMLAudioControls } from '../types';
 
 interface Props {
   element: any;

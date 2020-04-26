@@ -42,8 +42,7 @@ const Player = ({ source, setError, className }: Props) => {
       artwork: source.images.map(e => {
         return {
           src: e.url,
-          height: e.height,
-          width: e.width,
+          sizes: `${e.height}x${e.width}`,
         };
       }),
     },
