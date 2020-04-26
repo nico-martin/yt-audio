@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, Fragment } from 'react';
 import ReactDOM from 'react-dom';
 import {
   BrowserRouter as Router,
@@ -21,12 +21,11 @@ import { matomoSetPage } from './app/vendor/matomo';
 import Icon from './app/global/Icon';
 
 const App = () => {
-  const [currentUrl, setCurrentUrl] = useState<string>('');
   const location = useLocation();
   const [init, setInit] = useState<boolean>(false);
+
   useEffect(() => {
     init && matomoSetPage(location.pathname);
-    setCurrentUrl(location.pathname);
     if (location.pathname === '/') {
       document.body.classList.add('home');
     } else {
@@ -36,33 +35,31 @@ const App = () => {
   }, [location]);
 
   return (
-    <div className="app">
+    <Fragment>
       <header className="app__header">
         <Link to="/" className="app__back">
           <Icon icon="arrow" /> back
         </Link>
         <Navigation className="app__navigation" />
       </header>
-      <div className="app__content">
-        <Switch>
-          <Route path="/legal/">
-            <Legal />
-          </Route>
-          <Route path="/privacy/">
-            <Privacy />
-          </Route>
-          <Route path="/about/">
-            <About />
-          </Route>
-          <Route path="/play/:videoID">
-            <Audio />
-          </Route>
-          <Route path="/">
-            <SelectVideo />
-          </Route>
-        </Switch>
-      </div>
-    </div>
+      <Switch>
+        <Route path="/legal/">
+          <Legal className="app__content" />
+        </Route>
+        <Route path="/privacy/">
+          <Privacy className="app__content" />
+        </Route>
+        <Route path="/about/">
+          <About className="app__content" />
+        </Route>
+        <Route path="/play/:videoID">
+          <Audio className="app__content" />
+        </Route>
+        <Route path="/">
+          <SelectVideo />
+        </Route>
+      </Switch>
+    </Fragment>
   );
 };
 

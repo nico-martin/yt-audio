@@ -1,8 +1,8 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 
-const Privacy = () => {
+const Privacy = ({ className = '' }: { className?: string }) => {
   return (
-    <div className="page">
+    <div className={`${className} page`}>
       <h1 className="page__header">Privacy</h1>
       <div className="page__content">
         <p>

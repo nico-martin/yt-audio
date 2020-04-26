@@ -5,6 +5,7 @@ import PlayerTimeline from './PlayerTimeline';
 import PlayerPlaybackSpeed from './PlayerPlaybackSpeed';
 import PlayerControls from './PlayerControls';
 import PlayerReplay from './PlayerReplay';
+import BufferInfo from './BufferInfo';
 
 import useAudio from './hooks/useAudio';
 import useMediaSession from './hooks/useMediaSession';
@@ -17,9 +18,13 @@ interface Props {
   className?: string;
 }
 
-const Player = ({ source, setError, className }: Props) => {
+const Player = ({ source, setError, className = '' }: Props) => {
   const [startTime, setStartTime] = useState<number>(0);
   const [useProxy, setUseProxy] = useState<boolean>(false);
+  const [showBufferInfo, setShowBufferInfo] = useState<boolean>(null);
+  const [bufferTime, setBufferTime] = useState<number>(0);
+  const [bufferStarted, setBufferStarted] = useState<number>(0);
+  const [timer, setTimer] = useState<any>(null);
 
   const audio = useAudio({
     src: useProxy
@@ -43,6 +48,24 @@ const Player = ({ source, setError, className }: Props) => {
       };
     }),
   });
+
+  useEffect(() => {
+    if (audio.state.waiting) {
+      const bufferTimer = setInterval(() => {
+        setBufferTime(prevBufferTime => prevBufferTime + 200);
+      }, 200);
+      setTimer(bufferTimer);
+    } else if (timer) {
+      clearInterval(timer);
+      setTimer(null);
+    }
+  }, [audio.state.waiting]);
+
+  useEffect(() => {
+    if (bufferTime >= 5000 && showBufferInfo === null) {
+      setShowBufferInfo(true);
+    }
+  }, [bufferTime]);
 
   useMediaSession({
     element: audio.element,
@@ -113,6 +136,9 @@ const Player = ({ source, setError, className }: Props) => {
         audioControls={audio.controls}
         className="player__timeline"
       />
+      {showBufferInfo && (
+        <BufferInfo onClose={() => setShowBufferInfo(false)} />
+      )}
     </div>
   );
 };

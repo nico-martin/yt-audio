@@ -1,9 +1,9 @@
 import React from 'react';
 import './Page.css';
 
-const Legal = () => {
+const Legal = ({ className = '' }: { className?: string }) => {
   return (
-    <div className="page">
+    <div className={`${className} page`}>
       <h1 className="page__header">Legal</h1>
       <div className="page__content">
         <p>Responsible for the content of this website:</p>

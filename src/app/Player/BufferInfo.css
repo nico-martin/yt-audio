@@ -1,0 +1,55 @@
+.buffer-info {
+  position: fixed;
+  border-radius: 5px;
+  background-color: #000;
+  top: 0.5rem;
+  right: 0.5rem;
+  width: 65%;
+  max-width: 500px;
+  color: #fff;
+  padding: 1.7rem 1.4rem 1.4rem 1.4rem;
+  z-index: 999;
+  font-size: var(--fs-s);
+
+  p + p {
+    margin-top: 0.5rem;
+  }
+
+  a {
+    color: #fff;
+  }
+
+  &__close {
+    position: absolute;
+    top: 0.6rem;
+    right: 0.6rem;
+    color: #fff;
+    width: 1em;
+    height: 1em;
+    text-indent: -999px;
+    opacity: 0.6;
+    @mixin transition;
+    will-change: opacity;
+
+    &:hover {
+      opacity: 1;
+    }
+
+    &:after,
+    &:before {
+      content: '';
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      height: 1px;
+      width: 100%;
+      margin-top: -0.5px;
+      background-color: #fff;
+      transform: translateX(-50%) translateY(-50%) rotate(45deg);
+    }
+
+    &:before {
+      transform: translateX(-50%) translateY(-50%) rotate(-45deg);
+    }
+  }
+}

@@ -1,7 +1,11 @@
 .app {
   overflow-x: hidden;
   max-width: 800px;
+  width: 100%;
   margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
 
   &__header {
     display: flex;
@@ -25,6 +29,7 @@
 
   &__content {
     padding: 0 var(--spacing);
+    flex-grow: 1;
   }
 
   &__back {
@@ -32,6 +37,10 @@
     opacity: 1;
     @mixin transition 200ms, opacity;
     will-change: opacity;
+  }
+
+  &--player {
+    max-height: 100vh;
   }
 }
 

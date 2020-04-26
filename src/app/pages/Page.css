@@ -1,5 +1,5 @@
 .page {
-  margin-top: var(--spacing-page);
+  margin: var(--spacing) 0 var(--spacing-page) 0;
 
   &__content {
     margin-top: var(--spacing);

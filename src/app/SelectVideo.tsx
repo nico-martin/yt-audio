@@ -24,6 +24,7 @@ const SelectVideo = ({ history }: Props) => {
   const [video, setVideo] = useState<string>('');
   const inputEl = useRef(null);
   const location = useLocation();
+
   useEffect(() => {
     const videoID = youtubeParser(input);
     if (videoID === '') {
@@ -51,7 +52,7 @@ const SelectVideo = ({ history }: Props) => {
   };
 
   return (
-    <Fragment>
+    <div className="app__content">
       <div className="selectvideo">
         <form className="selectvideo__form" onSubmit={onSubmit}>
           <label htmlFor="youtubeUrl" className="selectvideo__label">
@@ -80,7 +81,7 @@ const SelectVideo = ({ history }: Props) => {
         {hasError && <span className="selectvideo__error">{error}</span>}
       </div>
       <Recent searchString={input} Intro={Intro} />
-    </Fragment>
+    </div>
   );
 };
 
