@@ -23,7 +23,6 @@ const Player = ({ source, setError, className = '' }: Props) => {
   const [useProxy, setUseProxy] = useState<boolean>(false);
   const [showBufferInfo, setShowBufferInfo] = useState<boolean>(null);
   const [bufferTime, setBufferTime] = useState<number>(0);
-  const [bufferStarted, setBufferStarted] = useState<number>(0);
   const [timer, setTimer] = useState<any>(null);
 
   const audio = useAudio({
