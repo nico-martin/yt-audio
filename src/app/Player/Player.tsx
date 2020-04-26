@@ -19,16 +19,27 @@ interface Props {
 
 const Player = ({ source, setError, className }: Props) => {
   const [startTime, setStartTime] = useState<number>(0);
+  const [useProxy, setUseProxy] = useState<boolean>(false);
 
   const audio = useAudio({
-    src: `https://yt-source.nico.dev/play/${encodeURIComponent(source.url)}`,
-    setError,
+    src: useProxy
+      ? `https://yt-source.nico.dev/play/${encodeURIComponent(source.url)}`
+      : source.url,
+    setError: error => {
+      if (useProxy) {
+        setError(error);
+      } else {
+        setUseProxy(true);
+      }
+    },
     formats: Object.keys(source.formats).map(mimeType => {
       return {
         mimeType,
-        src: `https://yt-source.nico.dev/play/${encodeURIComponent(
-          source.formats[mimeType]
-        )}`,
+        src: useProxy
+          ? `https://yt-source.nico.dev/play/${encodeURIComponent(
+              source.formats[mimeType]
+            )}`
+          : source.formats[mimeType],
       };
     }),
   });
