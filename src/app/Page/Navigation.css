@@ -12,16 +12,17 @@
     height: 1.2rem;
     text-indent: -9999px;
     position: relative;
-    margin: var(--spacing-small);
+    padding: var(--spacing-small);
     z-index: 50;
+    box-sizing: content-box;
 
     &:after,
     &:before {
       content: '';
       display: block;
       position: absolute;
-      width: 100%;
-      left: 0;
+      width: 60%;
+      left: 20%;
       top: 50%;
       height: 2px;
       background-color: var(--c-p);

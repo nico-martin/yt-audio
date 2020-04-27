@@ -1,5 +1,4 @@
 .app {
-  overflow-x: hidden;
   max-width: 800px;
   width: 100%;
   margin: 0 auto;
@@ -25,6 +24,7 @@
 
   &__navigation {
     margin-left: auto;
+    overflow-x: hidden;
   }
 
   &__content {
