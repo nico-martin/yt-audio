@@ -4,9 +4,9 @@ import fs from 'fs';
 require('dotenv').config();
 import app from './app.json';
 
-import HtmlWebpackPlugin from 'html-webpack-plugin';
 import { CleanWebpackPlugin } from 'clean-webpack-plugin';
 import CopyWebpackPlugin from 'copy-webpack-plugin';
+import HtmlWebpackPlugin from 'html-webpack-plugin';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 //import FaviconsWebpackPlugin from 'favicons-webpack-plugin';
 import WebpackPwaManifest from 'webpack-pwa-manifest';
@@ -100,9 +100,7 @@ module.exports = (env, argv) => {
           action: '/',
           method: 'GET',
           params: {
-            title: 'title',
-            text: 'text',
-            url: 'url',
+            text: 'videolink',
           },
         },
       }),

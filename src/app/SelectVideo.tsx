@@ -16,9 +16,9 @@ const parsedUrl = new URL(String(window.location));
 
 const SelectVideo = ({ history }: Props) => {
   const [input, setInput] = useState<string>(
-    parsedUrl.searchParams.get('text') === null
+    parsedUrl.searchParams.get('videolink') === null
       ? ''
-      : parsedUrl.searchParams.get('text')
+      : parsedUrl.searchParams.get('videolink')
   );
   const [error, setError] = useState<string>('');
   const [video, setVideo] = useState<string>('');
@@ -33,7 +33,9 @@ const SelectVideo = ({ history }: Props) => {
     } else {
       setError('');
       setVideo(videoID);
-      if (new URL(String(window.location)).searchParams.get('text') !== null) {
+      if (
+        new URL(String(window.location)).searchParams.get('videolink') !== null
+      ) {
         history.push(`/play/${videoID}/`);
       }
     }
