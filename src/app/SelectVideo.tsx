@@ -33,11 +33,7 @@ const SelectVideo = ({ history }: Props) => {
     } else {
       setError('');
       setVideo(videoID);
-      if (
-        new URL(String(window.location)).searchParams.get('videolink') !== null
-      ) {
-        history.push(`/play/${videoID}/`);
-      }
+      history.push(`/play/${videoID}/`);
     }
   }, [input]);
 
