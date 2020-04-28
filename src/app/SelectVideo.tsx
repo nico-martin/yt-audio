@@ -15,15 +15,18 @@ interface Props {
 const parsedUrl = new URL(String(window.location));
 
 const SelectVideo = ({ history }: Props) => {
-  const [input, setInput] = useState<string>(
-    parsedUrl.searchParams.get('videolink') === null
-      ? ''
-      : parsedUrl.searchParams.get('videolink')
-  );
+  const [input, setInput] = useState<string>('');
   const [error, setError] = useState<string>('');
   const [video, setVideo] = useState<string>('');
   const inputEl = useRef(null);
   const location = useLocation();
+
+  useEffect(() => {
+    const videolink = parsedUrl.searchParams.get('videolink');
+    if (videolink && youtubeParser(videolink) !== '') {
+      history.push(`/play/${youtubeParser(videolink)}/`);
+    }
+  }, []);
 
   useEffect(() => {
     const videoID = youtubeParser(input);
@@ -33,7 +36,6 @@ const SelectVideo = ({ history }: Props) => {
     } else {
       setError('');
       setVideo(videoID);
-      history.push(`/play/${videoID}/`);
     }
   }, [input]);
 
