@@ -22,7 +22,7 @@
     "axios": "^0.19.1",
     "classnames": "^2.2.6",
     "idb": "^5.0.0",
-    "moment": "^2.24.0",
+    "moment": "^2.29.2",
     "preact": "^10.2.1",
     "react-hook-form": "^4.3.0",
     "react-intl": "^3.9.3",
