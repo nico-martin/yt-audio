@@ -1,8 +1,7 @@
+import cn from 'classnames';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './Modal.css';
-
-import cn from 'classnames';
 
 const container = document.getElementById('modals');
 

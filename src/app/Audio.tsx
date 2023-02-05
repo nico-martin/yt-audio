@@ -1,13 +1,12 @@
+import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import axios from 'axios';
+import './Audio.css';
+import Player from './Player/Player';
 import Icon from './global/Icon';
 import { videosDB } from './store';
-import Player from './Player/Player';
 import { nl2br } from './vendor/helpers';
-import { Audio } from './vendor/types';
-
-import './Audio.css';
+import { Audio as AudioType } from './vendor/types';
 
 const initTitle = document.title;
 const initAudio = {
@@ -19,9 +18,9 @@ const initAudio = {
 let startTime = 0;
 const Audio = ({ className = '' }: { className?: string }) => {
   const [error, setError] = useState<string>('');
-  const [audio, setAudio] = useState<Audio>(initAudio);
+  const [audio, setAudio] = useState<AudioType>(initAudio);
   const [audioTime, setAudioTime] = useState<number>(0);
-  const { videoID } = useParams();
+  const { videoID } = useParams<{ videoID: string }>();
 
   useEffect(() => {
     document.querySelector('#app').classList.add('app--player');
@@ -63,7 +62,7 @@ const Audio = ({ className = '' }: { className?: string }) => {
           <button
             className="audio__error-reload-button"
             onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
-              window.location.reload(true);
+              window.location.reload();
               (e.target as HTMLButtonElement).setAttribute(
                 'disabled',
                 'disabled'

@@ -1,5 +1,3 @@
-import { number } from 'prop-types';
-
 export interface Audio {
   id?: string;
   url: string;

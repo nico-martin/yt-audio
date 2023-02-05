@@ -45,7 +45,17 @@ const PlayerReplay = ({ audioState, audioControls, className = '' }: Props) => {
       }
       className={className}
     >
-      <Icon icon={`replay-${states[replayState]}`} />
+      <Icon
+        icon={
+          replayState === 0
+            ? 'replayNone'
+            : replayState === 1
+            ? 'replayOne'
+            : replayState === 2
+            ? 'replayAll'
+            : null
+        }
+      />
     </button>
   );
 };

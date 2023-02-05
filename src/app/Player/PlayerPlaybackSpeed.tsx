@@ -1,10 +1,8 @@
-import React, { Fragment, useEffect, useState } from 'react';
-import { settingsDB } from '../store';
-import Modal from '../global/Modal';
 import cn from 'classnames';
-
+import React, { Fragment, useState } from 'react';
 import './PlayerPlaybackSpeed.css';
-
+import Modal from '../global/Modal';
+import { settingsDB } from '../store';
 import { HTMLAudioState, HTMLAudioControls } from './types';
 
 interface Props {

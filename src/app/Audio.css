@@ -6,6 +6,7 @@
 
   &__icon {
     @mixin shape-concave;
+
     border-radius: 50%;
     font-size: 2rem;
     border: calc(0.5em / 4) solid var(--c-border);
@@ -88,8 +89,6 @@
     &-close {
       margin: auto 0 0 0;
       padding-top: var(--spacing);
-      //padding-bottom: var(--spacing);
-      font-size: var(--fs);
     }
   }
 

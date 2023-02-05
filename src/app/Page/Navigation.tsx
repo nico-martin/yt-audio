@@ -1,7 +1,6 @@
+import cn from 'classnames';
 import React, { useState, Fragment } from 'react';
-
 import { NavLink } from 'react-router-dom';
-
 import './Navigation.css';
 
 interface Props {
@@ -27,19 +26,21 @@ const Navigation = ({ className }: Props) => {
         aria-hidden={open ? 'false' : 'true'}
       >
         <NavLink
-          exact
-          className="navigation__link"
+          end
           to="/"
-          activeClassName="navigation__link--active"
+          className={({ isActive }) =>
+            cn('navigation__link', { ['navigation__link--active']: isActive })
+          }
         >
           Home
         </NavLink>
         {[/*'About',*/ 'Legal', 'Privacy'].map(e => (
           <NavLink
-            exact
+            end
             to={`/${e.toLowerCase().replace(/\s/g, '-')}/`}
-            className="navigation__link"
-            activeClassName="navigation__link--active"
+            className={({ isActive }) =>
+              cn('navigation__link', { ['navigation__link--active']: isActive })
+            }
           >
             {e}
           </NavLink>

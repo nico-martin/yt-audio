@@ -1,12 +1,29 @@
 {
   "compilerOptions": {
-    "sourceMap": true,
     "module": "commonjs",
-    "target": "es5",
+    "noImplicitReturns": true,
+    "noUnusedLocals": false,
+    "outDir": "lib",
+    "sourceMap": true,
+    "strict": false,
+    "target": "es2017",
+    "allowSyntheticDefaultImports": true,
+    "skipLibCheck": true,
+    "noImplicitAny": false,
+    "declaration": true,
     "jsx": "react",
-    "esModuleInterop": true,
-    "baseUrl": "./",
-    "resolveJsonModule": true
+    "jsxFactory": "React.createElement",
+    "paths": {
+    },
+    "typeRoots": [
+      "node_modules/@types",
+      "src/@types"
+    ]
   },
-  "include": ["./**/*.tsx", "./**/*.ts"]
+  "include": [
+    "./**/*.tsx",
+    "./**/*.ts",
+    "./**/*.d.ts",
+    "./**/*.css"
+  ]
 }

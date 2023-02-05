@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from 'react';
-import { readableTime } from '../vendor/helpers';
 import cn from 'classnames';
+import React, { useEffect, useState } from 'react';
 import './PlayerTimeline.css';
-
+import { readableTime } from '../vendor/helpers';
 import { HTMLAudioState, HTMLAudioControls } from './types';
 
 interface Props {

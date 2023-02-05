@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { videosDB } from './store';
 import { Link } from 'react-router-dom';
-import { Video } from './vendor/types';
 import './Recent.css';
+import { videosDB } from './store';
+import { Video } from './vendor/types';
 
 interface Props {
   searchString: string;

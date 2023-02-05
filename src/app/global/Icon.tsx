@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react';
 import cn from 'classnames';
-
+import React from 'react';
 import './Icon.css';
+import icons, { IconNamesT } from '../global/icons';
 
 interface Props {
-  icon: string;
+  icon: IconNamesT;
   className?: string;
   rotate?: 90 | 180 | 270 | false;
   spinning?: boolean;
@@ -16,16 +16,7 @@ const Icon = ({
   spinning = false,
   rotate = false,
 }: Props) => {
-  const [loadedIcon, setLoadedIcon] = useState('');
-
-  useEffect(() => {
-    async function loadIcon() {
-      return await import(
-        /* webpackMode: "eager" */ `../../assets/icons/${icon}.svg`
-      );
-    }
-    loadIcon().then(loaded => setLoadedIcon(loaded.default));
-  }, [icon]);
+  const Icon = icon && icon in icons ? icons[icon] : null;
 
   return (
     <div
@@ -37,8 +28,9 @@ const Icon = ({
           'icon--animation-spin': spinning,
         }
       )}
-      dangerouslySetInnerHTML={{ __html: loadedIcon }}
-    />
+    >
+      <Icon />
+    </div>
   );
 };
 

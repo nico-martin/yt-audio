@@ -1,6 +1,5 @@
 import React, { Fragment } from 'react';
 import Icon from '../global/Icon';
-
 import { HTMLAudioState, HTMLAudioControls } from './types';
 
 interface Props {
@@ -15,7 +14,7 @@ const PlayerControls = ({ audioState, audioControls }: Props) => (
       onClick={() => audioControls.seek(audioState.time - 30)}
       className="player__stepback"
     >
-      <Icon icon="30minus" />
+      <Icon icon="threeZeroMinus" />
     </button>
     <button
       className="player__play"
@@ -34,7 +33,7 @@ const PlayerControls = ({ audioState, audioControls }: Props) => (
       onClick={() => audioControls.seek(audioState.time + 30)}
       className="player__stepforward"
     >
-      <Icon icon="30plus" />
+      <Icon icon="threeZeroPlus" />
     </button>
   </Fragment>
 );

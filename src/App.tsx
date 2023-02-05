@@ -1,26 +1,23 @@
 import React, { useEffect, useState, Fragment } from 'react';
 import ReactDOM from 'react-dom';
 import {
-  BrowserRouter as Router,
-  Switch,
+  BrowserRouter as Router, //Switch,
   Route,
   Link,
   useLocation,
+  Routes,
 } from 'react-router-dom';
-
+import './App.css';
+import Audio from './app/Audio';
 import Navigation from './app/Page/Navigation';
 import SelectVideo from './app/SelectVideo';
-import Audio from './app/Audio';
+import Icon from './app/global/Icon';
+import About from './app/pages/About';
 import Legal from './app/pages/Legal';
 import Privacy from './app/pages/Privacy';
-import About from './app/pages/About';
-
-import './App.css';
-
 import { matomoSetPage } from './app/vendor/matomo';
-import Icon from './app/global/Icon';
 
-const App = () => {
+const App: React.FC = () => {
   const location = useLocation();
   const [init, setInit] = useState<boolean>(false);
 
@@ -42,7 +39,7 @@ const App = () => {
         </Link>
         <Navigation className="app__navigation" />
       </header>
-      <Switch>
+      <Routes>
         <Route path="/legal/">
           <Legal className="app__content" />
         </Route>
@@ -58,7 +55,7 @@ const App = () => {
         <Route path="/">
           <SelectVideo />
         </Route>
-      </Switch>
+      </Routes>
     </Fragment>
   );
 };

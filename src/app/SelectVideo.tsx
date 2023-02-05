@@ -1,30 +1,26 @@
-import React, { useEffect, useState, useRef, Fragment } from 'react';
 import cn from 'classnames';
-import { withRouter, useLocation } from 'react-router-dom';
-import { youtubeParser } from './vendor/helpers';
-import Recent from './Recent';
-import Intro from './Intro';
-import Icon from './global/Icon';
-
+import React, { useEffect, useState, useRef, Fragment } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import './SelectVideo.css';
-
-interface Props {
-  history: { push: Function };
-}
+import Intro from './Intro';
+import Recent from './Recent';
+import Icon from './global/Icon';
+import { youtubeParser } from './vendor/helpers';
 
 const parsedUrl = new URL(String(window.location));
 
-const SelectVideo = ({ history }: Props) => {
+const SelectVideo: React.FC = () => {
   const [input, setInput] = useState<string>('');
   const [error, setError] = useState<string>('');
   const [video, setVideo] = useState<string>('');
   const inputEl = useRef(null);
   const location = useLocation();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const videolink = parsedUrl.searchParams.get('videolink');
     if (videolink && youtubeParser(videolink) !== '') {
-      history.push(`/play/${youtubeParser(videolink)}/`);
+      navigate(`/play/${youtubeParser(videolink)}/`);
     }
   }, []);
 
@@ -48,7 +44,7 @@ const SelectVideo = ({ history }: Props) => {
   const hasError: boolean = false; // input !== '' && error !== '';
   const onSubmit = e => {
     e.preventDefault();
-    history.push(`/play/${video}`);
+    navigate(`/play/${video}`);
   };
 
   return (
@@ -85,4 +81,4 @@ const SelectVideo = ({ history }: Props) => {
   );
 };
 
-export default withRouter(SelectVideo);
+export default SelectVideo;

@@ -1,16 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import { Audio } from '../vendor/types';
+import './Player.css';
 import { videosDB, settingsDB } from '../store';
-import PlayerTimeline from './PlayerTimeline';
-import PlayerPlaybackSpeed from './PlayerPlaybackSpeed';
-import PlayerControls from './PlayerControls';
-import PlayerReplay from './PlayerReplay';
+import { Audio } from '../vendor/types';
 import BufferInfo from './BufferInfo';
-
+import PlayerControls from './PlayerControls';
+import PlayerPlaybackSpeed from './PlayerPlaybackSpeed';
+import PlayerReplay from './PlayerReplay';
+import PlayerTimeline from './PlayerTimeline';
 import useAudio from './hooks/useAudio';
 import useMediaSession from './hooks/useMediaSession';
-
-import './Player.css';
 
 interface Props {
   source: Audio;
