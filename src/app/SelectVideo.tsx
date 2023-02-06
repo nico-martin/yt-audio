@@ -1,30 +1,32 @@
-import cn from 'classnames';
-import React, { useEffect, useState, useRef, Fragment } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import React from 'react';
+import { withRouter, useLocation } from 'react-router-dom';
+import { youtubeParser } from '@common/helpers';
 import './SelectVideo.css';
 import Intro from './Intro';
 import Recent from './Recent';
 import Icon from './global/Icon';
-import { youtubeParser } from './vendor/helpers';
 
 const parsedUrl = new URL(String(window.location));
 
-const SelectVideo: React.FC = () => {
-  const [input, setInput] = useState<string>('');
-  const [error, setError] = useState<string>('');
-  const [video, setVideo] = useState<string>('');
-  const inputEl = useRef(null);
-  const location = useLocation();
-  const navigate = useNavigate();
+interface Props {
+  history: { push: Function };
+}
 
-  useEffect(() => {
+const SelectVideo: React.FC<Props> = ({ history }) => {
+  const [input, setInput] = React.useState<string>('');
+  const [error, setError] = React.useState<string>('');
+  const [video, setVideo] = React.useState<string>('');
+  const inputEl = React.useRef(null);
+  const location = useLocation();
+
+  React.useEffect(() => {
     const videolink = parsedUrl.searchParams.get('videolink');
     if (videolink && youtubeParser(videolink) !== '') {
-      navigate(`/play/${youtubeParser(videolink)}/`);
+      history.push(`/play/${youtubeParser(videolink)}/`);
     }
   }, []);
 
-  useEffect(() => {
+  React.useEffect(() => {
     const videoID = youtubeParser(input);
     if (videoID === '') {
       setError('No valid Youtube video ID found');
@@ -35,16 +37,16 @@ const SelectVideo: React.FC = () => {
     }
   }, [input]);
 
-  useEffect(() => {
+  React.useEffect(() => {
     if (location.pathname === '/') {
       setInput('');
     }
   }, [location.pathname]);
 
   const hasError: boolean = false; // input !== '' && error !== '';
-  const onSubmit = e => {
+  const onSubmit = (e) => {
     e.preventDefault();
-    navigate(`/play/${video}`);
+    history.push(`/play/${video}`);
   };
 
   return (
@@ -81,4 +83,4 @@ const SelectVideo: React.FC = () => {
   );
 };
 
-export default SelectVideo;
+export default withRouter(SelectVideo);

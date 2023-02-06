@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
+import { Video } from '@common/types';
 import './Recent.css';
 import { videosDB } from './store';
-import { Video } from './vendor/types';
 
 interface Props {
   searchString: string;
@@ -10,18 +10,18 @@ interface Props {
 }
 
 const Recent = ({ searchString, Intro }: Props) => {
-  const [videos, setVideos] = useState<Array<Partial<Video>>>([]);
-  const [filteredVideos, setFilteredVideos] = useState<Array<Partial<Video>>>(
-    []
-  );
-  const [init, setInit] = useState<boolean>(false);
-  const removeVideo = id => {
-    setVideos([...videos].filter(video => video.id !== id));
+  const [videos, setVideos] = React.useState<Array<Partial<Video>>>([]);
+  const [filteredVideos, setFilteredVideos] = React.useState<
+    Array<Partial<Video>>
+  >([]);
+  const [init, setInit] = React.useState<boolean>(false);
+  const removeVideo = (id) => {
+    setVideos([...videos].filter((video) => video.id !== id));
     videosDB.delete(id);
   };
 
-  useEffect(() => {
-    videosDB.getAll().then(resp => {
+  React.useEffect(() => {
+    videosDB.getAll().then((resp) => {
       setInit(true);
       const v = resp.sort((a, b) => b.date.getTime() - a.date.getTime());
       setVideos(v);
@@ -29,10 +29,10 @@ const Recent = ({ searchString, Intro }: Props) => {
     });
   }, []);
 
-  useEffect(
+  React.useEffect(
     () =>
       setFilteredVideos(
-        videos.filter(video => {
+        videos.filter((video) => {
           return (
             (video.id || '').indexOf(searchString) !== -1 ||
             (video.author || '').indexOf(searchString) !== -1 ||
@@ -55,7 +55,7 @@ const Recent = ({ searchString, Intro }: Props) => {
     <div className="recent">
       <h3 className="recent__title">recently listened</h3>
       <ul className="recent__list">
-        {filteredVideos.map(video => (
+        {filteredVideos.map((video) => (
           <li className="recent__element recent-element">
             <Link to={`/play/${video.id}/`} className="recent-element__link">
               {video.images &&

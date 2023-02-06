@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React from 'react';
 import { HTMLAudioState, HTMLAudioControls, HTMLAudioProps } from '../types';
 
 /**
@@ -9,7 +9,7 @@ import { HTMLAudioState, HTMLAudioControls, HTMLAudioProps } from '../types';
 
 export const states = {};
 
-const parseTimeRange = ranges =>
+const parseTimeRange = (ranges) =>
   ranges.length < 1
     ? {
         start: 0,
@@ -25,9 +25,9 @@ export default ({
   autoPlay = false,
   startPlaybackRate = 1,
   formats = [],
-  setError = error => console.log(error),
+  setError = (error) => console.log(error),
 }: HTMLAudioProps) => {
-  const [state, setOrgState] = useState<HTMLAudioState>({
+  const [state, setOrgState] = React.useState<HTMLAudioState>({
     buffered: {
       start: 0,
       end: 0,
@@ -41,7 +41,7 @@ export default ({
   });
   const setState = (partState: Partial<HTMLAudioState>) =>
     setOrgState({ ...state, ...partState });
-  const ref = useRef<HTMLAudioElement | null>(null);
+  const ref = React.useRef<HTMLAudioElement | null>(null);
 
   const element = React.createElement(
     'audio',
@@ -156,7 +156,7 @@ export default ({
     },
   };
 
-  useEffect(() => {
+  React.useEffect(() => {
     const el = ref.current!;
     setState({
       paused: el.paused,

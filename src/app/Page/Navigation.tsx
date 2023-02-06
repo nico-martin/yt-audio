@@ -1,5 +1,5 @@
 import cn from 'classnames';
-import React, { useState, Fragment } from 'react';
+import React from 'react';
 import { NavLink } from 'react-router-dom';
 import './Navigation.css';
 
@@ -8,7 +8,7 @@ interface Props {
 }
 
 const Navigation = ({ className }: Props) => {
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = React.useState(false);
 
   return (
     <nav className={`${className} navigation`}>
@@ -34,7 +34,7 @@ const Navigation = ({ className }: Props) => {
         >
           Home
         </NavLink>
-        {[/*'About',*/ 'Legal', 'Privacy'].map(e => (
+        {[/*'About',*/ 'Legal', 'Privacy'].map((e) => (
           <NavLink
             end
             to={`/${e.toLowerCase().replace(/\s/g, '-')}/`}

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { settingsDB } from '../store';
 import Icon from './../global/Icon';
 import { HTMLAudioControls, HTMLAudioState } from './types';
@@ -11,19 +11,19 @@ interface Props {
 
 const PlayerReplay = ({ audioState, audioControls, className = '' }: Props) => {
   const states = ['none', 'one', 'all'];
-  const [replayState, setReplayState] = useState(0);
-  const [init, setInit] = useState<boolean>(false);
+  const [replayState, setReplayState] = React.useState(0);
+  const [init, setInit] = React.useState<boolean>(false);
 
-  useEffect(() => {
+  React.useEffect(() => {
     if (audioState.duration !== 0 && !init) {
-      settingsDB.get('replay').then(v => {
+      settingsDB.get('replay').then((v) => {
         setReplayState(v ? Number(v) : 0);
       });
       setInit(true);
     }
   }, [audioState.duration]);
 
-  useEffect(() => {
+  React.useEffect(() => {
     if (init) {
       settingsDB.set('replay', replayState);
     }

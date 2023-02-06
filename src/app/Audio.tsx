@@ -1,12 +1,12 @@
 import axios from 'axios';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Link, useParams } from 'react-router-dom';
+import { nl2br } from '@common/helpers';
+import { Audio as AudioType } from '@common/types';
 import './Audio.css';
 import Player from './Player/Player';
 import Icon from './global/Icon';
 import { videosDB } from './store';
-import { nl2br } from './vendor/helpers';
-import { Audio as AudioType } from './vendor/types';
 
 const initTitle = document.title;
 const initAudio = {
@@ -17,22 +17,22 @@ const initAudio = {
 
 let startTime = 0;
 const Audio = ({ className = '' }: { className?: string }) => {
-  const [error, setError] = useState<string>('');
-  const [audio, setAudio] = useState<AudioType>(initAudio);
-  const [audioTime, setAudioTime] = useState<number>(0);
+  const [error, setError] = React.useState<string>('');
+  const [audio, setAudio] = React.useState<AudioType>(initAudio);
+  const [audioTime, setAudioTime] = React.useState<number>(0);
   const { videoID } = useParams<{ videoID: string }>();
 
-  useEffect(() => {
+  React.useEffect(() => {
     document.querySelector('#app').classList.add('app--player');
     return () => document.querySelector('#app').classList.remove('app--player');
   });
 
-  useEffect(() => {
+  React.useEffect(() => {
     setError('');
     setAudio(initAudio);
     axios
       .get(`https://yt-source.nico.dev/${videoID}/`)
-      .then(res => {
+      .then((res) => {
         if (!res.data.url) {
           setError('An unexpected error occured');
         } else {
@@ -45,7 +45,7 @@ const Audio = ({ className = '' }: { className?: string }) => {
           });
         }
       })
-      .catch(err => {
+      .catch((err) => {
         setError(`Audiofile for "${videoID}" not found`);
       });
     return () => {

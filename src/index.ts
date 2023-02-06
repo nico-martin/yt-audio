@@ -1,7 +1,7 @@
-import './App';
+import '@common/a11y';
+import { isDev } from '@common/helpers';
 import './styles.css';
-import { isDev } from './app/vendor/helpers';
-import './app/vendor/a11y';
+import './App';
 
 isDev && document.body.classList.add('dev');
 

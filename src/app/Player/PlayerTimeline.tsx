@@ -1,7 +1,7 @@
 import cn from 'classnames';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
+import { readableTime } from '@common/helpers';
 import './PlayerTimeline.css';
-import { readableTime } from '../vendor/helpers';
 import { HTMLAudioState, HTMLAudioControls } from './types';
 
 interface Props {
@@ -15,10 +15,10 @@ const PlayerTimeline = ({
   audioControls,
   className = '',
 }: Props) => {
-  const [playingBefore, setPlayingBefore] = useState(false);
-  const [sliderTime, setSliderTime] = useState(0);
+  const [playingBefore, setPlayingBefore] = React.useState<boolean>(false);
+  const [sliderTime, setSliderTime] = React.useState<number>(0);
 
-  useEffect(() => {
+  React.useEffect(() => {
     setSliderTime(audioState.time);
   }, [audioState.time]);
 
@@ -41,10 +41,10 @@ const PlayerTimeline = ({
             playingBefore && audioControls.play();
             setPlayingBefore(false);
           }}
-          onChange={e =>
+          onChange={(e) =>
             audioControls.seek(parseInt((e.target as HTMLInputElement).value))
           }
-          onInput={e => {
+          onInput={(e) => {
             setSliderTime(parseInt((e.target as HTMLInputElement).value));
           }}
         />

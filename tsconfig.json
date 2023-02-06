@@ -1,19 +1,24 @@
 {
   "compilerOptions": {
-    "module": "commonjs",
-    "noImplicitReturns": true,
-    "noUnusedLocals": false,
-    "outDir": "lib",
     "sourceMap": true,
-    "strict": false,
-    "target": "es2017",
-    "allowSyntheticDefaultImports": true,
-    "skipLibCheck": true,
-    "noImplicitAny": false,
-    "declaration": true,
+    "module": "commonjs",
+    "target": "es5",
     "jsx": "react",
     "jsxFactory": "React.createElement",
+    "esModuleInterop": true,
+    "baseUrl": "./",
+    "resolveJsonModule": true,
+    "allowSyntheticDefaultImports": true,
     "paths": {
+      "@common/*": [
+        "src/app/common/*"
+      ],
+      "@global/*": [
+        "src/app/global/*"
+      ],
+      "@app": [
+        "src/app/*"
+      ],
     },
     "typeRoots": [
       "node_modules/@types",

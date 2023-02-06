@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React from 'react';
 
 interface Props {
   element: any;
@@ -16,7 +16,7 @@ export default ({
     return;
   }
 
-  useEffect(() => {
+  React.useEffect(() => {
     if (!element) {
       return;
     }

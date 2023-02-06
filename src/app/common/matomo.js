@@ -1,6 +1,6 @@
 let currentUrl = location.href;
 
-export const matomoSetPage = url => {
+export const matomoSetPage = (url) => {
   _paq.push(['setReferrerUrl', currentUrl]);
 
   currentUrl = url;

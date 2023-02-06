@@ -1,12 +1,13 @@
-import React, { useEffect, useState, Fragment } from 'react';
+import React from 'react';
 import ReactDOM from 'react-dom';
 import {
-  BrowserRouter as Router, //Switch,
+  BrowserRouter,
   Route,
   Link,
   useLocation,
-  Routes,
+  Switch,
 } from 'react-router-dom';
+//import { matomoSetPage } from '@common/matomo';
 import './App.css';
 import Audio from './app/Audio';
 import Navigation from './app/Page/Navigation';
@@ -15,14 +16,13 @@ import Icon from './app/global/Icon';
 import About from './app/pages/About';
 import Legal from './app/pages/Legal';
 import Privacy from './app/pages/Privacy';
-import { matomoSetPage } from './app/vendor/matomo';
 
 const App: React.FC = () => {
   const location = useLocation();
-  const [init, setInit] = useState<boolean>(false);
+  const [init, setInit] = React.useState<boolean>(false);
 
-  useEffect(() => {
-    init && matomoSetPage(location.pathname);
+  React.useEffect(() => {
+    //init && matomoSetPage(location.pathname);
     if (location.pathname === '/') {
       document.body.classList.add('home');
     } else {
@@ -32,14 +32,14 @@ const App: React.FC = () => {
   }, [location]);
 
   return (
-    <Fragment>
+    <React.Fragment>
       <header className="app__header">
         <Link to="/" className="app__back">
           <Icon icon="arrow" /> back
         </Link>
         <Navigation className="app__navigation" />
       </header>
-      <Routes>
+      <Switch>
         <Route path="/legal/">
           <Legal className="app__content" />
         </Route>
@@ -55,14 +55,14 @@ const App: React.FC = () => {
         <Route path="/">
           <SelectVideo />
         </Route>
-      </Routes>
-    </Fragment>
+      </Switch>
+    </React.Fragment>
   );
 };
 
 ReactDOM.render(
-  <Router>
+  <BrowserRouter>
     <App />
-  </Router>,
+  </BrowserRouter>,
   document.querySelector('#app')
 );

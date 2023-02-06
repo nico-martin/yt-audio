@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
+import { Audio } from '@common/types';
 import './Player.css';
 import { videosDB, settingsDB } from '../store';
-import { Audio } from '../vendor/types';
 import BufferInfo from './BufferInfo';
 import PlayerControls from './PlayerControls';
 import PlayerPlaybackSpeed from './PlayerPlaybackSpeed';
@@ -17,24 +17,24 @@ interface Props {
 }
 
 const Player = ({ source, setError, className = '' }: Props) => {
-  const [startTime, setStartTime] = useState<number>(0);
-  const [useProxy, setUseProxy] = useState<boolean>(false);
-  const [showBufferInfo, setShowBufferInfo] = useState<boolean>(null);
-  const [bufferTime, setBufferTime] = useState<number>(0);
-  const [timer, setTimer] = useState<any>(null);
+  const [startTime, setStartTime] = React.useState<number>(0);
+  const [useProxy, setUseProxy] = React.useState<boolean>(false);
+  const [showBufferInfo, setShowBufferInfo] = React.useState<boolean>(null);
+  const [bufferTime, setBufferTime] = React.useState<number>(0);
+  const [timer, setTimer] = React.useState<any>(null);
 
   const audio = useAudio({
     src: useProxy
       ? `https://yt-source.nico.dev/play/${encodeURIComponent(source.url)}`
       : source.url,
-    setError: error => {
+    setError: (error) => {
       if (useProxy) {
         setError(error);
       } else {
         setUseProxy(true);
       }
     },
-    formats: Object.keys(source.formats).map(mimeType => {
+    formats: Object.keys(source.formats).map((mimeType) => {
       return {
         mimeType,
         src: useProxy
@@ -46,10 +46,10 @@ const Player = ({ source, setError, className = '' }: Props) => {
     }),
   });
 
-  useEffect(() => {
+  React.useEffect(() => {
     if (audio.state.waiting) {
       const bufferTimer = setInterval(() => {
-        setBufferTime(prevBufferTime => prevBufferTime + 200);
+        setBufferTime((prevBufferTime) => prevBufferTime + 200);
       }, 200);
       setTimer(bufferTimer);
     } else if (timer) {
@@ -58,7 +58,7 @@ const Player = ({ source, setError, className = '' }: Props) => {
     }
   }, [audio.state.waiting]);
 
-  useEffect(() => {
+  React.useEffect(() => {
     if (bufferTime >= 5000 && showBufferInfo === null) {
       setShowBufferInfo(true);
     }
@@ -70,7 +70,7 @@ const Player = ({ source, setError, className = '' }: Props) => {
       title: source.title,
       artist: source.author,
       album: 'YouTube Audio Player',
-      artwork: source.images.map(e => {
+      artwork: source.images.map((e) => {
         return {
           src: e.url,
           sizes: `${e.height}x${e.width}`,
@@ -83,24 +83,24 @@ const Player = ({ source, setError, className = '' }: Props) => {
       seekbackward: () => audio.controls.seek(audio.state.time - 30),
       seekforward: () => audio.controls.seek(audio.state.time + 30),
       // @ts-ignore => https://github.com/DefinitelyTyped/DefinitelyTyped/pull/44231
-      seekto: details => audio.controls.seek(details.seekTime),
+      seekto: (details) => audio.controls.seek(details.seekTime),
     },
   });
 
-  useEffect(() => {
-    videosDB.get(source.id).then(v => setStartTime(v.time));
+  React.useEffect(() => {
+    videosDB.get(source.id).then((v) => setStartTime(v.time));
     settingsDB
       .get('playbackRate')
-      .then(rate => audio.controls.setPlaybackRate(rate ? Number(rate) : 1));
+      .then((rate) => audio.controls.setPlaybackRate(rate ? Number(rate) : 1));
   }, [source.id]);
 
-  useEffect(() => {
+  React.useEffect(() => {
     if (startTime !== 0 && audio.state.duration !== 0) {
       audio.controls.seek(startTime >= 5 ? startTime - 5 : startTime);
     }
   }, [startTime, audio.state.duration]);
 
-  useEffect(
+  React.useEffect(
     () => () => {
       videosDB.updateObject(source.id, {
         time: audio.state.time,

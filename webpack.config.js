@@ -5,6 +5,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const webpack = require('webpack');
 const app = require('./package.json');
+const { TsconfigPathsPlugin } = require('tsconfig-paths-webpack-plugin');
 
 require('dotenv').config();
 
@@ -98,21 +99,19 @@ module.exports = (env) => {
           ? 'assets/[name].[id].css'
           : 'assets/[name].[id].[hash].css',
       }),
-      new CopyWebpackPlugin([
-        {
-          from: 'src/static',
-          to: 'assets/static',
-        },
-      ]),
+      new CopyWebpackPlugin({
+        patterns: [
+          {
+            from: 'src/static',
+            to: 'assets/static',
+          },
+        ],
+      }),
       new webpack.SourceMapDevToolPlugin({}),
     ],
     resolve: {
-      alias: {
-        react: 'preact/compat',
-        'react-dom': 'preact/compat',
-        // Must be below test-utils
-      },
-      extensions: ['.js', '.jsx', '.ts', '.tsx'],
+      extensions: ['.ts', '.tsx', '.js'],
+      plugins: [new TsconfigPathsPlugin()],
     },
   };
 };
