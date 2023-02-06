@@ -11,7 +11,6 @@ import { videosDB } from './store';
 
 let startTime = 0;
 const Audio = ({ className = '' }: { className?: string }) => {
-  const [error, setError] = React.useState<string>('');
   const { videoID } = useParams<{ videoID: string }>();
   const audio = useAudioSource(videoID);
 
@@ -32,7 +31,7 @@ const Audio = ({ className = '' }: { className?: string }) => {
   return audio.state === AUDIO_STATE.ERROR ? (
     <div className={`${className} audio audio--error`}>
       <Icon icon="warning" className="audio__icon" />
-      <p className="audio__error-text">{error}</p>
+      <p className="audio__error-text">{audio.info}</p>
       <p className="audio__error-reload">
         <button
           className="audio__error-reload-button"

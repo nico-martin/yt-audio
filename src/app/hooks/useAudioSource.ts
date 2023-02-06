@@ -52,7 +52,7 @@ const useAudioSource = (
           }
         });
       } else if (!ok) {
-        setInfo(error || 'An unexpected error occurred');
+        setInfo(`Video "${videoID}" could not be found.`);
         setState(STATE.ERROR);
       } else {
         setData(data);
