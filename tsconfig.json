@@ -3,10 +3,38 @@
     "sourceMap": true,
     "module": "commonjs",
     "target": "es5",
-    "jsx": "react",
+    "jsx": "react-jsx",
+    "jsxImportSource": "preact",
     "esModuleInterop": true,
     "baseUrl": "./",
-    "resolveJsonModule": true
+    "resolveJsonModule": true,
+    "allowSyntheticDefaultImports": true,
+    "paths": {
+      "@common/*": [
+        "src/app/common/*"
+      ],
+      "@global/*": [
+        "src/app/global/*"
+      ],
+      "@app": [
+        "src/app/*"
+      ],
+      "react": [
+        "./node_modules/preact/compat/"
+      ],
+      "react-dom": [
+        "./node_modules/preact/compat/"
+      ]
+    },
+    "typeRoots": [
+      "node_modules/@types",
+      "src/@types"
+    ]
   },
-  "include": ["./**/*.tsx", "./**/*.ts"]
+  "include": [
+    "./**/*.tsx",
+    "./**/*.ts",
+    "./**/*.d.ts",
+    "./**/*.css"
+  ]
 }

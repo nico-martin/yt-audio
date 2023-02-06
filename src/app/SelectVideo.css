@@ -4,6 +4,7 @@
 
   &__label {
     display: block;
+    font-weight: 300;
   }
 
   &__row {

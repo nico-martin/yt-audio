@@ -1,5 +1,5 @@
 import { openDB, DBSchema } from 'idb';
-import { Video } from '../vendor/types';
+import { Video } from '@common/types';
 
 const dbName = 'YouTubeAudioPlayer-v2';
 const store = 'videos';

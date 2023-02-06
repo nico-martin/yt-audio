@@ -3,7 +3,7 @@
 
   &__title {
     font-size: var(--fs-s);
-    font-weight: normal;
+    font-weight: 300;
     color: var(--c-p);
   }
 }

@@ -1,9 +1,10 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React from 'react';
 
 interface Props {
   element: any;
   mediaMetadata: MediaMetadata;
-  controls?: { [action in MediaSessionAction]?: (() => void) | null };
+  //@ts-ignore
+  controls?: { [action]: (() => void) | null };
 }
 
 export default ({
@@ -15,7 +16,7 @@ export default ({
     return;
   }
 
-  useEffect(() => {
+  React.useEffect(() => {
     if (!element) {
       return;
     }
@@ -24,9 +25,10 @@ export default ({
       title,
       artist,
       album,
-      artwork,
+      //artwork,
     });
 
+    //@ts-ignore
     Object.keys(controls).forEach((e: MediaSessionAction) =>
       navigator.mediaSession.setActionHandler(e, controls[e])
     );

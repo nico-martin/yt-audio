@@ -1,30 +1,30 @@
-import React, { useEffect, useState, Fragment } from 'react';
+import React from 'react';
 import ReactDOM from 'react-dom';
+import Helmet from 'react-helmet';
 import {
-  BrowserRouter as Router,
-  Switch,
+  BrowserRouter,
   Route,
   Link,
   useLocation,
+  Switch,
 } from 'react-router-dom';
-
+import './App.css';
+import app from '../app.json';
+import { version } from '../package.json';
+import Audio from './app/Audio';
 import Navigation from './app/Page/Navigation';
 import SelectVideo from './app/SelectVideo';
-import Audio from './app/Audio';
+import { matomoSetPage } from './app/common/matomo';
+import Icon from './app/global/Icon';
+import About from './app/pages/About';
 import Legal from './app/pages/Legal';
 import Privacy from './app/pages/Privacy';
-import About from './app/pages/About';
 
-import './App.css';
-
-import { matomoSetPage } from './app/vendor/matomo';
-import Icon from './app/global/Icon';
-
-const App = () => {
+const App: React.FC = () => {
   const location = useLocation();
-  const [init, setInit] = useState<boolean>(false);
+  const [init, setInit] = React.useState<boolean>(false);
 
-  useEffect(() => {
+  React.useEffect(() => {
     init && matomoSetPage(location.pathname);
     if (location.pathname === '/') {
       document.body.classList.add('home');
@@ -35,7 +35,11 @@ const App = () => {
   }, [location]);
 
   return (
-    <Fragment>
+    <React.Fragment>
+      <Helmet>
+        <title>{app.title}</title>
+        <meta name="app-version" content={version} />
+      </Helmet>
       <header className="app__header">
         <Link to="/" className="app__back">
           <Icon icon="arrow" /> back
@@ -59,13 +63,13 @@ const App = () => {
           <SelectVideo />
         </Route>
       </Switch>
-    </Fragment>
+    </React.Fragment>
   );
 };
 
 ReactDOM.render(
-  <Router>
+  <BrowserRouter>
     <App />
-  </Router>,
+  </BrowserRouter>,
   document.querySelector('#app')
 );

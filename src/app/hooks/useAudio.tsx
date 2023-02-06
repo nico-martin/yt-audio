@@ -1,5 +1,36 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { HTMLAudioState, HTMLAudioControls, HTMLAudioProps } from '../types';
+import React from 'react';
+
+export interface HTMLAudioState {
+  buffered: {
+    start: number;
+    end: number;
+  };
+  time: number;
+  duration: number;
+  paused: boolean;
+  waiting: boolean;
+  playbackRate: number;
+  endedCallback: Function;
+}
+
+export interface HTMLAudioControls {
+  play: () => Promise<void> | void;
+  pause: () => void;
+  seek: (time: number) => void;
+  setPlaybackRate: (rate: number) => void;
+  setEndedCallback: (callback: Function) => void;
+}
+
+interface HTMLAudioProps {
+  src: string;
+  autoPlay?: boolean;
+  startPlaybackRate?: number;
+  formats?: Array<{
+    mimeType: string;
+    src: string;
+  }>;
+  setError?: Function;
+}
 
 /**
  * Shout-out to:
@@ -9,7 +40,7 @@ import { HTMLAudioState, HTMLAudioControls, HTMLAudioProps } from '../types';
 
 export const states = {};
 
-const parseTimeRange = ranges =>
+const parseTimeRange = (ranges) =>
   ranges.length < 1
     ? {
         start: 0,
@@ -25,9 +56,9 @@ export default ({
   autoPlay = false,
   startPlaybackRate = 1,
   formats = [],
-  setError = error => console.log(error),
+  setError = (error) => console.log(error),
 }: HTMLAudioProps) => {
-  const [state, setOrgState] = useState<HTMLAudioState>({
+  const [state, setOrgState] = React.useState<HTMLAudioState>({
     buffered: {
       start: 0,
       end: 0,
@@ -40,8 +71,8 @@ export default ({
     endedCallback: null,
   });
   const setState = (partState: Partial<HTMLAudioState>) =>
-    setOrgState({ ...state, ...partState });
-  const ref = useRef<HTMLAudioElement | null>(null);
+    setOrgState((state) => ({ ...state, ...partState }));
+  const ref = React.useRef<HTMLAudioElement | null>(null);
 
   const element = React.createElement(
     'audio',
@@ -156,7 +187,7 @@ export default ({
     },
   };
 
-  useEffect(() => {
+  React.useEffect(() => {
     const el = ref.current!;
     setState({
       paused: el.paused,

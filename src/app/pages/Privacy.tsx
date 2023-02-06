@@ -1,8 +1,13 @@
 import React from 'react';
+import Helmet from 'react-helmet';
+import app from '../../../app.json';
 
 const Privacy = ({ className = '' }: { className?: string }) => {
   return (
     <div className={`${className} page`}>
+      <Helmet>
+        <title>Privacy - {app.title}</title>
+      </Helmet>
       <h1 className="page__header">Privacy</h1>
       <div className="page__content">
         <p>

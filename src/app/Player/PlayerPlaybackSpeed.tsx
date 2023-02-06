@@ -1,11 +1,9 @@
-import React, { Fragment, useEffect, useState } from 'react';
-import { settingsDB } from '../store';
-import Modal from '../global/Modal';
 import cn from 'classnames';
-
+import React from 'react';
 import './PlayerPlaybackSpeed.css';
-
-import { HTMLAudioState, HTMLAudioControls } from './types';
+import Modal from '../global/Modal';
+import { HTMLAudioState, HTMLAudioControls } from '../hooks/useAudio';
+import { settingsDB } from '../store';
 
 interface Props {
   audioState: HTMLAudioState;
@@ -18,10 +16,10 @@ const PlayerPlaybackSpeed = ({
   audioControls,
   className = '',
 }: Props) => {
-  const [modal, setModal] = useState(false);
+  const [modal, setModal] = React.useState(false);
 
   return (
-    <Fragment>
+    <React.Fragment>
       <button
         className={`${className} player-playback-speed`}
         onClick={() => setModal(true)}
@@ -60,7 +58,7 @@ const PlayerPlaybackSpeed = ({
           </p>
         </Modal>
       )}
-    </Fragment>
+    </React.Fragment>
   );
 };
 
