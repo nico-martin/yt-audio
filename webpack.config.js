@@ -85,13 +85,13 @@ module.exports = (env) => {
         minify: dev
           ? false
           : {
-            collapseWhitespace: true,
-            removeComments: true,
-            removeRedundantAttributes: true,
-            removeScriptTypeAttributes: true,
-            removeStyleLinkTypeAttributes: true,
-            useShortDoctype: true,
-          },
+              collapseWhitespace: true,
+              removeComments: true,
+              removeRedundantAttributes: true,
+              removeScriptTypeAttributes: true,
+              removeStyleLinkTypeAttributes: true,
+              useShortDoctype: true,
+            },
       }),
       new MiniCssExtractPlugin({
         filename: dev ? 'assets/[name].css' : 'assets/[name].[hash].css',

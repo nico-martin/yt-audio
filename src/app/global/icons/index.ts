@@ -14,19 +14,19 @@ import Warning from './warning.svg';
 import Youtube from './youtube.svg';
 
 export type IconNamesT =
- | 'threeZeroMinus'
- | 'threeZeroPlus'
- | 'arrow'
- | 'loading'
- | 'pause'
- | 'play'
- | 'reload'
- | 'replayAll'
- | 'replayNone'
- | 'replayOne'
- | 'stop'
- | 'warning'
- | 'youtube';
+  | 'threeZeroMinus'
+  | 'threeZeroPlus'
+  | 'arrow'
+  | 'loading'
+  | 'pause'
+  | 'play'
+  | 'reload'
+  | 'replayAll'
+  | 'replayNone'
+  | 'replayOne'
+  | 'stop'
+  | 'warning'
+  | 'youtube';
 
 export default {
   threeZeroMinus: ThreeZeroMinus,
@@ -41,5 +41,5 @@ export default {
   replayOne: ReplayOne,
   stop: Stop,
   warning: Warning,
-  youtube: Youtube
-} as Record<IconNamesT, React.FC<React.SVGProps<SVGSVGElement>>>;
+  youtube: Youtube,
+} as Record<IconNamesT, React.FC>;

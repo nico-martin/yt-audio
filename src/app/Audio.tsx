@@ -61,7 +61,7 @@ const Audio = ({ className = '' }: { className?: string }) => {
         <p className="audio__error-reload">
           <button
             className="audio__error-reload-button"
-            onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
+            onClick={(e) => {
               window.location.reload();
               (e.target as HTMLButtonElement).setAttribute(
                 'disabled',
