@@ -1,27 +1,28 @@
 import React from 'react';
 import { Audio } from '@common/types';
 import './Player.css';
+import useAudio from '../hooks/useAudio';
+import useMediaSession from '../hooks/useMediaSession';
 import { videosDB, settingsDB } from '../store';
 import BufferInfo from './BufferInfo';
 import PlayerControls from './PlayerControls';
 import PlayerPlaybackSpeed from './PlayerPlaybackSpeed';
 import PlayerReplay from './PlayerReplay';
 import PlayerTimeline from './PlayerTimeline';
-import useAudio from './hooks/useAudio';
-import useMediaSession from './hooks/useMediaSession';
 
 interface Props {
   source: Audio;
-  setError: Function;
   className?: string;
 }
 
-const Player = ({ source, setError, className = '' }: Props) => {
+const Player = ({ source, className = '' }: Props) => {
   const [startTime, setStartTime] = React.useState<number>(0);
   const [useProxy, setUseProxy] = React.useState<boolean>(false);
   const [showBufferInfo, setShowBufferInfo] = React.useState<boolean>(null);
   const [bufferTime, setBufferTime] = React.useState<number>(0);
   const [timer, setTimer] = React.useState<any>(null);
+
+  const setError = (e) => console.log(e);
 
   const audio = useAudio({
     src: useProxy

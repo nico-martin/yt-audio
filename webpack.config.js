@@ -4,7 +4,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const webpack = require('webpack');
-const app = require('./package.json');
+const app = require('./app.json');
 const { TsconfigPathsPlugin } = require('tsconfig-paths-webpack-plugin');
 
 require('dotenv').config();

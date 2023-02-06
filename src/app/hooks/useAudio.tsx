@@ -1,5 +1,36 @@
 import React from 'react';
-import { HTMLAudioState, HTMLAudioControls, HTMLAudioProps } from '../types';
+
+export interface HTMLAudioState {
+  buffered: {
+    start: number;
+    end: number;
+  };
+  time: number;
+  duration: number;
+  paused: boolean;
+  waiting: boolean;
+  playbackRate: number;
+  endedCallback: Function;
+}
+
+export interface HTMLAudioControls {
+  play: () => Promise<void> | void;
+  pause: () => void;
+  seek: (time: number) => void;
+  setPlaybackRate: (rate: number) => void;
+  setEndedCallback: (callback: Function) => void;
+}
+
+interface HTMLAudioProps {
+  src: string;
+  autoPlay?: boolean;
+  startPlaybackRate?: number;
+  formats?: Array<{
+    mimeType: string;
+    src: string;
+  }>;
+  setError?: Function;
+}
 
 /**
  * Shout-out to:
@@ -40,7 +71,7 @@ export default ({
     endedCallback: null,
   });
   const setState = (partState: Partial<HTMLAudioState>) =>
-    setOrgState({ ...state, ...partState });
+    setOrgState((state) => ({ ...state, ...partState }));
   const ref = React.useRef<HTMLAudioElement | null>(null);
 
   const element = React.createElement(

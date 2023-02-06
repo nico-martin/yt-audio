@@ -2,7 +2,7 @@ import cn from 'classnames';
 import React from 'react';
 import { readableTime } from '@common/helpers';
 import './PlayerTimeline.css';
-import { HTMLAudioState, HTMLAudioControls } from './types';
+import { HTMLAudioState, HTMLAudioControls } from '../hooks/useAudio';
 
 interface Props {
   audioState: HTMLAudioState;

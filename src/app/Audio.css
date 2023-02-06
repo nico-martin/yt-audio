@@ -54,10 +54,19 @@
   }
 
   &__error-reload {
-    text-align: center;
+    display: flex;
     font-weight: bold;
-    display: block;
     margin-top: var(--spacing);
+    justify-content: center;
+
+    &-button {
+      display: flex;
+      align-items: center;
+
+      &-icon {
+        margin-right: 0.3rem;
+      }
+    }
   }
 
   &__about {

@@ -1,7 +1,7 @@
 import React from 'react';
+import { HTMLAudioControls, HTMLAudioState } from '../hooks/useAudio';
 import { settingsDB } from '../store';
 import Icon from './../global/Icon';
-import { HTMLAudioControls, HTMLAudioState } from './types';
 
 interface Props {
   audioState: HTMLAudioState;

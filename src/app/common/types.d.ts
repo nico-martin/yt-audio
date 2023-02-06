@@ -1,7 +1,7 @@
 export interface Audio {
   id?: string;
   url: string;
-  formats?: {};
+  formats?: Record<string, string>;
   author: string;
   description?: string;
   title: string;

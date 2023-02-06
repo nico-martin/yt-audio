@@ -2,8 +2,8 @@ import cn from 'classnames';
 import React from 'react';
 import './PlayerPlaybackSpeed.css';
 import Modal from '../global/Modal';
+import { HTMLAudioState, HTMLAudioControls } from '../hooks/useAudio';
 import { settingsDB } from '../store';
-import { HTMLAudioState, HTMLAudioControls } from './types';
 
 interface Props {
   audioState: HTMLAudioState;

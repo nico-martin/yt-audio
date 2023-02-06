@@ -60,6 +60,7 @@
   &__link {
     margin-left: var(--spacing-small);
     text-decoration: none;
+    font-weight: 300;
 
     &--active {
       text-decoration: underline;
