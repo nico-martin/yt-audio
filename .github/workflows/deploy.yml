@@ -13,11 +13,11 @@ jobs:
       - uses: actions/checkout@master
       - uses: actions/setup-node@v1
         with:
-          node-version: '10.x'
+          node-version: '16.x'
       - name: Project setup
-        run: yarn install
+        run: npm install
       - name: Compile for production
-        run: yarn prod
+        run: npm run prod
       - name: Upload ftp
         uses: SamKirkland/FTP-Deploy-Action@3.0.0
         with:
