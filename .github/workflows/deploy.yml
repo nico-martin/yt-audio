@@ -19,9 +19,9 @@ jobs:
       - name: Compile for production
         run: npm run prod
       - name: Upload ftp
-        uses: SamKirkland/FTP-Deploy-Action@3.0.0
+        uses: SamKirkland/FTP-Deploy-Action@4.3.3
         with:
           local-dir: dist/
-          ftp-server: ftp://s019.cyon.net
-          ftp-username: ${{ secrets.FTP_USER }}
-          ftp-password: ${{ secrets.FTP_PASSWORD }}
+          server: ftp://s019.cyon.net
+          username: ${{ secrets.FTP_USER }}
+          password: ${{ secrets.FTP_PASSWORD }}
