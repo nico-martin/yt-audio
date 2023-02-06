@@ -10,6 +10,7 @@ import {
 } from 'react-router-dom';
 import './App.css';
 import app from '../app.json';
+import { version } from '../package.json';
 import Audio from './app/Audio';
 import Navigation from './app/Page/Navigation';
 import SelectVideo from './app/SelectVideo';
@@ -37,6 +38,7 @@ const App: React.FC = () => {
     <React.Fragment>
       <Helmet>
         <title>{app.title}</title>
+        <meta name="app-version" content={version} />
       </Helmet>
       <header className="app__header">
         <Link to="/" className="app__back">

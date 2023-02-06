@@ -28,7 +28,7 @@ const useAudioSource = (
   const [data, setData] = React.useState<AudioType>(initAudio);
 
   const loadAudioSourceLoop = () =>
-    getAudioSource(videoID).then(({ status, data, ok }) => {
+    getAudioSource(videoID).then(({ data, ok }) => {
       if (ok) {
         setData(data);
         setState(STATE.SUCCESS);
