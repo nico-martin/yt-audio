@@ -109,9 +109,17 @@ module.exports = (env) => {
           },
         ],
       }),
-      new webpack.SourceMapDevToolPlugin({}),
+      ...(dev ? [new webpack.SourceMapDevToolPlugin({})] : []),
       new CleanWebpackPlugin(),
-      new GenerateSW()
+      ...(!dev
+        ? [
+            new InjectManifest({
+              swSrc: './src/service-worker.js',
+              include: [/\.html$/, /\.js$/, /\.css$/],
+              maximumFileSizeToCacheInBytes: 5000000,
+            }),
+          ]
+        : []),
     ],
     resolve: {
       extensions: ['.ts', '.tsx', '.js'],
