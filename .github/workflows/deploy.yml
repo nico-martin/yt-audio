@@ -13,9 +13,9 @@ jobs:
       - uses: actions/checkout@master
       - uses: actions/setup-node@v1
         with:
-          node-version: '16.x'
+          node-version: '12.x'
       - name: Project setup
-        run: npm install
+        run: npm install --force
       - name: Compile for production
         run: npm run prod
       - name: Upload ftp
