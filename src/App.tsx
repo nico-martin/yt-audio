@@ -63,6 +63,7 @@ const App: React.FC = () => {
           <SelectVideo />
         </Route>
       </Switch>
+      <div className="app__version">v. {version}</div>
     </React.Fragment>
   );
 };

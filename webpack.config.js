@@ -6,6 +6,7 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 const webpack = require('webpack');
 const app = require('./app.json');
 const { TsconfigPathsPlugin } = require('tsconfig-paths-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 require('dotenv').config();
 
@@ -108,6 +109,7 @@ module.exports = (env) => {
         ],
       }),
       new webpack.SourceMapDevToolPlugin({}),
+      new CleanWebpackPlugin(),
     ],
     resolve: {
       extensions: ['.ts', '.tsx', '.js'],
