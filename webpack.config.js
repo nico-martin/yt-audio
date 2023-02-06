@@ -7,7 +7,7 @@ const webpack = require('webpack');
 const app = require('./app.json');
 const { TsconfigPathsPlugin } = require('tsconfig-paths-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
-const { GenerateSW } = require('workbox-webpack-plugin');
+const { InjectManifest } = require('workbox-webpack-plugin');
 
 require('dotenv').config();
 
