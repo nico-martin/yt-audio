@@ -22,6 +22,6 @@ jobs:
         uses: SamKirkland/FTP-Deploy-Action@4.3.3
         with:
           local-dir: dist/
-          server: ftp://s019.cyon.net
+          server: s019.cyon.net
           username: ${{ secrets.FTP_USER }}
           password: ${{ secrets.FTP_PASSWORD }}
