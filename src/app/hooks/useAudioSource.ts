@@ -44,7 +44,7 @@ const useAudioSource = (
       if (!ok && status === 0) {
         //setInfo('We need to restart our servers. This might take a while.');
         getServerRestart().then(({ data }) => {
-          if (data?.doRestart) {
+          if (data?.doRestart || data?.restartInProgress) {
             loadAudioSourceLoop();
           } else {
             setInfo('An unexpected error occurred');
