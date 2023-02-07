@@ -7,14 +7,17 @@ const webpack = require('webpack');
 const app = require('./app.json');
 const { TsconfigPathsPlugin } = require('tsconfig-paths-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
-const { InjectManifest } = require('workbox-webpack-plugin');
+const { GenerateSW } = require('workbox-webpack-plugin');
+const WebpackPwaManifest = require('webpack-pwa-manifest');
+const SitemapPlugin = require('sitemap-webpack-plugin').default;
+const RobotstxtPlugin = require('robotstxt-webpack-plugin');
 
 require('dotenv').config();
 
 module.exports = (env) => {
   const dirDist = path.resolve(__dirname, 'dist');
   const dirSrc = path.resolve(__dirname, 'src');
-  const dev = process.env.NODE_ENV.trim() === 'development';
+  const dev = (process.env.NODE_ENV || '').trim() === 'development';
   const port = process.env.PORT || 8080;
 
   let serveHttps = false;
@@ -113,10 +116,59 @@ module.exports = (env) => {
       new CleanWebpackPlugin(),
       ...(!dev
         ? [
-            new InjectManifest({
-              swSrc: './src/service-worker.js',
+            new WebpackPwaManifest({
+              name: app.title,
+              short_name: app.short,
+              description: app.description,
+              theme_color: app.color,
+              background_color: app.colorbkg,
+              display: 'standalone',
+              crossorigin: 'use-credentials',
+              icons: [
+                {
+                  src: path.resolve('./src/assets/favicon.png'),
+                  sizes: [96, 128, 192, 256, 384, 512],
+                  destination: path.join('assets', 'icon'),
+                  ios: true,
+                },
+              ],
+              share_target: {
+                action: '/',
+                method: 'GET',
+                params: {
+                  text: 'videolink',
+                },
+              },
+            }),
+            new GenerateSW({
               include: [/\.html$/, /\.js$/, /\.css$/],
-              maximumFileSizeToCacheInBytes: 5000000,
+              exclude: [/app\.css$/],
+              runtimeCaching: [
+                {
+                  urlPattern: new RegExp(/\.(?:png|gif|jpg|svg|ico|webp)$/),
+                  handler: 'CacheFirst',
+                  options: {
+                    cacheName: 'image-cache',
+                  },
+                },
+                {
+                  urlPattern: new RegExp(/\.html$/),
+                  handler: 'NetworkFirst',
+                  options: {
+                    cacheName: 'index-cache',
+                  },
+                },
+              ],
+              navigateFallback: 'index.html',
+              skipWaiting: true,
+            }),
+            new RobotstxtPlugin({
+              sitemap: 'https://ytaud.io/sitemap.xml',
+              host: 'https://ytaud.io',
+            }),
+            new SitemapPlugin({
+              base: 'https://ytaud.io',
+              paths: ['/', '/about/'],
             }),
           ]
         : []),
