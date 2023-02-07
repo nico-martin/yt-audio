@@ -21,13 +21,15 @@ const SelectVideo: React.FC<Props> = ({ history }) => {
 
   React.useEffect(() => {
     const videolink = parsedUrl.searchParams.get('videolink');
-    if (videolink && youtubeParser(videolink) !== '') {
-      history.push(`/play/${youtubeParser(videolink)}/`);
+    const id = youtubeParser(videolink);
+    if (videolink && id) {
+      history.push(`/play/${id}/`);
     }
   }, []);
 
   React.useEffect(() => {
     const videoID = youtubeParser(input);
+    console.log({ videoID, input });
     if (videoID === '') {
       setError('No valid Youtube video ID found');
       setVideo('');

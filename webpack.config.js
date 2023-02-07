@@ -14,7 +14,7 @@ require('dotenv').config();
 module.exports = (env) => {
   const dirDist = path.resolve(__dirname, 'dist');
   const dirSrc = path.resolve(__dirname, 'src');
-  const dev = env.WEBPACK_WATCH || false;
+  const dev = process.env.NODE_ENV.trim() === 'development';
   const port = process.env.PORT || 8080;
 
   let serveHttps = false;

@@ -1,6 +1,6 @@
 {
   "name": "youtube-player",
-  "version": "0.2.7",
+  "version": "0.2.8",
   "description": "An audio player for YouTube videos",
   "repository": {
     "type": "git",
@@ -22,7 +22,6 @@
     "moment": "^2.29.4",
     "preact": "^10.11.3",
     "react-helmet": "^6.1.0",
-    "react-hook-form": "^7.43.0",
     "react-intl": "^6.2.7",
     "react-router-dom": "^5.2.0",
     "unistore": "^3.5.2"
