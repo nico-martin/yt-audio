@@ -25,7 +25,7 @@ export default ({
       title,
       artist,
       album,
-      //artwork,
+      artwork: [...artwork],
     });
 
     //@ts-ignore
