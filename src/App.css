@@ -44,8 +44,9 @@
   }
 
   &__version {
-    position: fixed;
+    position: static;
     bottom: 1em;
+    padding-bottom: 1em;
     left: 0;
     right: 0;
     text-align: center;
