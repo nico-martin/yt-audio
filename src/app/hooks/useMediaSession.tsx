@@ -14,13 +14,6 @@ export default ({
 }: Props) => {
   React.useEffect(() => {
     if (element && 'mediaSession' in navigator) {
-      console.log('set mediaSession', {
-        title,
-        artist,
-        album,
-        artwork: [...artwork],
-      });
-
       navigator.mediaSession.metadata = new MediaMetadata({
         title,
         artist,
@@ -33,19 +26,9 @@ export default ({
         navigator.mediaSession.setActionHandler(e, controls[e])
       );
     }
-
-    return () => {
-      if ('mediaSession' in navigator) {
-        console.log('clean up mediaSession');
-        navigator.mediaSession.metadata = null;
-        //@ts-ignore
-        Object.keys(controls).forEach((e: MediaSessionAction) =>
-          navigator.mediaSession.setActionHandler(e, null)
-        );
-      }
-    };
   }, [element]);
 
+  /*
   React.useEffect(() => {
     if (element && 'mediaSession' in navigator) {
       console.log('set state', {
@@ -65,7 +48,7 @@ export default ({
       'mediaSession' in navigator &&
         navigator.mediaSession.setPositionState(null);
     };
-  }, [element?.duration, element?.playbackRate, element?.currentTime]);
+  }, [element?.duration, element?.playbackRate, element?.currentTime]);*/
 
   return;
 };
