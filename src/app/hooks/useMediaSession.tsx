@@ -5,12 +5,14 @@ interface Props {
   mediaMetadata: MediaMetadata;
   //@ts-ignore
   controls?: { [action]: (() => void) | null };
+  positionState: MediaPositionState;
 }
 
 export default ({
   element,
   mediaMetadata: { title, album, artist, artwork },
   controls,
+  positionState,
 }: Props) => {
   if (!('mediaSession' in navigator)) {
     return;
@@ -33,5 +35,10 @@ export default ({
       navigator.mediaSession.setActionHandler(e, controls[e])
     );
   }, [element]);
+
+  React.useEffect(() => {
+    navigator.mediaSession.setPositionState(positionState);
+  }, [positionState]);
+
   return;
 };

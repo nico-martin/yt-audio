@@ -71,20 +71,25 @@ const Player = ({ source, className = '' }: Props) => {
       title: source.title,
       artist: source.author,
       album: 'YouTube Audio Player',
-      artwork: source.images.map((e) => {
-        return {
-          src: e.url,
-          sizes: `${e.height}x${e.width}`,
-        };
-      }),
+      artwork: source.images.map((e) => ({
+        src: e.url,
+        sizes: `${e.height}x${e.width}`,
+      })),
     },
     controls: {
       play: audio.controls.play,
       pause: audio.controls.pause,
       seekbackward: () => audio.controls.seek(audio.state.time - 30),
       seekforward: () => audio.controls.seek(audio.state.time + 30),
-      // @ts-ignore => https://github.com/DefinitelyTyped/DefinitelyTyped/pull/44231
-      seekto: (details) => audio.controls.seek(details.seekTime),
+      seekto: (details) => {
+        console.log('seekto details', details);
+        return audio.controls.seek(details.seekTime);
+      },
+    },
+    positionState: {
+      duration: audio.state.duration,
+      playbackRate: audio.state.playbackRate,
+      position: audio.state.time,
     },
   });
 
