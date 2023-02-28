@@ -1,25 +1,19 @@
 import React from 'react';
 
 interface Props {
-  element: any;
+  element: HTMLAudioElement;
   mediaMetadata: MediaMetadata;
   //@ts-ignore
   controls?: { [action]: (() => void) | null };
-  positionState: MediaPositionState;
 }
 
 export default ({
   element,
   mediaMetadata: { title, album, artist, artwork },
   controls,
-  positionState,
 }: Props) => {
-  if (!('mediaSession' in navigator)) {
-    return;
-  }
-
   React.useEffect(() => {
-    if (!element) {
+    if (!element || !('mediaSession' in navigator)) {
       return;
     }
 
@@ -37,8 +31,16 @@ export default ({
   }, [element]);
 
   React.useEffect(() => {
-    navigator.mediaSession.setPositionState(positionState);
-  }, [positionState]);
+    if (!element || !('mediaSession' in navigator)) {
+      return;
+    }
+
+    navigator.mediaSession.setPositionState({
+      duration: element.duration || 0,
+      playbackRate: element.playbackRate,
+      position: element.currentTime,
+    });
+  }, [element?.duration, element?.playbackRate, element?.currentTime]);
 
   return;
 };

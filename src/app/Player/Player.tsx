@@ -86,11 +86,6 @@ const Player = ({ source, className = '' }: Props) => {
         return audio.controls.seek(details.seekTime);
       },
     },
-    positionState: {
-      duration: audio.state.duration,
-      playbackRate: audio.state.playbackRate,
-      position: audio.state.time,
-    },
   });
 
   React.useEffect(() => {
@@ -117,7 +112,7 @@ const Player = ({ source, className = '' }: Props) => {
 
   return (
     <div className={`player ${className}`}>
-      {audio.element}
+      {audio.elementNode}
       <div className="player__controls">
         <PlayerPlaybackSpeed
           audioState={audio.state}

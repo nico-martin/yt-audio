@@ -1,3 +1,4 @@
+import { VNode } from 'preact';
 import React from 'react';
 
 export interface HTMLAudioState {
@@ -57,7 +58,12 @@ export default ({
   startPlaybackRate = 1,
   formats = [],
   setError = (error) => console.log(error),
-}: HTMLAudioProps) => {
+}: HTMLAudioProps): {
+  state: HTMLAudioState;
+  element: HTMLAudioElement;
+  controls: HTMLAudioControls;
+  elementNode: VNode;
+} => {
   const [state, setOrgState] = React.useState<HTMLAudioState>({
     buffered: {
       start: 0,
@@ -74,7 +80,7 @@ export default ({
     setOrgState((state) => ({ ...state, ...partState }));
   const ref = React.useRef<HTMLAudioElement | null>(null);
 
-  const element = React.createElement(
+  const element = React.createElement<HTMLAudioElement>(
     'audio',
     {
       ...(formats.length === 0 ? { src } : {}),
@@ -201,5 +207,10 @@ export default ({
     }
   }, [src]);
 
-  return { state, element, controls };
+  return {
+    state,
+    element: ref?.current || null,
+    elementNode: element,
+    controls,
+  };
 };
