@@ -26,33 +26,17 @@ export default ({
         navigator.mediaSession.setActionHandler(e, controls[e])
       );
     }
-
-    return () => {
-      navigator.mediaSession.metadata = null;
-    };
   }, [element]);
 
-  /*
   React.useEffect(() => {
     if (element && 'mediaSession' in navigator) {
-      console.log('set state', {
-        duration: element.duration || 0,
-        playbackRate: element.playbackRate,
-        position: element.currentTime,
-      });
       navigator.mediaSession.setPositionState({
-        duration: element.duration || 0,
+        duration: Math.ceil(element.duration || 0),
         playbackRate: element.playbackRate,
-        position: Math.floor(element.currentTime),
+        position: Math.floor(element.currentTime || 0),
       });
     }
-
-    return () => {
-      console.log('clean up state');
-      'mediaSession' in navigator &&
-        navigator.mediaSession.setPositionState(null);
-    };
-  }, [element?.duration, element?.playbackRate, element?.currentTime]);*/
+  }, [element?.duration, element?.playbackRate, element?.currentTime]);
 
   return;
 };
