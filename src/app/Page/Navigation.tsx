@@ -34,7 +34,7 @@ const Navigation = ({ className }: Props) => {
         >
           Home
         </NavLink>
-        {[/*'About',*/ 'Legal', 'Privacy'].map((e) => (
+        {['About', 'Legal', 'Privacy'].map((e) => (
           <NavLink
             end
             to={`/${e.toLowerCase().replace(/\s/g, '-')}/`}

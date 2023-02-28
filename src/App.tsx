@@ -1,3 +1,4 @@
+import cn from 'classnames';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Helmet from 'react-helmet';
@@ -8,6 +9,7 @@ import {
   useLocation,
   Switch,
 } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import './App.css';
 import app from '../app.json';
 import { version } from '../package.json';
@@ -63,7 +65,12 @@ const App: React.FC = () => {
           <SelectVideo />
         </Route>
       </Switch>
-      <div className="app__version">v. {version}</div>
+      <div className="app__version">
+        v. {version} //{' '}
+        <NavLink end to="/about">
+          About the project
+        </NavLink>
+      </div>
     </React.Fragment>
   );
 };
