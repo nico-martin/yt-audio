@@ -26,6 +26,10 @@ export default ({
         navigator.mediaSession.setActionHandler(e, controls[e])
       );
     }
+
+    return () => {
+      navigator.mediaSession.metadata = null;
+    };
   }, [element]);
 
   /*
