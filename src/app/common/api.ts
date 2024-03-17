@@ -13,4 +13,4 @@ export const getServerRestart = () =>
   apiFetch.get<ServerRestart>('https://restart-source.ytaud.io/restart.php');
 
 export const getAudioSource = (videoID: string) =>
-  apiFetch.get<Audio>(`https://yt-source.nico.dev/${videoID}/`);
+  apiFetch.get<Audio>(`https://source-2.ytaud.io/${videoID}/`);
