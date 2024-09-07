@@ -112,6 +112,14 @@ module.exports = (env) => {
           },
         ],
       }),
+      new webpack.DefinePlugin({
+        'process.env.SOURCE_URL': JSON.stringify(
+          process.env.SOURCE_URL || 'https://yt-source.nico.dev'
+        ),
+        'process.env.RESTART_URL': JSON.stringify(
+          process.env.RESTART_URL || ''
+        ),
+      }),
       ...(dev ? [new webpack.SourceMapDevToolPlugin({})] : []),
       new CleanWebpackPlugin(),
       ...(!dev

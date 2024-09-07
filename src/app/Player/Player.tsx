@@ -1,5 +1,6 @@
 import React from 'react';
 import { Audio } from '@common/types';
+import { getSourceUrl } from '@common/url';
 import './Player.css';
 import useAudio from '../hooks/useAudio';
 import useMediaSession from '../hooks/useMediaSession';
@@ -26,7 +27,7 @@ const Player = ({ source, className = '' }: Props) => {
 
   const audio = useAudio({
     src: useProxy
-      ? `https://yt-source.nico.dev/play/${encodeURIComponent(source.url)}`
+      ? `${getSourceUrl()}play/${encodeURIComponent(source.url)}`
       : source.url,
     setError: (error) => {
       if (useProxy) {
@@ -39,7 +40,7 @@ const Player = ({ source, className = '' }: Props) => {
       return {
         mimeType,
         src: useProxy
-          ? `https://yt-source.nico.dev/play/${encodeURIComponent(
+          ? `${getSourceUrl()}play/${encodeURIComponent(
               source.formats[mimeType]
             )}`
           : source.formats[mimeType],

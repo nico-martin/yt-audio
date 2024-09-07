@@ -32,6 +32,11 @@ const Audio = ({ className = '' }: { className?: string }) => {
     <div className={`${className} audio audio--error`}>
       <Icon icon="warning" className="audio__icon" />
       <p className="audio__error-text">{audio.info}</p>
+      <p style={{ margin: '0.5rem 0' }}>
+        Recently, some video information cannot be retrieved. I assume that this
+        is due to usage restrictions with the Youtube API. Unfortunately, there
+        is nothing I can do about it.
+      </p>
       <p className="audio__error-reload">
         <button
           className="audio__error-reload-button"
