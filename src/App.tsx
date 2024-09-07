@@ -16,7 +16,7 @@ import { version } from '../package.json';
 import Audio from './app/Audio';
 import Navigation from './app/Page/Navigation';
 import SelectVideo from './app/SelectVideo';
-import { matomoSetPage } from './app/common/matomo';
+import { initMatomo, matomoSetPage } from './app/common/matomo';
 import Icon from './app/global/Icon';
 import About from './app/pages/About';
 import Legal from './app/pages/Legal';
@@ -27,7 +27,14 @@ const App: React.FC = () => {
   const [init, setInit] = React.useState<boolean>(false);
 
   React.useEffect(() => {
-    init && matomoSetPage(location.pathname);
+    initMatomo();
+  }, []);
+
+  React.useEffect(() => {
+    if (init) {
+      matomoSetPage(location.pathname);
+    }
+
     if (location.pathname === '/') {
       document.body.classList.add('home');
     } else {

@@ -119,6 +119,10 @@ module.exports = (env) => {
         'process.env.RESTART_URL': JSON.stringify(
           process.env.RESTART_URL || ''
         ),
+        'process.env.MATOMO_URL': JSON.stringify(process.env.MATOMO_URL || ''),
+        'process.env.MATOMO_SITE_ID': JSON.stringify(
+          process.env.MATOMO_SITE_ID || ''
+        ),
       }),
       ...(dev ? [new webpack.SourceMapDevToolPlugin({})] : []),
       new CleanWebpackPlugin(),
